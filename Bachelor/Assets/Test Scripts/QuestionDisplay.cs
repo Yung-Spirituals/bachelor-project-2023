@@ -1,40 +1,43 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Test_Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class QuestionDisplay : MonoBehaviour
 {
-    public GameObject screenQuestion;
-    public GameObject answerA;
-    public GameObject answerB;
-    public GameObject answerC;
-    public GameObject answerD;
-    public static string newQuestion;
-    public static string newA;
-    public static string newB;
-    public static string newC;
-    public static string newD;
-
-    public static bool updateQuestion = false;
+    public TMPro.TextMeshProUGUI screenQuestion;
+    public TMPro.TextMeshProUGUI[] answers;
+    
+    private static Question newQuestion;
+    private static bool updateQuestion;
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (updateQuestion == false)
-        {
-            updateQuestion = true;
-            StartCoroutine(PushTextOnScreen());
-        }
+        if (updateQuestion) return;
+        updateQuestion = true;
+        StartCoroutine(PushTextOnScreen());
     }
 
     IEnumerator PushTextOnScreen()
     {
-        yield return new WaitForSeconds(0.01f);
-        screenQuestion.GetComponent<TMPro.TextMeshProUGUI>().text = newQuestion;
-        answerA.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = newA;
-        answerB.GetComponent<TMPro.TextMeshProUGUI>().text = newB;
-        answerC.GetComponent<TMPro.TextMeshProUGUI>().text = newC;
-        answerD.GetComponent<TMPro.TextMeshProUGUI>().text = newD;
+        yield return new WaitForSeconds(0.25f);
+        screenQuestion.text = newQuestion.GetQuestion();
+        String[] newAnswers = newQuestion.GetOptions();
+            
+        for (int i = 0; i < answers.Length; i++)
+        {
+            answers[i].text = newAnswers[i];
+        }
+    }
+
+    public static void SetNewQuestion(Question question)
+    {
+        newQuestion = question;
+    }
+    
+    public static void SetUpdateQuestion(bool value)
+    {
+        updateQuestion = value;
     }
 }
