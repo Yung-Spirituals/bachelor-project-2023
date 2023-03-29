@@ -20,7 +20,7 @@ namespace Test_Scripts
             this.question = question;
             options = new[] { option0, option1 };
             this.correctOption = correctOption;
-        }   
+        }       
 
         public String GetQuestion()
         {
