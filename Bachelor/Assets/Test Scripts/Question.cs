@@ -15,6 +15,13 @@ namespace Test_Scripts
             this.correctOption = correctOption;
         }
 
+        public Question(String question, String option0, String option1, int correctOption)
+        {
+            this.question = question;
+            options = new[] { option0, option1 };
+            this.correctOption = correctOption;
+        }   
+
         public String GetQuestion()
         {
             return question;

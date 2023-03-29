@@ -59,7 +59,7 @@ public class QuestionGenerate : MonoBehaviour
                 3));
             actualAnswer = 3;
         }
-            
+
         // All questions go above this line
         QuestionDisplay.SetUpdateQuestion(false);
     }
