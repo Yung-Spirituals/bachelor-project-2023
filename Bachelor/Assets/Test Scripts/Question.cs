@@ -6,13 +6,16 @@ namespace Test_Scripts
     {
         private String question;
         private String[] options;
+        private int[] correctOptions;
         private int correctOption;
+        private int correctCategory;
 
-        public Question(String question, String option0, String option1, String option2, String option3, int correctOption)
+        public Question(String question,
+            String option0, String option1, String option2, String option3, int[] correctOptions)
         {
             this.question = question;
             options = new[] { option0, option1, option2, option3 };
-            this.correctOption = correctOption;
+            this.correctOptions = correctOptions;
         }
 
         public Question(String question, String option0, String option1, int correctOption)
@@ -20,7 +23,13 @@ namespace Test_Scripts
             this.question = question;
             options = new[] { option0, option1 };
             this.correctOption = correctOption;
-        }       
+        }
+
+        public Question(String question, int correctCategory)
+        {
+            this.question = question;
+            this.correctCategory = correctCategory;
+        }
 
         public String GetQuestion()
         {
@@ -31,11 +40,20 @@ namespace Test_Scripts
         {
             return options;
         }
+
+        public int[] GetCorrectOptions()
+        {
+            return correctOptions;
+        }
         
-        // Make into an array to allow for multiple correct options?
         public int GetCorrectOption()
         {
             return correctOption;
+        }
+
+        public int GetCorrectCategory()
+        {
+            return correctCategory;
         }
     }
 }

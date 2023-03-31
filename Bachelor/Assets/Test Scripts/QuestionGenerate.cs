@@ -20,7 +20,7 @@ public class QuestionGenerate : MonoBehaviour
                 "B. Green banana",
                 "C. Yellow banana",
                 "D. Brown banana",
-                0));
+                new[]{0}));
             actualAnswer = 0;
         }
             
@@ -32,7 +32,7 @@ public class QuestionGenerate : MonoBehaviour
                 "B. Good banana",
                 "C. Bad banana",
                 "D. Brown banana",
-                1));
+                new[]{1}));
             actualAnswer = 1;
         }
             
@@ -44,7 +44,7 @@ public class QuestionGenerate : MonoBehaviour
                 "B. Green boo",
                 "C. King boo",
                 "D. Wizard hat boo",
-                2));
+                new[]{2}));
             actualAnswer = 2;
         }
             
@@ -56,7 +56,7 @@ public class QuestionGenerate : MonoBehaviour
                 "B. Old",
                 "C. Oldest",
                 "D. Youngest",
-                3));
+                new[]{3}));
             actualAnswer = 3;
         }
 
