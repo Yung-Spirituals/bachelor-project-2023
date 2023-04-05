@@ -7,6 +7,8 @@ public class AnswerButtons : MonoBehaviour
     public GameObject[] answers;
 
     public GameObject currentScore;
+    
+    //TODO: Score needs to be moved out of here
     public int scoreValue;
 
     private void Update()
