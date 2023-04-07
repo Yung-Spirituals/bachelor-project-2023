@@ -10,6 +10,7 @@ public class Draggable : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PauseManager.Instance.isPaused) { return; }
         if (_movementDestination.HasValue)
         {
             if (IsDragging)

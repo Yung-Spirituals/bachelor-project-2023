@@ -10,6 +10,7 @@ public class Picture : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 10;
         flipCard = GetComponent<FlipCard>();
         SetPointsAndSprite(type);
     }
@@ -63,6 +64,7 @@ public class Picture : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (PauseManager.Instance.isPaused) { return; }
         if (matched || !PictureManager.Instance.allowNewFlip) return;
         if (!flipCard.mayBeFlipped || !flipCard.cardBackIsActive) return;
         flipCard.StartFlip();

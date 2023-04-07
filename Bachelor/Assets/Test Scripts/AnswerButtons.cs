@@ -9,6 +9,7 @@ public class AnswerButtons : MonoBehaviour
 
     public void Answer(int option)
     {
+        if (PauseManager.Instance.isPaused) { return; }
         bool correct = false;
         if (QuestionGenerate.actualAnswer == option)
         {
