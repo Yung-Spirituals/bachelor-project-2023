@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 971349900}
   - component: {fileID: 971349902}
   - component: {fileID: 971349903}
+  - component: {fileID: 971349904}
   m_Layer: 0
   m_Name: MasterController
   m_TagString: Untagged
@@ -796,8 +797,19 @@ MonoBehaviour:
   answers:
   - {fileID: 1681918153}
   - {fileID: 1914717460}
-  currentScore: {fileID: 611926394}
-  scoreValue: 0
+--- !u!114 &971349904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971349899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc408100e687473fb70b1cabf7ffcad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreObject: {fileID: 611926394}
 --- !u!114 &1429645531 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7505687588645881394, guid: 5b75de4ea12f3ca4ca21f0e6bab7d796, type: 3}

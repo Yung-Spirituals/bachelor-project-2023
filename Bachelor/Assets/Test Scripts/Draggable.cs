@@ -1,3 +1,4 @@
+using Test_Scripts;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
@@ -36,6 +37,7 @@ public class Draggable : MonoBehaviour
         if (col.CompareTag(gameObject.tag))
         {
             _movementDestination = col.transform.position;
+            ScoreManager.Instance.ChangeScore(5);
             CategoryQuestionGenerator.UpdateQuestion();
         }
         else

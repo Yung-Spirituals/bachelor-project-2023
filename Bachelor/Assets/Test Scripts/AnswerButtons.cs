@@ -1,4 +1,5 @@
 using System.Collections;
+using Test_Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,22 +7,12 @@ public class AnswerButtons : MonoBehaviour
 {
     public GameObject[] answers;
 
-    public GameObject currentScore;
-    
-    //TODO: Score needs to be moved out of here
-    public int scoreValue;
-
-    private void Update()
-    {
-        currentScore.GetComponent<TMPro.TextMeshProUGUI>().text = "SCORE: " + scoreValue;
-    }
-    
     public void Answer(int option)
     {
         bool correct = false;
         if (QuestionGenerate.actualAnswer == option)
         {
-            scoreValue += 5;
+            ScoreManager.Instance.ChangeScore(5);
             correct = true;
         }
         ColorButtons(option, correct);
