@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Test_Scripts
 {
@@ -8,6 +9,7 @@ namespace Test_Scripts
         [SerializeField] private GameObject scoreObject;
         private TMPro.TextMeshProUGUI _scoreText;
         private int _currentScore;
+
         public static ScoreManager Instance
         {
             get

@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quiz format 3.unity
     guid: 8db784dd3a46e5345868f2443bfce7d2
+  - enabled: 1
+    path: Assets/Scenes/story 1/story 1 level 1.unity
+    guid: 5bbfd32ddea3dac49976cab2fa04a79a
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d0ffd6e1202d16641afaf525f0dc16c1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: b12ba119c199d9a41906e689bc039a17, type: 2}

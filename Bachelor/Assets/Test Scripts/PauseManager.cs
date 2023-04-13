@@ -3,6 +3,7 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] public bool isPaused;
+    [SerializeField] public bool canPause = true;
     [SerializeField] private GameObject pauseMenuUI;
     
     public static PauseManager Instance
@@ -22,7 +23,7 @@ public class PauseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             TogglePause();
         }
@@ -32,5 +33,10 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = !isPaused;
         pauseMenuUI.SetActive(isPaused);
+    }
+
+    public void SetCanPause(bool canPause)
+    {
+        this.canPause = canPause;
     }
 }

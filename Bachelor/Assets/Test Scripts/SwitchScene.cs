@@ -2,10 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SwitchScene : MonoBehaviour
+namespace Test_Scripts
 {
-    public void LoadNewScene(String sceneName)
+    public class SwitchScene : MonoBehaviour
     {
-        SceneManager.LoadScene(sceneName);
+       public string scene;
+        public void LoadNewScene(String sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
+        public void LoadNewScene()
+        {
+            SceneManager.LoadScene(scene);
+        }
     }
 }

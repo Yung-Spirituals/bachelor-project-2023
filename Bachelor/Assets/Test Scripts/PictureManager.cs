@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Test_Scripts;
 using UnityEngine;
 
 public class PictureManager : MonoBehaviour
@@ -29,10 +30,12 @@ public class PictureManager : MonoBehaviour
     }
     private static PictureManager instance;
 
+    private int cards;
     void Start()
     {
         int rows = CardSettings.Instance.GetNumberOfCardRows();
         int columns = CardSettings.Instance.GetNumberOfCardColumns();
+        cards = rows * columns;
         PictureList = new List<Picture>();
         SpawnPictureMesh(columns, rows, StartPosition, _offset, false);
         ScramblePictureListOrder();
@@ -118,6 +121,7 @@ public class PictureManager : MonoBehaviour
         }
     }
 
+    private int matchedAmount = 0;
     private Picture flip1;
     public void Flip(Picture picture)
     {
@@ -125,10 +129,15 @@ public class PictureManager : MonoBehaviour
 
         if (flip1.type == picture.type)
         {
-            // Increase score
+            ScoreManager.Instance.ChangeScore(2);
+            matchedAmount += 2;
             flip1.matched = true;
             picture.matched = true;
             flip1 = null;
+            if (matchedAmount == cards)
+            {
+                LevelManager.Instance.EndGame(true);
+            }
         }
         else { StartCoroutine(FlipBack(picture)); }
     }
