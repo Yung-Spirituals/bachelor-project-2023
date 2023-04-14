@@ -6,7 +6,13 @@ using UnityEngine;
 
 public class CategoryQuestionGenerator : MonoBehaviour
 {
-    public Question[] Questions = { new("Hello", 1), new("I am handsome", 0) };
+    public Question[] Questions =
+    {
+        new("Meat", 1),
+        new("Fish", 0),
+        new("Vegetable", 3),
+        new("Fruit", 2)
+    };
     public GameObject item;
 
     public TextMeshProUGUI questionText;

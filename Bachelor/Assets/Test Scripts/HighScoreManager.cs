@@ -22,12 +22,11 @@ namespace Test_Scripts
         private class HighScoreCollection
         {
             public string story;
-            private List<HighScore> _highScores;
+            private static List<HighScore> _highScores = new ();
 
             public HighScoreCollection(string story)
             {
                 this.story = story;
-                _highScores = new List<HighScore>();
             }
 
             public bool SubmitScore(HighScore newScore)

@@ -13,7 +13,7 @@ public class AnswerButtons : MonoBehaviour
         bool correct = false;
         if (QuestionGenerate.actualAnswer == option)
         {
-            ScoreManager.Instance.ChangeScore(5);
+            ScoreManager.Instance.ChangeScore(1);
             correct = true;
         }
         ColorButtons(option, correct);
@@ -22,13 +22,13 @@ public class AnswerButtons : MonoBehaviour
 
     private void ColorButtons(int option, bool correct)
     {
-        answers[option].GetComponent<Image>().color = correct ? new Color32(144, 238, 144, 255) :
-            new Color32(196, 30, 58, 255);
+        answers[option].GetComponent<Image>().color = correct ? new Color32(155, 213, 82, 255) :
+            new Color32(255, 103, 103, 255);
     }
 
     IEnumerator NextQuestion()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         foreach (GameObject anwser in answers)
         {

@@ -16,14 +16,10 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject goToLevelButton;
     [SerializeField] private GameObject popUp;
 
-    private void Start()
+    public void ShowPopUp()
     {
         highScore = "HighScore: " + HighScoreManager.Instance.GetLevelHighScore(story, level);
         goToLevelButton.GetComponent<SwitchScene>().scene = level;
-    }
-
-    public void ShowPopUp()
-    {
         //levelText.text = level;
         levelGoalText.text = levelGoal;
         howToPlayText.text = howToPlay;

@@ -582,7 +582,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level Select 1
+          m_StringArgument: level Select 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &481637714
@@ -2228,6 +2228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7266a4d92c4d3ac43a54a08576f8894a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene: 
 --- !u!4 &2062870647
 Transform:
   m_ObjectHideFlags: 0

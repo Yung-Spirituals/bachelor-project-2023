@@ -38,7 +38,7 @@ public class Draggable : MonoBehaviour
         if (col.CompareTag(gameObject.tag))
         {
             _movementDestination = col.transform.position;
-            ScoreManager.Instance.ChangeScore(5);
+            ScoreManager.Instance.ChangeScore(1);
             CategoryQuestionGenerator.UpdateQuestion();
         }
         else

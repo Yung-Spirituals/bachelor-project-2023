@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Test_Scripts
 {
     public class ScoreManager : MonoBehaviour
     {
-        //TODO: figure out a solution for high-scores
+        [SerializeField] private string preScore;
+        [SerializeField] private string postScore;
         [SerializeField] private GameObject scoreObject;
         private TMPro.TextMeshProUGUI _scoreText;
         private int _currentScore;
@@ -51,7 +51,7 @@ namespace Test_Scripts
 
         private void UpdateScoreText()
         {
-            _scoreText.text = "SCORE: " + _currentScore;
+            _scoreText.text = preScore + _currentScore + postScore;
         }
     }
 }
