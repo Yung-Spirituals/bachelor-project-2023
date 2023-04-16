@@ -5,16 +5,15 @@ public class DragController : MonoBehaviour
     public Draggable LastDragged => _lastDragged;
     
     private bool _isDragActive;
-    
     private Vector2 _screenPosition;
-    
     private Vector3 _worldPosition;
-    
     private Draggable _lastDragged;
 
 
-    void Update()
+    private void Update()
     {
+        if (PauseManager.Instance.isPaused || !PauseManager.Instance.canPause) return;
+        
         if (_isDragActive && (Input.GetMouseButtonUp(0) ||
                               (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Ended)))
         {
@@ -57,25 +56,25 @@ public class DragController : MonoBehaviour
         }
     }
 
-    void InitDrag()
+    private void InitDrag()
     {
         //_lastDragged.LastPosition = _lastDragged.transform.position;
         UpdateDragStatus(true);
     }
 
-    void Drag()
+    private void Drag()
     {
         _lastDragged.transform.position = new Vector2(_worldPosition.x, _worldPosition.y);
     }
 
-    void Drop()
+    private void Drop()
     {
         UpdateDragStatus(false);
     }
 
-    void UpdateDragStatus(bool isDragging)
+    private void UpdateDragStatus(bool isDragging)
     {
-        _isDragActive = _lastDragged.IsDragging = isDragging;
+        _isDragActive = _lastDragged.isDragging = isDragging;
         _lastDragged.gameObject.layer = isDragging ? Layer.Dragging : Layer.Default;
     }
 }

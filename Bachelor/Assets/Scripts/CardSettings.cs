@@ -31,7 +31,10 @@ public class CardSettings : MonoBehaviour
  
             return instance;
         }
-        set { instance = value; }
+        set
+        {
+            instance = value;
+        }
     }
     private static CardSettings instance;
 

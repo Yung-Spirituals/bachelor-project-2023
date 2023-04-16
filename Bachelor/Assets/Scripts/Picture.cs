@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Picture : MonoBehaviour
@@ -15,10 +16,7 @@ public class Picture : MonoBehaviour
         SetPointsAndSprite(type);
     }
 
-    public Picture(CardType cardType)
-    {
-        SetPointsAndSprite(cardType);
-    }
+    public Picture(CardType cardType) { SetPointsAndSprite(cardType); }
 
     public void SetPointsAndSprite(CardType cardType)
     {
@@ -53,18 +51,17 @@ public class Picture : MonoBehaviour
                 pointValue = CardSettings.Instance.GetWatermelonPointValue();
                 typePicture = CardSettings.Instance.GetWatermelonSprite();
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         SetSprite();
     }
 
-    private void SetSprite()
-    {
-        GetComponent<SpriteRenderer>().sprite = typePicture;
-    }
+    private void SetSprite() { GetComponent<SpriteRenderer>().sprite = typePicture; }
 
     private void OnMouseDown()
     {
-        if (PauseManager.Instance.isPaused) { return; }
+        if (PauseManager.Instance.isPaused) return;
         if (matched || !PictureManager.Instance.allowNewFlip) return;
         if (!flipCard.mayBeFlipped || !flipCard.cardBackIsActive) return;
         flipCard.StartFlip();

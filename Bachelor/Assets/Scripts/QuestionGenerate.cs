@@ -1,3 +1,4 @@
+/*
 using Test_Scripts;
 using UnityEngine;
 
@@ -32,7 +33,8 @@ public class QuestionGenerate : MonoBehaviour
                     "B. A hand",
                     "C. A boat",
                     "D. A bunch",
-                    new[]{0}));
+                    0
+                    ));
                 actualAnswer = 0;
             }
         }
@@ -118,3 +120,4 @@ public class QuestionGenerate : MonoBehaviour
         displayingQuestion = false;
     }
 }
+*/

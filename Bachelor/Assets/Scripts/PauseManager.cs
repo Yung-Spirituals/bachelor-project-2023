@@ -15,19 +15,14 @@ public class PauseManager : MonoBehaviour
  
             return instance;
         }
-        set { instance = value; }
-    }
-    private static PauseManager instance;
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
+        set
         {
-            TogglePause();
+            instance = value;
         }
     }
+    private static PauseManager instance;
+    
+    private void Update() { if (Input.GetKeyDown(KeyCode.Escape) && canPause) TogglePause(); }
     
     public void TogglePause()
     {
@@ -35,8 +30,5 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(isPaused);
     }
 
-    public void SetCanPause(bool canPause)
-    {
-        this.canPause = canPause;
-    }
+    public void SetCanPause(bool pauseAvailable) { canPause = pauseAvailable; }
 }

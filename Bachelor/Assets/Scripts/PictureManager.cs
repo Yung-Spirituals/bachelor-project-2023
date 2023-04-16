@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Test_Scripts;
 using UnityEngine;
 
 public class PictureManager : MonoBehaviour
@@ -9,10 +8,14 @@ public class PictureManager : MonoBehaviour
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
     public Vector2 StartPosition = new (-2.15f, 3.62f);
-    private int currentFlipped;
     public List<Picture> PictureList;
-    private Vector2 _offset = new (1.5f, 1.52f);
     public bool allowNewFlip = true;
+    
+    private Vector2 _offset = new (1.5f, 1.52f);
+    private int cards;
+    private int currentFlipped;
+    private int matchedAmount = 0;
+    private Picture flip1;
     
     public static PictureManager Instance
     {
@@ -30,8 +33,7 @@ public class PictureManager : MonoBehaviour
     }
     private static PictureManager instance;
 
-    private int cards;
-    void Start()
+    private void Start()
     {
         int rows = CardSettings.Instance.GetNumberOfCardRows();
         int columns = CardSettings.Instance.GetNumberOfCardColumns();
@@ -62,7 +64,7 @@ public class PictureManager : MonoBehaviour
                 SetPictureType(tempPicture, count);
                 PictureList.Add(tempPicture);
                 count++;
-                if (count >= (CardSettings.Instance.GetNumberOfTypes() * 2)) { count = 0; }
+                if (count >= CardSettings.Instance.GetNumberOfTypes() * 2) count = 0;
             }
         }
     }
@@ -97,12 +99,12 @@ public class PictureManager : MonoBehaviour
 
     private void MovePicture(int rows, int columns, Vector2 pos, Vector2 offset)
     {
-        var index = 0;
-        for (var col = 0; col < columns; col++)
+        int index = 0;
+        for (int col = 0; col < columns; col++)
         {
             for (int row = 0; row < rows; row++)
             {
-                var targetPosition = new Vector2((pos.x + (offset.x * row)), (pos.y - (offset.y * col)));
+                Vector2 targetPosition = new ((pos.x + (offset.x * row)), (pos.y - (offset.y * col)));
                 StartCoroutine(MoveToPosition(targetPosition, PictureList[index]));
                 index++;
             }
@@ -111,21 +113,23 @@ public class PictureManager : MonoBehaviour
 
     private IEnumerator MoveToPosition(Vector3 target, Picture obj)
     {
-        var randomDistance = 7;
+        const int randomDistance = 7;
 
         while (obj.transform.position != target)
         {
             obj.transform.position =
                 Vector2.MoveTowards(obj.transform.position, target, randomDistance * Time.deltaTime);
-            yield return 0;
+            yield return null;
         }
     }
-
-    private int matchedAmount = 0;
-    private Picture flip1;
+    
     public void Flip(Picture picture)
     {
-        if (flip1 == null) { flip1 = picture; return; }
+        if (flip1 == null)
+        {
+            flip1 = picture;
+            return;
+        }
 
         if (flip1.type == picture.type)
         {
@@ -139,7 +143,7 @@ public class PictureManager : MonoBehaviour
                 LevelManager.Instance.EndGame(true);
             }
         }
-        else { StartCoroutine(FlipBack(picture)); }
+        else StartCoroutine(FlipBack(picture));
     }
 
     private IEnumerator FlipBack(Picture picture)

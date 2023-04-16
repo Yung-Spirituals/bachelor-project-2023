@@ -4,17 +4,11 @@ using UnityEngine;
 public class FlipCard : MonoBehaviour
 {
     public float x, y, z;
-
     public GameObject cardBack;
-
     public bool cardBackIsActive;
-
     public bool mayBeFlipped = true;
 
-    public void StartFlip()
-    {
-        StartCoroutine(CalculateFlip());
-    }
+    public void StartFlip() { StartCoroutine(CalculateFlip()); }
 
     private void Flip()
     {
@@ -30,7 +24,7 @@ public class FlipCard : MonoBehaviour
         }
     }
 
-    IEnumerator CalculateFlip()
+    private IEnumerator CalculateFlip()
     {
         if (!mayBeFlipped) yield break;
         
