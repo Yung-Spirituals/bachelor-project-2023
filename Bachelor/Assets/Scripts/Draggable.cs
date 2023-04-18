@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
@@ -6,6 +7,12 @@ public class Draggable : MonoBehaviour
     
     private float _movementTime = 10f;
     private Vector3? _movementDestination;
+
+    private void Start()
+    {
+        Debug.Log(Application.dataPath);
+    }
+    
 
     private void FixedUpdate()
     {

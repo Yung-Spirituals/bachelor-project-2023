@@ -6,21 +6,22 @@ public class CardSettings : MonoBehaviour
     [SerializeField] private int rowsOfCards = 1;
     [SerializeField] private int columnsOfCards = 1;
     
-    [SerializeField] private Sprite grapeSprite;
-    [SerializeField] private Sprite appleSprite;
-    [SerializeField] private Sprite kiwiSprite;
-    [SerializeField] private Sprite lemonSprite;
-    [SerializeField] private Sprite melonSprite;
-    [SerializeField] private Sprite orangeSprite;
-    [SerializeField] private Sprite watermelonSprite;
+    [SerializeField] private Sprite cardBackSprite;
+    [SerializeField] private Sprite typeOneSprite;
+    [SerializeField] private Sprite typeTwoSprite;
+    [SerializeField] private Sprite typeThreeSprite;
+    [SerializeField] private Sprite typeFourSprite;
+    [SerializeField] private Sprite typeFiveSprite;
+    [SerializeField] private Sprite typeSixSprite;
+    [SerializeField] private Sprite typeSevenSprite;
     
-    [SerializeField] private int grapePointValue = 1;
-    [SerializeField] private int applePointValue = 1;
-    [SerializeField] private int kiwiPointValue = 1;
-    [SerializeField] private int lemonPointValue = 1;
-    [SerializeField] private int melonPointValue = 1;
-    [SerializeField] private int orangePointValue = 1;
-    [SerializeField] private int watermelonPointValue = 1;
+    private int typeOnePointValue = 1;
+    private int typeTwoPointValue = 1;
+    private int typeThreePointValue = 1;
+    private int typeFourPointValue = 1;
+    private int typeFivePointValue = 1;
+    private int typeSixPointValue = 1;
+    private int typeSevenPointValue = 1;
 
     public static CardSettings Instance
     {
@@ -42,19 +43,20 @@ public class CardSettings : MonoBehaviour
     public int GetNumberOfCardRows() { return rowsOfCards; }
     public int GetNumberOfCardColumns() { return columnsOfCards; }
 
-    public Sprite GetGrapeSprite() { return grapeSprite; }
-    public Sprite GetAppleSprite() { return appleSprite; }
-    public Sprite GetKiwiSprite() { return kiwiSprite; }
-    public Sprite GetLemonSprite() { return lemonSprite; }
-    public Sprite GetMelonSprite() { return melonSprite; }
-    public Sprite GetOrangeSprite() { return orangeSprite; }
-    public Sprite GetWatermelonSprite() { return watermelonSprite; }
+    public Sprite GetCardBackSprite() { return cardBackSprite; }
+    public Sprite GetGrapeSprite() { return typeOneSprite; }
+    public Sprite GetAppleSprite() { return typeTwoSprite; }
+    public Sprite GetKiwiSprite() { return typeThreeSprite; }
+    public Sprite GetLemonSprite() { return typeFourSprite; }
+    public Sprite GetMelonSprite() { return typeFiveSprite; }
+    public Sprite GetOrangeSprite() { return typeSixSprite; }
+    public Sprite GetWatermelonSprite() { return typeSevenSprite; }
 
-    public int GetGrapePointValue() { return grapePointValue; }
-    public int GetApplePointValue() { return applePointValue; }
-    public int GetKiwiPointValue() { return kiwiPointValue; }
-    public int GetLemonPointValue() { return lemonPointValue; }
-    public int GetMelonPointValue() { return melonPointValue; }
-    public int GetOrangePointValue() { return orangePointValue; }
-    public int GetWatermelonPointValue() { return watermelonPointValue; }
+    public int GetGrapePointValue() { return typeOnePointValue; }
+    public int GetApplePointValue() { return typeTwoPointValue; }
+    public int GetKiwiPointValue() { return typeThreePointValue; }
+    public int GetLemonPointValue() { return typeFourPointValue; }
+    public int GetMelonPointValue() { return typeFivePointValue; }
+    public int GetOrangePointValue() { return typeSixPointValue; }
+    public int GetWatermelonPointValue() { return typeSevenPointValue; }
 }

@@ -20,7 +20,7 @@ public class HighScoreManager: MonoBehaviour
     private class HighScoreCollection
     {
         public string story;
-        private static List<HighScore> _highScores = new ();
+        public static List<HighScore> _highScores = new ();
 
         public HighScoreCollection(string story)
         {
@@ -91,10 +91,7 @@ public class HighScoreManager: MonoBehaviour
     {
         var newScore = new HighScore(levelName, score);
         bool isNewHighScore = GetStoryHighScores(story).SubmitScore(newScore);
-        if (isNewHighScore)
-        {
-            SaveScores(story);
-        }
+        if (isNewHighScore) SaveScores(story);
         return isNewHighScore;
     }
 

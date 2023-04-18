@@ -34,10 +34,7 @@ public class FlipCard : MonoBehaviour
             for (int i = 0; i <= 180; i += 10)
             {
                 transform.rotation = Quaternion.Euler(0, i, 0);
-                if (i is 90 or -90)
-                {
-                    Flip();
-                }
+                if (i is 90 or -90) Flip();
 
                 yield return new WaitForSeconds(0.01f);
             }
@@ -47,10 +44,7 @@ public class FlipCard : MonoBehaviour
             for (int i = 180; i >= 0; i -= 10)
             {
                 transform.rotation = Quaternion.Euler(0, i, 0);
-                if (i is 90 or -90)
-                {
-                    Flip();
-                }
+                if (i is 90 or -90) Flip();
 
                 yield return new WaitForSeconds(0.01f);
             }

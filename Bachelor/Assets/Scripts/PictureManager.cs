@@ -118,7 +118,8 @@ public class PictureManager : MonoBehaviour
         while (obj.transform.position != target)
         {
             obj.transform.position =
-                Vector2.MoveTowards(obj.transform.position, target, randomDistance * Time.deltaTime);
+                Vector2.MoveTowards(
+                    obj.transform.position, target, randomDistance * Time.deltaTime);
             yield return null;
         }
     }

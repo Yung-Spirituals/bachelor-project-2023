@@ -1,17 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
+[Serializable]
 public class Question
 {
-    private string _question = "";
-    private string[] _options = {};
-    private int[] _correctOptions = {};
-    private int _correctOption = 255;
+    [SerializeField] public string _question = "";
+    [SerializeField] public string[] _options = {};
+    [SerializeField] public int[] _correctOptions = {};
+    [SerializeField] public int _correctOption = 255;
 
     public Question(string question,
         string option0, string option1, string option2, string option3, int[] correctOptions)
     {
         _question = question;
         _options = new[] { option0, option1, option2, option3 };
+        _correctOptions = correctOptions;
+    }
+    
+    public Question(string question,
+        string option0, string option1, int[] correctOptions)
+    {
+        _question = question;
+        _options = new[] { option0, option1 };
         _correctOptions = correctOptions;
     }
         

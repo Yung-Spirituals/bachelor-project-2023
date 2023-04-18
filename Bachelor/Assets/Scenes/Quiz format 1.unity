@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preScore: 
-  postScore: /4 Correct
+  postScore: /4 Korrekt
   scoreObject: {fileID: 611926394}
 --- !u!1 &611926394 stripped
 GameObject:

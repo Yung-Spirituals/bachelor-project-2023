@@ -7,7 +7,7 @@ public class QuestionManager : MonoBehaviour
 {
     private Question[] _questions =
     {
-        new("Meat", "a", "b", "c", "d", new[]{0}),
+        new("Hvilken kategori faller banan under?", "A. Bær", "B. Grønnsak", "C. Frukt", "D. Kjøtt", new[]{0}),
         new("Fish", "a", "b", "c", "d", new[]{0}),
         new("Vegetable", "a", "b", "c", "d", new[]{0}),
         new("Fruit", "a", "b", "c", "d", new[]{0})
