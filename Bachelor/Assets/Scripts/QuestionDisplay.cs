@@ -11,10 +11,7 @@ public class QuestionDisplay : MonoBehaviour
     [SerializeField] private bool _isTrueOrFalse;
     private Question _privateQuestion;
 
-    public QuestionDisplay(bool isTrueOrFalse)
-    {
-        _isTrueOrFalse = isTrueOrFalse;
-    }
+    public QuestionDisplay(bool isTrueOrFalse) { _isTrueOrFalse = isTrueOrFalse; }
 
     public void SetQuestion(Question question) { _privateQuestion = question; }
 

@@ -22,10 +22,7 @@ public class HighScoreManager: MonoBehaviour
         public string story;
         public static List<HighScore> _highScores = new ();
 
-        public HighScoreCollection(string story)
-        {
-            this.story = story;
-        }
+        public HighScoreCollection(string story) { this.story = story; }
 
         public bool SubmitScore(HighScore newScore)
         {

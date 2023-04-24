@@ -490,8 +490,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280690214
+  m_fontColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -575,7 +575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1500455636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -667,20 +667,14 @@ MonoBehaviour:
   numberOfTypes: 7
   rowsOfCards: 6
   columnsOfCards: 4
-  grapeSprite: {fileID: 3286163911610860551, guid: 57c5afad5a5920646b0accb54fa755d3, type: 3}
-  appleSprite: {fileID: 3286163911610860551, guid: e8fd1892534317d4dbd96c019168446c, type: 3}
-  kiwiSprite: {fileID: 3286163911610860551, guid: c79da361114130c49b864b22f782f46f, type: 3}
-  lemonSprite: {fileID: 3286163911610860551, guid: 58673c0b9d9d7d7448078383813f5442, type: 3}
-  melonSprite: {fileID: 3286163911610860551, guid: 654de6136ec273440883b7333976c40b, type: 3}
-  orangeSprite: {fileID: 3286163911610860551, guid: 576f07d9eb55bf745a59e9615c95ced2, type: 3}
-  watermelonSprite: {fileID: 3286163911610860551, guid: 50149c4c60e9767429eaa742a2330a5e, type: 3}
-  grapePointValue: 1
-  applePointValue: 1
-  kiwiPointValue: 1
-  lemonPointValue: 1
-  melonPointValue: 1
-  orangePointValue: 1
-  watermelonPointValue: 1
+  cardBackSprite: {fileID: 3286163911610860551, guid: f74ed58276abdb141b16d4648997a3f8, type: 3}
+  typeOneSprite: {fileID: 3286163911610860551, guid: 57c5afad5a5920646b0accb54fa755d3, type: 3}
+  typeTwoSprite: {fileID: 3286163911610860551, guid: e8fd1892534317d4dbd96c019168446c, type: 3}
+  typeThreeSprite: {fileID: 3286163911610860551, guid: c79da361114130c49b864b22f782f46f, type: 3}
+  typeFourSprite: {fileID: 3286163911610860551, guid: 58673c0b9d9d7d7448078383813f5442, type: 3}
+  typeFiveSprite: {fileID: 3286163911610860551, guid: 654de6136ec273440883b7333976c40b, type: 3}
+  typeSixSprite: {fileID: 3286163911610860551, guid: 576f07d9eb55bf745a59e9615c95ced2, type: 3}
+  typeSevenSprite: {fileID: 3286163911610860551, guid: 50149c4c60e9767429eaa742a2330a5e, type: 3}
 --- !u!4 &1655842721
 Transform:
   m_ObjectHideFlags: 0
@@ -900,6 +894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc408100e687473fb70b1cabf7ffcad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preScore: 
+  postScore: 
   scoreObject: {fileID: 991510219}
 --- !u!1 &2119935543
 GameObject:

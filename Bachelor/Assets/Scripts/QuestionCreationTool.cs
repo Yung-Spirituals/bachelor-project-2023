@@ -15,9 +15,15 @@ public class QuestionCreationTool : MonoBehaviour
     [SerializeField] private GameObject questionDisplayList;
     
     private List<Question> _questions = new ();
+    private Question _selectedQuestion = null;
 
     public void CreateQuestion(bool trueOrFalse)
     {
+        if (_selectedQuestion != null)
+        {
+            
+        }
+
         int[] correctOptions = GetCorrectOptions();
         string questionText = question.text;
         string option0 = options[0].text;
@@ -54,14 +60,11 @@ public class QuestionCreationTool : MonoBehaviour
 
     public void LoadQuestions()
     {
-        _questions = QuestionJsonUtil.Instance.LoadJson(story.text, level.text) ?? new List<Question>();
+        _questions = QuestionJsonUtil.LoadJson(story.text, level.text) ?? new List<Question>();
         DisplayQuestions();
     }
     
-    public void SaveQuestions()
-    {
-        QuestionJsonUtil.Instance.SaveJson(story.text, level.text, _questions);
-    }
+    public void SaveQuestions() { QuestionJsonUtil.SaveJson(story.text, level.text, _questions); }
 
     private void DisplayQuestions()
     {
@@ -81,5 +84,28 @@ public class QuestionCreationTool : MonoBehaviour
         List<GameObject> children =
             (from Transform child in questionDisplayList.transform select child.gameObject).ToList();
         children.ForEach(Destroy);
+    }
+
+    public void SelectQuestion(Question selectedQuestion)
+    {
+        _selectedQuestion = _questions.Find(q => ReferenceEquals(q, selectedQuestion));
+        
+        question.text = selectedQuestion.GetQuestion();
+        
+        string[] selectedQuestionOptions = selectedQuestion.GetOptions();
+        for (int i = 0; i < options.Length; i++) options[i].text = selectedQuestionOptions[i];
+ 
+        int[] correctOptions = selectedQuestion.GetCorrectOptions();
+        for (int i = 0; i < correctAnswer.Length; i++) correctAnswer[i].isOn = correctOptions.Contains(i);
+    }
+
+    public void DeselectQuestion() { _selectedQuestion = null; }
+
+    public void DeleteQuestion()
+    {
+        if (_selectedQuestion == null) return;
+        _questions.Remove(_selectedQuestion);
+        _selectedQuestion = null;
+        UpdateDisplay();
     }
 }

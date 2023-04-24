@@ -11,7 +11,7 @@ public class Picture : MonoBehaviour
 
     private void Start()
     {
-        //Application.targetFrameRate = 10;
+        Application.targetFrameRate = 60;
         flipCard = GetComponent<FlipCard>();
         SetPointsAndSprite(type);
     }
