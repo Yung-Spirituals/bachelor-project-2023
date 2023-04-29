@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public static class QuestionJsonUtil
+public static class JsonUtil
 {
     [Serializable] 
     private class QuestionCollection { public List<Question> Questions; }

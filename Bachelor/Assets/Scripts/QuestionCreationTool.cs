@@ -60,11 +60,11 @@ public class QuestionCreationTool : MonoBehaviour
 
     public void LoadQuestions()
     {
-        _questions = QuestionJsonUtil.LoadJson(story.text, level.text) ?? new List<Question>();
+        _questions = JsonUtil.LoadJson(story.text, level.text) ?? new List<Question>();
         DisplayQuestions();
     }
     
-    public void SaveQuestions() { QuestionJsonUtil.SaveJson(story.text, level.text, _questions); }
+    public void SaveQuestions() { JsonUtil.SaveJson(story.text, level.text, _questions); }
 
     private void DisplayQuestions()
     {

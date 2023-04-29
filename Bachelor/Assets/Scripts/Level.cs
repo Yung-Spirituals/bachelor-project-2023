@@ -1,28 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour
+[Serializable]
+public class Level
 {
-    [SerializeField] private string story;
-    [SerializeField] private string level;
-    [SerializeField] private string levelGoal;
-    [SerializeField] private string howToPlay;
-    [SerializeField] private string highScore;
-
-    //[SerializeField] private TMPro.TextMeshProUGUI levelText;
-    [SerializeField] private TMPro.TextMeshProUGUI levelGoalText;
-    [SerializeField] private TMPro.TextMeshProUGUI howToPlayText;
-    [SerializeField] private TMPro.TextMeshProUGUI highScoreText;
-    [SerializeField] private GameObject goToLevelButton;
-    [SerializeField] private GameObject popUp;
-
-    public void ShowPopUp()
-    {
-        highScore = "HighScore: " + HighScoreManager.Instance.GetLevelHighScore(story, level);
-        goToLevelButton.GetComponent<SwitchScene>().scene = level;
-        //levelText.text = level;
-        levelGoalText.text = levelGoal;
-        howToPlayText.text = howToPlay;
-        highScoreText.text = highScore;
-        popUp.SetActive(true);
-    }
+    [SerializeField] private long id;
+    [SerializeField] private Story _story;
+    [SerializeField] private List<Question> _questions;
+    [SerializeField] private string _levelName;
+    [SerializeField] private string _backgroundUrl;
+    [SerializeField] private string _levelType;
+    [SerializeField] private string _levelGoal;
+    [SerializeField] private string _howToPlay;
 }
