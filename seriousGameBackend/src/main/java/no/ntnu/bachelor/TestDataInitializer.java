@@ -199,9 +199,26 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
             questionRepository.save(s1l1q1);
             questionRepository.save(s1l1q2);
             questionRepository.save(s1l1q3);
+            questionRepository.save(s1l1q4);
+            questionRepository.save(s1l1q5);
+            questionRepository.save(s1l1q6);
+            questionRepository.save(s1l1q7);
+            questionRepository.save(s1l1q8);
+            questionRepository.save(s1l1q9);
+            questionRepository.save(s1l1q10);
+
+
             questionRepository.save(s1l2q1);
             questionRepository.save(s1l2q2);
             questionRepository.save(s1l2q3);
+            questionRepository.save(s1l2q4);
+            questionRepository.save(s1l2q5);
+
+
+            questionRepository.save(s1l3q1);
+            questionRepository.save(s1l3q2);
+            questionRepository.save(s1l3q3);
+
             questionRepository.save(s2l1q1);
             questionRepository.save(s2l1q2);
             questionRepository.save(s2l1q3);
