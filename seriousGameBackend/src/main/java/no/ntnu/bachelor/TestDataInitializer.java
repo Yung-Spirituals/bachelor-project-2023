@@ -78,7 +78,7 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
                     false, false, false, true);
 
             Question s1l1q3 = new Question(s1l1, "Hva er hovedstaden i Hellas?", "imageUrl",
-                    "option0", "option1", "option2", "option3",
+                    "Creta", "Athens", "Heraklion", "Rethimno",
                     false, true, false, false);
 
             Question s1l1q4 = new Question(s1l1, "Hva er hovedstaden i Japan?", "imageUrl",
