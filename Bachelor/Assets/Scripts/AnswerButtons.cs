@@ -9,14 +9,22 @@ public class AnswerButtons : MonoBehaviour
     public void Answer(int option)
     {
         if (PauseManager.Instance.isPaused) return;
-        ColorButtons(option, QuestionManager.Instance.Answer(option, true));
+        ColorButtons();
         DisableButtonsAndDisplayNextQuestion();
+        QuestionManager.Instance.Answer(option, true);
     }
 
-    private void ColorButtons(int option, bool correct)
+    private void ColorButtons()
     {
-        answers[option].GetComponent<Image>().color = correct ? new Color32(155, 213, 82, 255) :
-            new Color32(255, 103, 103, 255);
+        Question question = QuestionManager.Instance.CurrentQuestion;
+        bool[] isCorrect = { question.GetIsOption0(), question.GetIsOption1(),
+            question.GetIsOption2(), question.GetIsOption3() };
+        for (int i = 0; i < answers.Length; i++)
+        {
+            if (isCorrect[i]) continue;
+            answers[i].GetComponent<Image>().color = new Color32(244,140,81,255);
+            answers[i].GetComponent<Shadow>().effectColor =new Color32(216,108,48,255);
+        }
     }
 
     private IEnumerator NextQuestion()
@@ -25,7 +33,8 @@ public class AnswerButtons : MonoBehaviour
 
         foreach (GameObject answer in answers)
         {
-            answer.GetComponent<Image>().color = Color.white;
+            answer.GetComponent<Image>().color = new Color32(77, 161, 223, 255);
+            answer.GetComponent<Shadow>().effectColor = new Color32(32, 112, 172, 255);
             answer.GetComponent<Button>().enabled = true;
         }
     }

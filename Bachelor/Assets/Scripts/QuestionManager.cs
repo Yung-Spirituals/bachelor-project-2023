@@ -1,23 +1,19 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class QuestionManager : MonoBehaviour
 {
-    private Question[] _questions =
-    {
-        new("Hvilken kategori faller banan under?", "A. Bær", "B. Grønnsak", "C. Frukt", "D. Kjøtt", new[]{0}),
-        new("Fish", "a", "b", "c", "d", new[]{0}),
-        new("Vegetable", "a", "b", "c", "d", new[]{0}),
-        new("Fruit", "a", "b", "c", "d", new[]{0})
-    };
+    private List<Question> _questions = new ();
     
     public TextMeshProUGUI questionText;
     public TextMeshProUGUI[] answers;
         
     private Question currentQuestion;
     private int nextQuestionIndex;
+    private int questionAmount;
         
     public static QuestionManager Instance
     {
@@ -37,14 +33,20 @@ public class QuestionManager : MonoBehaviour
         
     private void Start()
     {
+        _questions = GameDataManager.Instance.GetGameData().ActiveLevel.Questions;
+        questionAmount = _questions.Count;
         nextQuestionIndex = 0;
         NextQuestion();
     }
         
     public bool Answer(int answer, bool moveOnIfWrong)
     {
-        bool correct = answer == currentQuestion.GetCorrectOption() ||
-                       currentQuestion.GetCorrectOptions().Contains(answer);
+        bool[] options =
+        {
+            currentQuestion.GetIsOption0(), currentQuestion.GetIsOption1(),
+            currentQuestion.GetIsOption2(), currentQuestion.GetIsOption3()
+        };
+        bool correct = options[answer];
 
         Answer(correct, moveOnIfWrong);
         return correct;
@@ -58,10 +60,9 @@ public class QuestionManager : MonoBehaviour
 
     private void NextQuestion()
     {
-        bool passed = true; //TODO: check if score is sufficient
-        if (nextQuestionIndex >= _questions.Length)
+        if (nextQuestionIndex >= _questions.Count)
         {
-            LevelManager.Instance.EndGame(passed);
+            LevelManager.Instance.EndGame();
             return;
         }
         currentQuestion = _questions[nextQuestionIndex];
@@ -80,6 +81,19 @@ public class QuestionManager : MonoBehaviour
     private void DisplayNewQuestion()
     {
         questionText.text = currentQuestion.GetQuestion();
-        for (int i = 0; i < answers.Length; i++) answers[i].text = currentQuestion.GetOptions()[i];
+        string[] options =
+        {
+            currentQuestion.GetOption0(), currentQuestion.GetOption1(),
+            currentQuestion.GetOption2(), currentQuestion.GetOption3()
+        };
+        for (int i = 0; i < answers.Length; i++) answers[i].text = options[i];
     }
+
+    public Question CurrentQuestion
+    {
+        get => currentQuestion;
+        set => currentQuestion = value;
+    }
+
+    public int QuestionAmount => questionAmount;
 }

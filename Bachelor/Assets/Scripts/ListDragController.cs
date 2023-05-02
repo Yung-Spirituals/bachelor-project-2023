@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +28,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (PauseManager.Instance.isPaused) return;
         currentPossition = currentTransform.position;
         mainContent = currentTransform.parent.gameObject;
         totalChild = mainContent.transform.childCount;
@@ -39,6 +39,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (PauseManager.Instance.isPaused) return;
         dragging = true;
         currentTransform.position =
             new Vector3(currentTransform.position.x, eventData.position.y, currentTransform.position.z);
@@ -72,6 +73,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (PauseManager.Instance.isPaused) return;
         currentTransform.position = currentPossition;
         gameObject.layer = Layer.UI;
         _canvas.sortingOrder = 1;
@@ -80,6 +82,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void MoveUp()
     {
+        if (PauseManager.Instance.isPaused) return;
         if (dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index - 1);
@@ -89,6 +92,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void MoveDown()
     {
+        if (PauseManager.Instance.isPaused) return;
         if (dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index + 1);

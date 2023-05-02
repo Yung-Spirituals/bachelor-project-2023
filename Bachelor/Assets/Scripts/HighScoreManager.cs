@@ -10,11 +10,13 @@ public class HighScoreManager: MonoBehaviour
     {
         public string _levelName;
         public int _score;
+        public int _stars;
 
-        public HighScore(string levelName, int score)
+        public HighScore(string levelName, int score, int stars)
         {
             _levelName = levelName;
             _score = score;
+            _stars = stars;
         }
     }
     private class HighScoreCollection
@@ -37,7 +39,7 @@ public class HighScoreManager: MonoBehaviour
             var highScore = _highScores.Find(score => score._levelName == levelName);
             if (highScore != null) return highScore;
                 
-            highScore = new HighScore(levelName, 0);
+            highScore = new HighScore(levelName, 0, 0);
             _highScores.Add(highScore);
             return highScore;
         }
@@ -84,9 +86,9 @@ public class HighScoreManager: MonoBehaviour
         return GetStoryHighScores(story).GetHighScore(levelName)._score;
     }
 
-    public bool SubmitScore(string story, string levelName, int score)
+    public bool SubmitScore(string story, string levelName, int score, int stars)
     {
-        var newScore = new HighScore(levelName, score);
+        var newScore = new HighScore(levelName, score, stars);
         bool isNewHighScore = GetStoryHighScores(story).SubmitScore(newScore);
         if (isNewHighScore) SaveScores(story);
         return isNewHighScore;

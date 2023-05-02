@@ -32,11 +32,11 @@ public class QuestionCreationTool : MonoBehaviour
         {
             string option2 = options[2].text;
             string option3 = options[3].text;
-            _questions.Add(new Question(questionText, option0, option1, option2, option3, correctOptions));
+            //_questions.Add(new Question(questionText, option0, option1, option2, option3, correctOptions));
         }
         else
         {
-            _questions.Add(new Question(questionText, option0, option1, correctOptions));
+            //_questions.Add(new Question(questionText, option0, option1, correctOptions));
         }
         
         UpdateDisplay();

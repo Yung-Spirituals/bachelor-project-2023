@@ -7,6 +7,9 @@ public static class JsonUtil
 {
     [Serializable] 
     private class QuestionCollection { public List<Question> Questions; }
+    
+    [Serializable] 
+    private class StoryCollection { public List<Story> _stories; }
 
     private static string _path = Application.dataPath + "/questions";
 
@@ -22,8 +25,19 @@ public static class JsonUtil
     {
         string finalPath = _path + "/" + level + ".json";
         string jsonString = File.ReadAllText(finalPath);
-        JsonUtility.FromJson<QuestionCollection>(jsonString);
         QuestionCollection collection = JsonUtility.FromJson<QuestionCollection>(jsonString);
         return collection.Questions;
+    }
+
+    public static List<Story> StoriesFromJson(string jsonString)
+    {
+        return JsonUtility.FromJson<StoryCollection>(jsonString)._stories;
+    }
+    
+    public static void StoriesToJson(Story[] stories)
+    {
+        string json = JsonUtility.ToJson(stories);
+        Debug.Log(json);
+        StoryCollection collection1 = JsonUtility.FromJson<StoryCollection>(json);
     }
 }
