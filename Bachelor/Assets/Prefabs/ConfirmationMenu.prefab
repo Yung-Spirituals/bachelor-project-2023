@@ -225,8 +225,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ferdig med \xE5 sortere rekkef\xF8lgen?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
-  m_sharedMaterial: {fileID: -5348006642200297218, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cef51530496569c45ae6cbea6e06228a, type: 2}
+  m_sharedMaterial: {fileID: 7455575521272980303, guid: cef51530496569c45ae6cbea6e06228a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -305,6 +305,22 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -167545577692937021, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -495,6 +511,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CancelButton
       objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.13333334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
 --- !u!224 &8364818238574344606 stripped
@@ -513,6 +541,22 @@ PrefabInstance:
       propertyPath: m_text
       value: Nei
       objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -167545577692937021, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3c3e09ac407f3bc449fbb0e2dd6f6dcc
+guid: 62558e41794341941bd05ba8755c8e9c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Arial
-  fallbackFontReferences: []
+  - Nunito
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b66e21faea98bf84d901e1458a5121f2, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

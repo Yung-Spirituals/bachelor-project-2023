@@ -225,8 +225,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
-  m_sharedMaterial: {fileID: -5348006642200297218, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26521506e9cccee429822c666136dd24, type: 2}
+  m_sharedMaterial: {fileID: 8628532923202089448, guid: 26521506e9cccee429822c666136dd24, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -488,6 +488,18 @@ PrefabInstance:
     - target: {fileID: 8356406420305439691, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
       propertyPath: m_Name
       value: CancelButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.13333334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}

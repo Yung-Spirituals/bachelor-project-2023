@@ -227,8 +227,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pause
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
-  m_sharedMaterial: {fileID: -5348006642200297218, guid: fc384395f3b073147bc8b6dca469aa73, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26521506e9cccee429822c666136dd24, type: 2}
+  m_sharedMaterial: {fileID: 8628532923202089448, guid: 26521506e9cccee429822c666136dd24, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -593,6 +593,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CancelButton
       objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428366201621681113, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.13333334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d7a48b00dbc6145af1efa8b4740ed2, type: 3}
 --- !u!224 &6379831019819077326 stripped
@@ -613,6 +625,14 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -719,6 +739,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Avslutt
       objectReference: {fileID: 0}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 647139523593269134, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
