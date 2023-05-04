@@ -11,7 +11,7 @@ public class Story
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "_story", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "_story", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Level> _levels = new HashSet<>();
 
     private String _storyName;

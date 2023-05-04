@@ -18,7 +18,7 @@ public class Level
   @JoinColumn(name = "story_id")
   private Story _story;
 
-  @OneToMany(mappedBy = "_level", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "_level", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Question> _questions = new HashSet<>();
 
   private String _levelName;
