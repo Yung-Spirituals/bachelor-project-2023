@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/New Scenes/MainMenu.unity
     guid: aa8c4acf7a0e9d047b3cd6843d0b96c8
   - enabled: 1
+    path: Assets/Scenes/New Scenes/EditTool.unity
+    guid: c3bdf119a3a09e24696dc5416e3d786d
+  - enabled: 1
     path: Assets/Scenes/New Scenes/LevelHub.unity
     guid: e4f0cc9d522923a4797a17d0b91361bf
   - enabled: 1

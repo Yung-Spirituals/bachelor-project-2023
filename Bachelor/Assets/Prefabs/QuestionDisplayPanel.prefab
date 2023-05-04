@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hva heter hovedstaten i A...
+  m_text: Hva heter hovedstaten i Athens
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
   m_sharedMaterial: {fileID: -167545577692937021, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
@@ -109,9 +109,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 4646642101942476990}
   - component: {fileID: 4646642101942476928}
   - component: {fileID: 4646642101942476991}
+  - component: {fileID: 6015816224119647138}
   m_Layer: 5
   m_Name: QuestionDisplayPanel
   m_TagString: Untagged
@@ -213,6 +214,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6015816224119647138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4646642101942476989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3e57bbcafb46b180933d6b486299d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionTextMeshProUGUI: {fileID: 4646642101867716591}
+  question:
+    id: 0
+    _question: 
+    _imageUrl: 
+    _option0: 
+    _option1: 
+    _option2: 
+    _option3: 
+    _isOption0: 0
+    _isOption1: 0
+    _isOption2: 0
+    _isOption3: 0
 --- !u!1001 &702989098670129366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,6 +329,34 @@ PrefabInstance:
     - target: {fileID: 5313601610800162864, guid: af9e955255e89874480be6eadc292574, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6015816224119647138}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectQuestion
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestionDisplay, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313601610800162865, guid: af9e955255e89874480be6eadc292574, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5313601610800162867, guid: af9e955255e89874480be6eadc292574, type: 3}
       propertyPath: m_Name

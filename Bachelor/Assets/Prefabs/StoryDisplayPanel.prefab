@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1460286185760720444}
   - component: {fileID: 1460286185760720434}
   - component: {fileID: 1460286185760720435}
+  - component: {fileID: 4724613494299535216}
   m_Layer: 5
   m_Name: StoryDisplayPanel
   m_TagString: Untagged
@@ -78,6 +79,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4724613494299535216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460286185760720445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd8b40e534e48ada45482c290031ce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyName: {fileID: 1460286187333610929}
+  story:
+    id: 0
+    _levels: []
+    _storyName: 
+    _iconUrl: 
+    _backgroundUrl: 
+    _storyShortDescription: 
+    _storyTitle: 
+    _storyFullDescription: 
 --- !u!1 &1460286187333610931
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +113,7 @@ GameObject:
   - component: {fileID: 1460286187333610928}
   - component: {fileID: 1460286187333610929}
   m_Layer: 5
-  m_Name: LevelDisplay
+  m_Name: StoryDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,9 +210,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -333,4 +356,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5902698732065498666}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4724613494299535216}
+        m_TargetAssemblyTypeName: StoryDisplay, Assembly-CSharp
+        m_MethodName: SelectStory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

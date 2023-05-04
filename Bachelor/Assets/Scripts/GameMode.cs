@@ -1,9 +1,9 @@
 ﻿public static class GameMode
 {
-    public static readonly string Standard = "QuizStandard";
-    public static readonly string TrueOrFalse = "QuizTrueOrFalse";
-    public static readonly string DragToSlot = "QuizDragToSlot";
-    public static readonly string MemoryCards = "QuizMemoryCards";
-    public static readonly string Rank = "RankStatements";
-    public static readonly string CardGame = "MinigameCards";
+    public const string Standard = "QuizStandard";
+    public const string TrueOrFalse = "QuizTrueOrFalse";
+    public const string DragToSlot = "QuizDragToSlot";
+    public const string MemoryCards = "QuizMemoryCards";
+    public const string Rank = "RankStatements";
+    public const string CardGame = "MinigameCards";
 }

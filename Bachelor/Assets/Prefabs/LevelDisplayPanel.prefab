@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2781051897023920091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3542539866351714311}
+        m_TargetAssemblyTypeName: LevelDisplay, Assembly-CSharp
+        m_MethodName: SelectLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3979168428206704024
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +279,7 @@ GameObject:
   - component: {fileID: 7147533952189552589}
   - component: {fileID: 7147533952189552579}
   - component: {fileID: 7147533952189552578}
+  - component: {fileID: 3542539866351714311}
   m_Layer: 5
   m_Name: LevelDisplayPanel
   m_TagString: Untagged
@@ -335,6 +348,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3542539866351714311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147533952189552588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79df548db5504e089b53216c43cf1632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTextMeshProUGUI: {fileID: 7147533952831274048}
+  gameModeTextMeshProUGUI: {fileID: 4045595194606503048}
+  level:
+    id: 0
+    _questions: []
+    _levelName: 
+    _backgroundUrl: 
+    _levelType: 
+    _levelGoal: 
+    _howToPlay: 
 --- !u!1 &7147533952831274050
 GameObject:
   m_ObjectHideFlags: 0

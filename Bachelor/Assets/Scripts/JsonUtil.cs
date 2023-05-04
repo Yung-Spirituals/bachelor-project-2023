@@ -1,43 +1,37 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public static class JsonUtil
 {
     [Serializable] 
-    private class QuestionCollection { public List<Question> Questions; }
+    private class StoryCollection { [SerializeField] public List<Story> _stories; }
     
-    [Serializable] 
-    private class StoryCollection { public List<Story> _stories; }
-
-    private static string _path = Application.dataPath + "/questions";
-
-    public static void SaveJson(string story, string level, List<Question> questions)
+    [Serializable]
+    private class JsonMultiObject
     {
-        string finalPath = _path + "/" + level + ".json";
-        QuestionCollection questionCollection = new QuestionCollection { Questions = questions };
-        string jString = JsonUtility.ToJson(questionCollection);
-        File.WriteAllText(finalPath, jString);
-    }
-    
-    public static List<Question> LoadJson(string story, string level)
-    {
-        string finalPath = _path + "/" + level + ".json";
-        string jsonString = File.ReadAllText(finalPath);
-        QuestionCollection collection = JsonUtility.FromJson<QuestionCollection>(jsonString);
-        return collection.Questions;
+        [SerializeField] public Story _story;
+        [SerializeField] public Level _Level;
+        [SerializeField] public Question _question;
     }
 
     public static List<Story> StoriesFromJson(string jsonString)
     {
         return JsonUtility.FromJson<StoryCollection>(jsonString)._stories;
     }
-    
-    public static void StoriesToJson(Story[] stories)
+
+    public static string StoriesToJson(List<Story> stories)
     {
-        string json = JsonUtility.ToJson(stories);
-        Debug.Log(json);
-        StoryCollection collection1 = JsonUtility.FromJson<StoryCollection>(json);
+        return JsonUtility.ToJson(new StoryCollection(){_stories = stories});
+    }
+
+    public static string StoryLevelQuestionToJson(Story story, Level level, Question question)
+    {
+        return JsonUtility.ToJson(new JsonMultiObject()
+        {
+            _story = story,
+            _Level = level,
+            _question = question
+        });
     }
 }

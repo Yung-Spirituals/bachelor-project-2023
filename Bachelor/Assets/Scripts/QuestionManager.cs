@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -41,11 +40,7 @@ public class QuestionManager : MonoBehaviour
         
     public bool Answer(int answer, bool moveOnIfWrong)
     {
-        bool[] options =
-        {
-            currentQuestion.GetIsOption0(), currentQuestion.GetIsOption1(),
-            currentQuestion.GetIsOption2(), currentQuestion.GetIsOption3()
-        };
+        bool[] options = currentQuestion.GetIsOptions();
         bool correct = options[answer];
 
         Answer(correct, moveOnIfWrong);
@@ -81,11 +76,7 @@ public class QuestionManager : MonoBehaviour
     private void DisplayNewQuestion()
     {
         questionText.text = currentQuestion.GetQuestion();
-        string[] options =
-        {
-            currentQuestion.GetOption0(), currentQuestion.GetOption1(),
-            currentQuestion.GetOption2(), currentQuestion.GetOption3()
-        };
+        string[] options = currentQuestion.GetOptions();
         for (int i = 0; i < answers.Length; i++) answers[i].text = options[i];
     }
 

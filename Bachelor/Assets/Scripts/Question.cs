@@ -21,17 +21,12 @@ public class Question
     [SerializeField] private bool _isOption2;
     [SerializeField] private bool _isOption3;
 
-    private string[] _options = {"", "", "", ""};
-    private int[] _correctOptions;
-    private int _correctOption = 255;
-
     public Question() {}
 
-    public Question(long id, Level level, string question, string imageUrl,
+    public Question(Level level, string question, string imageUrl,
         string option0, string option1, string option2, string option3,
         bool isOption0, bool isOption1, bool isOption2, bool isOption3)
     {
-        this.id = id;
         _level = level;
         _question = question;
         _imageUrl = imageUrl;
@@ -43,47 +38,47 @@ public class Question
         _isOption1 = isOption1;
         _isOption2 = isOption2;
         _isOption3 = isOption3;
-
-        _options = new[] { option0, option1, option2, option3 };
-        _correctOptions = new[]{255, 255, 255, 255};
-        FixCorrectOptions(_correctOptions);
     }
 
-    private void FixCorrectOptions(int[] ints)
-    {
-        if (ints.Length != 4) return;
-
-        ints[0] = _isOption0 ? 0 : 255;
-        ints[1] = _isOption1 ? 1 : 255;
-        ints[2] = _isOption2 ? 2 : 255;
-        ints[3] = _isOption3 ? 3 : 255;
-
-        if (_isOption0) _correctOption = 0;
-        else if (_isOption1) _correctOption = 1;
-        else if (_isOption2) _correctOption = 2;
-        else if (_isOption3) _correctOption = 3;
-    }
-
+    public long GetId() { return id; }
+    public Level GetLevel() { return _level; }
+    public void SetLevel(Level level) { _level = level; }
     public string GetQuestion() { return _question; }
     public void SetQuestion(string question) { _question = question; }
-    public string[] GetOptions() { return _options; }
-    public void SetOptions(string[] options) { _options = options; }
-    public int[] GetCorrectOptions() { return _correctOptions; }
-    public void SetCorrectOptions(int[] correctOptions) { _correctOptions = correctOptions; }
-    public int GetCorrectOption() { return _correctOption; }
-    public void SetCorrectOption(int correctOption)
-    {
-        _correctOption = correctOption;
-        _correctOptions = new[] { correctOption };
-    }
+    public string GetImageUrl() { return _imageUrl; }
+    public void SetImageUrl(string imageUrl) { _imageUrl = imageUrl; }
 
     public string GetOption0() { return _option0; }
+    public void SetOption0(string option0) { _option0 = option0; }
     public string GetOption1() { return _option1; }
+    public void SetOption1(string option1) { _option1 = option1; }
     public string GetOption2() { return _option2; }
+    public void SetOption2(string option2) { _option2 = option2; }
     public string GetOption3() { return _option3; }
+    public void SetOption3(string option3) { _option3 = option3; }
+    public string[] GetOptions() { return new[] { _option0, _option1, _option2, _option3 }; }
+    public void SetOptions(string[] options)
+    {
+        _option0 = options[0];
+        _option1 = options[1];
+        _option2 = options[2];
+        _option3 = options[3];
+    }
 
     public bool GetIsOption0() { return _isOption0; }
+    public void SetIsOption0(bool isOption0) { _isOption0 = isOption0; }
     public bool GetIsOption1() { return _isOption1; }
+    public void SetIsOption1(bool isOption1) { _isOption1 = isOption1; }
     public bool GetIsOption2() { return _isOption2; }
+    public void SetIsOption2(bool isOption2) { _isOption2 = isOption2; }
     public bool GetIsOption3() { return _isOption3; }
+    public void SetIsOption3(bool isOption3) { _isOption3 = isOption3; }
+    public bool[] GetIsOptions() { return new[] { _isOption0, _isOption1, _isOption2, _isOption3 }; }
+    public void SetIsOptions(bool[] isOptions)
+    {
+        _isOption0 = isOptions[0];
+        _isOption1 = isOptions[1];
+        _isOption2 = isOptions[2];
+        _isOption3 = isOptions[3];
+    }
 }

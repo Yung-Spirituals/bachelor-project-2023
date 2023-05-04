@@ -30,7 +30,7 @@ public class ApiController
         return new ResponseEntity<>(storyCollection, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PutMapping(value = "/add", consumes = {"*/*"})
     public ResponseEntity<?> add(@RequestBody JsonMultiObject jsonMultiObject)
     {
         if (jsonMultiObject.get_question() != null && jsonMultiObject.get_level() != null)
@@ -48,7 +48,7 @@ public class ApiController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    @PutMapping(value = "/update", consumes = {"*/*"})
     public ResponseEntity<?> update(@RequestBody JsonMultiObject jsonMultiObject)
     {
         if (jsonMultiObject.get_question() != null)
@@ -66,7 +66,7 @@ public class ApiController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping(value = "/delete", consumes = {"*/*"})
     public ResponseEntity<?> delete(@RequestBody JsonMultiObject jsonMultiObject)
     {
         if (jsonMultiObject.get_question() != null)

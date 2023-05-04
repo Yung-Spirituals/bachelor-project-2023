@@ -58,10 +58,11 @@ public class Level
     [SerializeField] private string _levelGoal;
     [SerializeField] private string _howToPlay;
 
-    public Level(long id, Story story,
+    public Level() {}
+
+    public Level(Story story,
         string levelName, string backgroundUrl, string levelType, string levelGoal, string howToPlay)
     {
-        this.id = id;
         _story = story;
         _levelName = levelName;
         _backgroundUrl = backgroundUrl;

@@ -57,11 +57,12 @@ public class Story
     [SerializeField] private string _storyShortDescription;
     [SerializeField] private string _storyTitle;
     [SerializeField] private string _storyFullDescription;
+    
+    public Story() {}
 
-    public Story(long id, string storyName, string iconUrl, string backgroundUrl,
+    public Story(string storyName, string iconUrl, string backgroundUrl,
         string storyShortDescription, string storyTitle, string storyFullDescription)
     {
-        this.id = id;
         _storyName = storyName;
         _iconUrl = iconUrl;
         _backgroundUrl = backgroundUrl;

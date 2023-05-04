@@ -11,7 +11,8 @@ public class LevelHubInitializer : MonoBehaviour
     {
         GameDataScriptableObject scriptableObject = GameDataManager.Instance.GetGameData();
         List<Level> levels = scriptableObject.ActiveStory.Levels;
-        for (int i = 0; i < levels.Count; i++)
+        int levelCount = levels.Count;
+        for (int i = 0; i < levelCount; i++)
         {
             GameObject levelCoin = Instantiate(_gameObject, _parentTransform);
             LevelPopup levelPopup = levelCoin.GetComponent<LevelPopup>();
