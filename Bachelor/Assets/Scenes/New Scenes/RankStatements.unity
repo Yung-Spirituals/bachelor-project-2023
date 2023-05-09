@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endMenu: {fileID: 0}
   story: 
-  level: QuizPriority
+  level: RankStatements
   levelIsCompleted: 0
   levelHub: LevelHub
   threeStarSprite: {fileID: 0}

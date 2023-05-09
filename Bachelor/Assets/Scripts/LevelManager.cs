@@ -47,7 +47,10 @@ public class LevelManager : MonoBehaviour
         int stars = ScoreDependantInfo();
         scoreText.text = ScoreManager.Instance.GetCurrentScore() + "/" + QuestionManager.Instance.QuestionAmount
             + " riktige svar";
-        if (stars != 0) HighScoreManager.Instance.SubmitScore(story ,level, ScoreManager.Instance.GetCurrentScore(), stars);
+        if (stars != 0) HighScoreManager.Instance.SubmitScore(story, 
+            (GameDataManager.Instance.GetGameData().ActiveStory.Levels
+                .FindIndex(o => o.ID == GameDataManager.Instance.GetGameData().ActiveLevel.ID) + 1).ToString(),
+            ScoreManager.Instance.GetCurrentScore(), stars);
         endMenu.SetActive(true);
     }
 

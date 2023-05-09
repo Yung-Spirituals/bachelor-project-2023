@@ -120,6 +120,11 @@ MonoBehaviour:
     _levelGoal: 
     _howToPlay: 
   levelNumber: 0
+  unavailable: {fileID: 21300000, guid: 85ac8b9198902794e9298b6c9e7430d3, type: 3}
+  noStar: {fileID: 21300000, guid: e789846d7f9e4e14f9a839eed0032484, type: 3}
+  oneStar: {fileID: 21300000, guid: ba2a0a4873bbe814082e1246f37f7f81, type: 3}
+  twoStar: {fileID: 21300000, guid: 54eca1a23ce87e74a8764a23df750ed4, type: 3}
+  threeStar: {fileID: 21300000, guid: 19c3b683dc13ab548b8b82cd99e383b5, type: 3}
 --- !u!114 &5321280241554458462
 MonoBehaviour:
   m_ObjectHideFlags: 0

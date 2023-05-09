@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endMenu: {fileID: 645696857}
   story: 
-  level: TrueOrFalse
+  level: QuizTrueOrFalse
   levelIsCompleted: 0
   levelHub: LevelHub
   threeStarSprite: {fileID: 21300000, guid: 19c3b683dc13ab548b8b82cd99e383b5, type: 3}

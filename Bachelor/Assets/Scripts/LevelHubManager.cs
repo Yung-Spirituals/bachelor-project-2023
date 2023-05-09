@@ -4,7 +4,7 @@ public class LevelHubManager: MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI levelText;
     [SerializeField] private TMPro.TextMeshProUGUI levelGoalText;
-    [SerializeField] private TMPro.TextMeshProUGUI howToPlayText;
+    //[SerializeField] private TMPro.TextMeshProUGUI howToPlayText;
     [SerializeField] private TMPro.TextMeshProUGUI highScoreText;
     [SerializeField] private GameObject goToLevelButton;
     [SerializeField] private GameObject popUp;
@@ -34,7 +34,7 @@ public class LevelHubManager: MonoBehaviour
         levelText.text = "Nivå " + levelNumber;
         levelGoalText.text = level.LevelGoal;
         //howToPlayText.text = level.HowToPlay;
-        //highScoreText.text = highScore;
+        highScoreText.text = highScore;
         goToLevelButton.GetComponent<SwitchScene>().scene = level.LevelType;
         popUp.SetActive(true);
     }

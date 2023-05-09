@@ -31,6 +31,7 @@ public class HighScoreManager: MonoBehaviour
             var highScore = GetHighScore(newScore._levelName);
             if (highScore._score >= newScore._score) return false;
             highScore._score = newScore._score;
+            highScore._stars = newScore._stars;
             return true;
         }
 
@@ -84,6 +85,11 @@ public class HighScoreManager: MonoBehaviour
     public int GetLevelHighScore(string story, string levelName)
     {
         return GetStoryHighScores(story).GetHighScore(levelName)._score;
+    }
+
+    public int GetLevelStars(string story, string levelName)
+    {
+        return GetStoryHighScores(story).GetHighScore(levelName)._stars;
     }
 
     public bool SubmitScore(string story, string levelName, int score, int stars)
