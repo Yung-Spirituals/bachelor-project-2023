@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using SoData;
 using System.Linq;
 using UnityEngine;
@@ -24,20 +23,43 @@ public class GameDataManager : MonoBehaviour
     }
     private static GameDataManager instance;
 
-    public GameDataScriptableObject GetGameData()
-    {
-        if (_gameDataScriptableObject.Stories.Count != 0) return _gameDataScriptableObject;
-        RefreshGameData();
-        return _gameDataScriptableObject;
-    }
+    private void Start() { StartCoroutine(RefreshGameData()); }
 
-    public void RefreshGameData()
+    public GameDataScriptableObject GetGameData() { return _gameDataScriptableObject; }
+
+    public IEnumerator RefreshGameData()
     {
-        StartCoroutine(WebCommunicationUtil.GetGameDataRequest(_gameDataScriptableObject));
+        yield return WebCommunicationUtil.GetGameDataRequest(_gameDataScriptableObject);
         _gameDataScriptableObject.Stories = _gameDataScriptableObject.Stories.OrderBy(story => story.ID).ToList();
         foreach (Story story in _gameDataScriptableObject.Stories)
         {
             story.Levels = story.Levels.OrderBy(level => level.ID).ToList();
         }
+        yield return UpdateActives();
+    }
+
+    private IEnumerator UpdateActives()
+    {
+        
+        if (_gameDataScriptableObject.ActiveStory != null)
+        {
+            _gameDataScriptableObject.ActiveStory = _gameDataScriptableObject.Stories
+                .Find(o => o.ID == _gameDataScriptableObject.ActiveStory.ID);
+        }
+        if (_gameDataScriptableObject.ActiveLevel != null)
+        {
+            if (_gameDataScriptableObject.ActiveStory != null)
+                _gameDataScriptableObject.ActiveLevel = _gameDataScriptableObject.ActiveStory.Levels
+                    .Find(o => o.ID == _gameDataScriptableObject.ActiveLevel.ID);
+        }
+
+        if (_gameDataScriptableObject.ActiveQuestion != null)
+        {
+            if (_gameDataScriptableObject.ActiveLevel != null)
+                _gameDataScriptableObject.ActiveQuestion = _gameDataScriptableObject.ActiveLevel.Questions
+                    .Find(o => o.GetId() == _gameDataScriptableObject.ActiveQuestion.GetId());
+        }
+
+        yield return _gameDataScriptableObject;
     }
 }

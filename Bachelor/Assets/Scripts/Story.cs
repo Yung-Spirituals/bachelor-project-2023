@@ -5,7 +5,11 @@ using UnityEngine;
 [Serializable]
 public class Story
 {
-    public long ID => id;
+    public long ID
+    {
+        get => id;
+        set => id = value;
+    }
 
     public List<Level> Levels
     {

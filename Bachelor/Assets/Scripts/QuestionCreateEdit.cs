@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class QuestionCreateEdit : MonoBehaviour
 {
@@ -19,35 +19,46 @@ public class QuestionCreateEdit : MonoBehaviour
         {
             options[i].text = existingOptions[i];
         }
-        for (int i = 0; i < existingIsOptions.Length; i++)
+        for (int i = 0; i < correctAnswer.Length; i++)
         {
             correctAnswer[i].SetActive(existingIsOptions[i]);
         }
-        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
     }
 
-    public void EditQuestion()
+    public void Save()
     {
+        StartCoroutine(EditQuestion());
+    }
+
+    private IEnumerator EditQuestion()
+    {
+        Question question = new Question();
         switch (GameDataManager.Instance.GetGameData().ActiveLevel.LevelType)
         {
             case GameMode.Standard:
-                EditStandardQuestion();
+                question = EditStandardQuestion();
                 break;
             case GameMode.TrueOrFalse:
-                EditTrueOrFalseQuestion();
+                question = EditTrueOrFalseQuestion();
                 break;
             case GameMode.Rank:
-                EditRankQuestion();
+                question = EditRankQuestion();
                 break;
         }
 
-        StartCoroutine(WebCommunicationUtil.PutUpdateGameDataRequest(null, 
-            GameDataManager.Instance.GetGameData().ActiveLevel,
-            GameDataManager.Instance.GetGameData().ActiveQuestion));
-        EditToolScriptManager.Instance.Save();
+        if (question.GetId() == 0)
+        { 
+            yield return WebCommunicationUtil.PutNewGameDataRequest(
+                null, GameDataManager.Instance.GetGameData().ActiveLevel, question, "/question");
+        }
+        else
+        {
+            yield return WebCommunicationUtil.PutUpdateGameDataRequest(null, null, question, "/question");
+        }
+        yield return EditToolScriptManager.Instance.Refresh();
     }
 
-    private void EditStandardQuestion()
+    private Question EditStandardQuestion()
     {
         Question question = GameDataManager.Instance.GetGameData().ActiveQuestion;
         question.SetImageUrl(imageUrlText.text);
@@ -62,11 +73,10 @@ public class QuestionCreateEdit : MonoBehaviour
         question.SetIsOption1(correctAnswer[1]);
         question.SetIsOption2(correctAnswer[2]);
         question.SetIsOption3(correctAnswer[3]);
-        
-        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
+        return question;
     }
 
-    private void EditTrueOrFalseQuestion()
+    private Question EditTrueOrFalseQuestion()
     {
         Question question = GameDataManager.Instance.GetGameData().ActiveQuestion;
         question.SetImageUrl(imageUrlText.text);
@@ -77,11 +87,10 @@ public class QuestionCreateEdit : MonoBehaviour
 
         question.SetOption0("Sant");
         question.SetOption1("Usant");
-        
-        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
+        return question;
     }
 
-    private void EditRankQuestion()
+    private Question EditRankQuestion()
     {
         Question question = GameDataManager.Instance.GetGameData().ActiveQuestion;
         question.SetQuestion(questionText.text);
@@ -90,7 +99,6 @@ public class QuestionCreateEdit : MonoBehaviour
         question.SetOption1(options[1].text);
         question.SetOption2(options[2].text);
         question.SetOption3(options[3].text);
-        
-        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
+        return question;
     }
 }

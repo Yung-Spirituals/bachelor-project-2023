@@ -41,6 +41,7 @@ public class Question
     }
 
     public long GetId() { return id; }
+    public void SetId(long newId) { id = newId; }
     public Level GetLevel() { return _level; }
     public void SetLevel(Level level) { _level = level; }
     public string GetQuestion() { return _question; }

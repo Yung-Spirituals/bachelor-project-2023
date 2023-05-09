@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class StoryCreateEdit : MonoBehaviour
@@ -8,15 +9,29 @@ public class StoryCreateEdit : MonoBehaviour
 
     public void NewStory()
     {
-        EditToolScriptManager.Instance.NewStory(storyName.text);
+        EditToolScriptManager.Instance.NewStory();
     }
 
-    public void SaveStory()
+    public void Save()
+    {
+        StartCoroutine(SaveStory());
+    }
+
+    private IEnumerator SaveStory()
     {
         Story story = GameDataManager.Instance.GetGameData().ActiveStory;
         story.StoryName = storyName.text;
         story.StoryFullDescription = storyDescription.text;
-        StartCoroutine(WebCommunicationUtil.PutUpdateGameDataRequest(story, null, null));
-        EditToolScriptManager.Instance.Save();
+        if (story.ID == 0)
+        {
+            yield return WebCommunicationUtil.PutNewGameDataRequest(
+                story,null, null, "/story");
+        }
+        else
+        {
+            yield return WebCommunicationUtil.PutUpdateGameDataRequest(
+                story, null, null, "/story");
+        }
+        yield return EditToolScriptManager.Instance.Refresh();
     }
-}
+}   

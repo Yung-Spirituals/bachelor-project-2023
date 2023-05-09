@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using SoData;
 using UnityEngine;
 
 public class EditToolScriptManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class EditToolScriptManager : MonoBehaviour
 
     private GameObject[] uiPages;
     private GameObject activeUI;
+    private GameDataScriptableObject _gameDataScriptableObject;
 
     public static EditToolScriptManager Instance
     {
@@ -31,7 +33,12 @@ public class EditToolScriptManager : MonoBehaviour
     private void Start()
     {
         uiPages = new[] { themeSelect, themeCreate, levelCreate, standardCreate, trueOrFalseCreate };
-        RefreshStory();
+        _gameDataScriptableObject = GameDataManager.Instance.GetGameData();
+        _gameDataScriptableObject.ActiveStory = null;
+        _gameDataScriptableObject.ActiveLevel = null;
+        _gameDataScriptableObject.ActiveStory = null;
+        SetActiveUI(themeSelect);
+        StartCoroutine(Refresh());
     }
 
     public void SetActiveUI(GameObject activeElement)
@@ -39,92 +46,81 @@ public class EditToolScriptManager : MonoBehaviour
         foreach (GameObject page in uiPages) { page.SetActive(page == activeElement); }
     }
 
-    private void RefreshStory()
-    {
-        SetActiveUI(themeSelect);
-        themeSelect.GetComponent<LoadExistingEntries>().LoadEntries(GameDataManager.Instance.GetGameData().Stories);
-    }
-
     public void SelectStory(Story story)
     {
+        _gameDataScriptableObject.ActiveStory = story;
+        StartCoroutine(themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveStory));
         SetActiveUI(themeCreate);
-        GameDataManager.Instance.GetGameData().ActiveStory = story;
-        themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(story);
     }
     
     public void SelectLevel(Level level)
     {
+        _gameDataScriptableObject.ActiveLevel = level;
+        StartCoroutine(levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveLevel));
         SetActiveUI(levelCreate);
-        GameDataManager.Instance.GetGameData().ActiveLevel = level;
-        levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(level);
     }
 
     public void SelectQuestion(Question question)
     {
-        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
-        standardCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(question);
-        SetActiveUI(standardCreate);
+        _gameDataScriptableObject.ActiveQuestion = question;
+        switch (_gameDataScriptableObject.ActiveLevel.LevelType)
+        {
+            case GameMode.Standard:
+                standardCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                SetActiveUI(standardCreate);
+                break;
+            case GameMode.TrueOrFalse:
+                trueOrFalseCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                SetActiveUI(trueOrFalseCreate);
+                break;
+            //case GameMode.Rank:
+            //    SetActiveUI(rankCreate);
+        }
     }
 
-    public void NewStory(string storyName)
+    public void NewStory()
     {
-        StartCoroutine(WebCommunicationUtil.PutNewGameDataRequest(new Story(storyName,
-            "", "", "", "", ""), null, null));
-        GameDataManager.Instance.RefreshGameData();
-        RefreshStory();
+        _gameDataScriptableObject.ActiveStory = new Story();
+        SelectStory(_gameDataScriptableObject.ActiveStory);
+        SetActiveUI(themeCreate);
     }
 
-    public void NewLevel(string gameMode)
+    public void NewLevel()
     {
-        StartCoroutine(WebCommunicationUtil.PutNewGameDataRequest(
-            GameDataManager.Instance.GetGameData().ActiveStory,
-            new Level(GameDataManager.Instance.GetGameData().ActiveStory, "", "",
-                gameMode, "", ""), null));
-        Save();
+        _gameDataScriptableObject.ActiveLevel = new Level();
+        SelectLevel(_gameDataScriptableObject.ActiveLevel);
+        SetActiveUI(levelCreate);
     }
 
     public void NewQuestion()
     {
-        StartCoroutine(WebCommunicationUtil.PutNewGameDataRequest(GameDataManager.Instance.GetGameData()
-                .ActiveStory, GameDataManager.Instance.GetGameData().ActiveLevel,
-            new Question(GameDataManager.Instance.GetGameData().ActiveLevel,
-                "", "", "", "", "", "",
-                false, false, false, false)));
-        Save();
+        _gameDataScriptableObject.ActiveQuestion = new Question();
+        SelectQuestion(_gameDataScriptableObject.ActiveQuestion);
+        switch (_gameDataScriptableObject.ActiveLevel.LevelType)
+        {
+            case GameMode.Standard:
+                SetActiveUI(standardCreate);
+                break;
+            case GameMode.TrueOrFalse:
+                SetActiveUI(trueOrFalseCreate);
+                break;
+            //case GameMode.Rank:
+            //    SetActiveUI(rankCreate);
+        }
     }
 
-    public void Save()
-    {
-        GameDataManager.Instance.RefreshGameData();
-        
-        if (GameDataManager.Instance.GetGameData().ActiveStory != null)
-        {
-            GameDataManager.Instance.GetGameData().ActiveStory = GameDataManager.Instance.GetGameData().
-                Stories
-                .Find(o => o.ID == GameDataManager.Instance.GetGameData().ActiveStory.ID);
-        }
-        if (GameDataManager.Instance.GetGameData().ActiveLevel != null)
-        {
-            GameDataManager.Instance.GetGameData().ActiveLevel = GameDataManager.Instance.GetGameData().
-                ActiveStory.Levels
-                .Find(o => o.ID == GameDataManager.Instance.GetGameData().ActiveLevel.ID);
-        }
-        if (GameDataManager.Instance.GetGameData().ActiveQuestion != null)
-        {
-            GameDataManager.Instance.GetGameData().ActiveQuestion = GameDataManager.Instance.GetGameData().
-                ActiveLevel.Questions
-                .Find(o => o.GetId() == GameDataManager.Instance.GetGameData().ActiveQuestion.GetId());
-        }
-        
-        Refresh();
-    }
+    public void BackFromStory() { _gameDataScriptableObject.ActiveStory = null; }
+    
+    public void BackFromLevel() { _gameDataScriptableObject.ActiveLevel = null; }
+    
+    public void BackFromQuestion() { _gameDataScriptableObject.ActiveQuestion = null; }
 
-    private void Refresh()
+    public IEnumerator Refresh()
     {
-        themeSelect.GetComponent<LoadExistingEntries>().LoadEntries(GameDataManager.Instance.GetGameData().Stories);
-        if (GameDataManager.Instance.GetGameData().ActiveStory == null) return;
-        themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(GameDataManager.Instance.GetGameData().ActiveStory);
-        if (GameDataManager.Instance.GetGameData().ActiveLevel == null) return;
-        levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(GameDataManager.Instance.GetGameData().ActiveLevel);
+        yield return themeSelect.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.Stories);
+        if (_gameDataScriptableObject.ActiveStory == null) yield break;
+        yield return themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveStory);
+        if (_gameDataScriptableObject.ActiveLevel == null) yield break;
+        yield return levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveLevel);
     }
 }

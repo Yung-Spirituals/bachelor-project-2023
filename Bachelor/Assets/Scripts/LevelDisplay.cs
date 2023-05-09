@@ -9,9 +9,11 @@ public class LevelDisplay : MonoBehaviour
     
     public void UpdateDisplay()
     {
-        levelTextMeshProUGUI.text = level.LevelName;
+        //levelTextMeshProUGUI.text = level.LevelName;
         gameModeTextMeshProUGUI.text = level.LevelType;
     }
+
+    public void SetLevelDisplayName(string levelName) { levelTextMeshProUGUI.text = levelName; }
 
     public void SelectLevel() { EditToolScriptManager.Instance.SelectLevel(level); }
 }

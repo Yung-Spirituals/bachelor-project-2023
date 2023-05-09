@@ -5,46 +5,65 @@ using UnityEngine;
 
 public static class WebCommunicationUtil
 {
-    private static readonly string basePath = "http://localhost:8080";
+    private static readonly string basePath = "http://178.232.172.125:8080";
+    public static bool busy;
 
     public static IEnumerator GetGameDataRequest(GameDataScriptableObject gameDataScriptableObject)
     {
+        if (busy) yield break;
+        busy = true;
         string fullPath = basePath + "/game/stories";
         UnityWebRequest webRequest = UnityWebRequest.Get(fullPath);
         yield return webRequest.SendWebRequest();
         //DebugRequest(webRequest, fullPath);
         yield return gameDataScriptableObject.Stories = JsonUtil.StoriesFromJson(webRequest.downloadHandler.text);
+        webRequest.Dispose();
+        busy = false;
     }
 
-    public static IEnumerator PutNewGameDataRequest(Story story, Level level, Question question)
+    public static IEnumerator PutNewGameDataRequest(Story story, Level level, Question question, string path)
     {
-        Debug.Log(JsonUtil.StoryLevelQuestionToJson(story, level, question));
-        string fullPath = basePath + "/game/add";
+        if (busy) yield break;
+        busy = true;
+        string fullPath = basePath + "/game/add" + path;
         UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
             JsonUtil.StoryLevelQuestionToJson(story, level, question));
         webRequest.SetRequestHeader("Content-Type", "application/json");
         yield return webRequest.SendWebRequest();
         //DebugRequest(webRequest, fullPath);
+        SetNewId(story, level, question, webRequest.downloadHandler.text);
+        webRequest.Dispose();
+        busy = false;
+        yield return GameDataManager.Instance.RefreshGameData();
     }
     
-    public static IEnumerator PutUpdateGameDataRequest(Story story, Level level, Question question)
+    public static IEnumerator PutUpdateGameDataRequest(Story story, Level level, Question question, string path)
     {
-        Debug.Log(JsonUtil.StoryLevelQuestionToJson(story, level, question));
-        string fullPath = basePath + "/game/update";
-        UnityWebRequest webRequest = UnityWebRequest.Post(fullPath,
+        if (busy) yield break;
+        busy = true;
+        string fullPath = basePath + "/game/update" + path;
+        UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
             JsonUtil.StoryLevelQuestionToJson(story, level, question));
         webRequest.SetRequestHeader("Content-Type", "application/json");
         yield return webRequest.SendWebRequest();
         //DebugRequest(webRequest, fullPath);
+        webRequest.Dispose();
+        busy = false;
+        yield return GameDataManager.Instance.RefreshGameData();
     }
     
-    public static IEnumerator DeleteGameDataRequest(Story story, Level level, Question question)
+    public static IEnumerator DeleteGameDataRequest(Story story, Level level, Question question, string path)
     {
-        string fullPath = basePath + "/game/delete";
+        if (busy) yield break;
+        busy = true;
+        string fullPath = basePath + "/game/delete" + path;
         UnityWebRequest webRequest = UnityWebRequest.Post(fullPath,
             JsonUtil.StoryLevelQuestionToJson(story, level, question));
         yield return webRequest.SendWebRequest();
         DebugRequest(webRequest, fullPath);
+        webRequest.Dispose();
+        busy = false;
+        yield return GameDataManager.Instance.RefreshGameData();
     }
 
     private static void DebugRequest(UnityWebRequest webRequest, string fullPath)
@@ -64,5 +83,12 @@ public static class WebCommunicationUtil
                 Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                 break;
         }
+    }
+
+    private static void SetNewId(Story story, Level level, Question question, string newObject)
+    {
+        if (question != null) GameDataManager.Instance.GetGameData().ActiveQuestion.SetId(long.Parse(newObject));
+        else if (level != null) GameDataManager.Instance.GetGameData().ActiveLevel.ID = long.Parse(newObject);
+        else if (story != null) GameDataManager.Instance.GetGameData().ActiveStory.ID = long.Parse(newObject);
     }
 }

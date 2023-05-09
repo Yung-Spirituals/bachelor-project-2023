@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -26,16 +27,30 @@ public class LevelCreateEdit : MonoBehaviour
 
     public void NewLevel()
     {
-        EditToolScriptManager.Instance.NewLevel(gameModes.itemText.text);
+        EditToolScriptManager.Instance.NewLevel();
     }
-
+    
     public void Save()
     {
+        StartCoroutine(SaveLevel());
+    }
+
+    private IEnumerator SaveLevel()
+    {
         Level level = GameDataManager.Instance.GetGameData().ActiveLevel;
-        level.LevelType = gameModes.itemText.text;
+        level.Story = GameDataManager.Instance.GetGameData().ActiveStory;
+        level.LevelType = gameModes.options[gameModes.value].text;
         level.LevelGoal = goalText.text;
-        StartCoroutine(WebCommunicationUtil
-                .PutUpdateGameDataRequest(GameDataManager.Instance.GetGameData().ActiveStory, level, null));
-        EditToolScriptManager.Instance.Save();
+        if (level.ID == 0)
+        {
+            yield return WebCommunicationUtil.PutNewGameDataRequest(
+                    level.Story, level, null, "/level");
+        }
+        else
+        { 
+            yield return WebCommunicationUtil.PutUpdateGameDataRequest(
+                    level.Story, level, null, "/level");
+        }
+        yield return EditToolScriptManager.Instance.Refresh();
     }
 }

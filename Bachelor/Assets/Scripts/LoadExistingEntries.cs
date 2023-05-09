@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +16,10 @@ public class LoadExistingEntries : MonoBehaviour
     private Level _level;
     private Question _question;
 
-    public void LoadEntries(List<Story> stories)
+    public IEnumerator LoadEntries(List<Story> stories)
     {
-        ClearChildren();
+        yield return ClearChildren();
+        
         foreach (Story story in stories)
         {
             GameObject storyPreview = Instantiate(displayPrefab, parentTransform);
@@ -25,27 +27,34 @@ public class LoadExistingEntries : MonoBehaviour
             storyDisplay.story = story;
             storyDisplay.UpdateDisplay();
         }
+        
+        yield return true;
     }
     
-    public void LoadEntries(Story story)
+    public IEnumerator LoadEntries(Story story)
     {
-        ClearChildren();
+        yield return ClearChildren();
         
         text0.text = "Endre på tema";
         input0.text = story.StoryName;
         input1.text = story.StoryFullDescription;
+        int i = 1;
         foreach (Level level in story.Levels) 
         { 
             GameObject levelPreview = Instantiate(displayPrefab, parentTransform);
             LevelDisplay levelDisplay = levelPreview.GetComponent<LevelDisplay>();
             levelDisplay.level = level;
+            levelDisplay.SetLevelDisplayName("Nivå " + i);
             levelDisplay.UpdateDisplay();
+            i++;
         }
+        
+        yield return true;
     }
     
-    public void LoadEntries(Level level)
+    public IEnumerator LoadEntries(Level level)
     {
-        ClearChildren();
+        yield return ClearChildren();
 
         drop0.value = CorrectDropDown(level.LevelType);
         text0.text = "Endre på nivå";
@@ -57,6 +66,8 @@ public class LoadExistingEntries : MonoBehaviour
             questionDisplay.question = question;
             questionDisplay.UpdateDisplay();
         }
+
+        yield return true;
     }
 
     private static int CorrectDropDown(string levelType)
@@ -71,8 +82,9 @@ public class LoadExistingEntries : MonoBehaviour
         };
     }
 
-    private void ClearChildren()
+    private IEnumerator ClearChildren()
     {
-        foreach (Transform child in parentTransform.transform) { Destroy(child.gameObject); }
+        foreach (Transform child in parentTransform) Destroy(child.gameObject);
+        yield return true;
     }
 }

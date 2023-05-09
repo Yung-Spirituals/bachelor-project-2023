@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SoData;
 using UnityEngine;
 
 public static class JsonUtil
@@ -11,7 +12,7 @@ public static class JsonUtil
     private class JsonMultiObject
     {
         [SerializeField] public Story _story;
-        [SerializeField] public Level _Level;
+        [SerializeField] public Level _level;
         [SerializeField] public Question _question;
     }
 
@@ -22,7 +23,7 @@ public static class JsonUtil
 
     public static string StoriesToJson(List<Story> stories)
     {
-        return JsonUtility.ToJson(new StoryCollection(){_stories = stories});
+        return JsonUtility.ToJson(new StoryCollection() {_stories = stories});
     }
 
     public static string StoryLevelQuestionToJson(Story story, Level level, Question question)
@@ -30,8 +31,17 @@ public static class JsonUtil
         return JsonUtility.ToJson(new JsonMultiObject()
         {
             _story = story,
-            _Level = level,
+            _level = level,
             _question = question
         });
+    }
+
+    public static void UpdateLocalObjects(Story story, Level level, Question question, string jsonString)
+    {
+        JsonMultiObject updatedInfo = JsonUtility.FromJson<JsonMultiObject>(jsonString);
+        GameDataScriptableObject gdso = GameDataManager.Instance.GetGameData();
+        if (question != null) gdso.ActiveQuestion = updatedInfo._question;
+        if (level != null) gdso.ActiveLevel = updatedInfo._level;
+        if (story != null) gdso.ActiveStory = updatedInfo._story;
     }
 }
