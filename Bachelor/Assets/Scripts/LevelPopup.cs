@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,6 @@ public class LevelPopup : MonoBehaviour
     {
         int stars = HighScoreManager.Instance.GetLevelStars(
             GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle, levelNumber.ToString());
-        Debug.Log("" + stars);
         switch (stars)
         {
             case 3:

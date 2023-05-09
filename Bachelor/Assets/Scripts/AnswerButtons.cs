@@ -29,12 +29,12 @@ public class AnswerButtons : MonoBehaviour
 
     private IEnumerator NextQuestion()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
 
         foreach (GameObject answer in answers)
         {
-            answer.GetComponent<Image>().color = new Color32(77, 161, 223, 255);
-            answer.GetComponent<Shadow>().effectColor = new Color32(32, 112, 172, 255);
+            answer.GetComponent<Image>().color = new Color32(77,161,223,255);
+            answer.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
             answer.GetComponent<Button>().enabled = true;
         }
     }

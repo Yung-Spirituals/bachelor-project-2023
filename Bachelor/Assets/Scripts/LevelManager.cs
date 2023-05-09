@@ -45,8 +45,11 @@ public class LevelManager : MonoBehaviour
         levelIsCompleted = true;
         PauseManager.Instance.canPause = false;
         int stars = ScoreDependantInfo();
-        scoreText.text = ScoreManager.Instance.GetCurrentScore() + "/" + QuestionManager.Instance.QuestionAmount
-            + " riktige svar";
+        int questionAmount;
+        if (QuestionManager.Instance.scrambleAnswers) questionAmount = QuestionManager.Instance.QuestionAmount * 4;
+        else questionAmount = QuestionManager.Instance.QuestionAmount;
+        scoreText.text = ScoreManager.Instance.GetCurrentScore() + "/" + questionAmount
+                         + " riktige svar";
         if (stars != 0) HighScoreManager.Instance.SubmitScore(story, 
             (GameDataManager.Instance.GetGameData().ActiveStory.Levels
                 .FindIndex(o => o.ID == GameDataManager.Instance.GetGameData().ActiveLevel.ID) + 1).ToString(),

@@ -18,6 +18,7 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
     private Canvas _canvas;
 
     private bool dragging;
+    private bool canDrag;
     private int totalChild;
 
     private void Start()
@@ -28,18 +29,18 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (PauseManager.Instance.isPaused) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
+        if (canDrag == false) canDrag = true;
         currentPossition = currentTransform.position;
         mainContent = currentTransform.parent.gameObject;
         totalChild = mainContent.transform.childCount;
         gameObject.layer = Layer.Dragging;
         _canvas.sortingOrder = 2;
-        Debug.Log("Pressed");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (PauseManager.Instance.isPaused) return;
+        if (PauseManager.Instance.isPaused || !canDrag || QuestionManager.Instance.Locked) return;
         dragging = true;
         currentTransform.position =
             new Vector3(currentTransform.position.x, eventData.position.y, currentTransform.position.z);
@@ -73,31 +74,29 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (PauseManager.Instance.isPaused) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
+        canDrag = false;
         currentTransform.position = currentPossition;
         gameObject.layer = Layer.UI;
         _canvas.sortingOrder = 1;
-        Debug.Log("Released");
     }
 
     public void MoveUp()
     {
-        if (PauseManager.Instance.isPaused) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
         if (dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index - 1);
         CheckPosition();
-        Debug.Log("MoveUp");
     }
 
     public void MoveDown()
     {
-        if (PauseManager.Instance.isPaused) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
         if (dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index + 1);
         CheckPosition();
-        Debug.Log("MoveDown");
     }
 
     private void CheckPosition()

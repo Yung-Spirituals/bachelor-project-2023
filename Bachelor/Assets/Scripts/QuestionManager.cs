@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -9,10 +11,13 @@ public class QuestionManager : MonoBehaviour
     
     public TextMeshProUGUI questionText;
     public TextMeshProUGUI[] answers;
+    public bool scrambleAnswers;
+    public bool Locked = false;
         
     private Question currentQuestion;
     private int nextQuestionIndex;
     private int questionAmount;
+    private string[] options;
         
     public static QuestionManager Instance
     {
@@ -40,8 +45,8 @@ public class QuestionManager : MonoBehaviour
         
     public bool Answer(int answer, bool moveOnIfWrong)
     {
-        bool[] options = currentQuestion.GetIsOptions();
-        bool correct = options[answer];
+        bool[] isOptions = currentQuestion.GetIsOptions();
+        bool correct = isOptions[answer];
 
         Answer(correct, moveOnIfWrong);
         return correct;
@@ -69,15 +74,63 @@ public class QuestionManager : MonoBehaviour
 
     private IEnumerator PushTextOnScreen()
     {
-        yield return new WaitForSeconds(0.50f);
+        yield return new WaitForSeconds(1f);
         DisplayNewQuestion();
     }
 
     private void DisplayNewQuestion()
     {
         questionText.text = currentQuestion.GetQuestion();
-        string[] options = currentQuestion.GetOptions();
+        if (!scrambleAnswers)
+        {
+            options = currentQuestion.GetOptions();
+        }
+        else
+        {
+            System.Random rand = new System.Random();
+            options = currentQuestion.GetOptions().OrderBy(_ => rand.Next()).ToArray();
+        }
         for (int i = 0; i < answers.Length; i++) answers[i].text = options[i];
+    }
+    
+    public void ConfirmListAnswer(bool orderMatters)
+    {
+        if (Locked || PauseManager.Instance.isPaused) return;
+        Locked = true;
+        if (!orderMatters) Answer(true, true);
+        else
+        {
+            string[] correctOrder = currentQuestion.GetOptions();
+            for (int i = 0; i < correctOrder.Length; i++)
+            {
+                if (correctOrder[i] == options[i]) ScoreManager.Instance.ChangeScore(1);
+                else
+                {
+                    answers[i].transform.parent
+                        .GetComponent<Image>().color = new Color32(244,140,81,255);
+                    answers[i].transform.parent
+                        .GetComponent<Shadow>().effectColor = new Color32(216,108,48,255);
+                }
+            }
+        }
+
+        Answer(false, true);
+        StartCoroutine(ButtonReset());
+    }
+
+    private IEnumerator ButtonReset()
+    {
+        yield return new WaitForSeconds(1f);
+        foreach (TextMeshProUGUI answer in answers)
+        {
+            Transform parent = answer.transform.parent;
+            parent
+                .GetComponent<Image>().color = new Color32(77,161,223,255);
+            parent
+                .GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
+        }
+        Locked = false;
+        yield return null;
     }
 
     public Question CurrentQuestion
