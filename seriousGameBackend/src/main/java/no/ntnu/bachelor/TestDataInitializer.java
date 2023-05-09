@@ -32,7 +32,7 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        Optional<Story> existingStory = Optional.ofNullable(storyRepository.findBy_storyName("potato"));
+        Optional<Story> existingStory = Optional.ofNullable(storyRepository.findBy_storyName("Geografi"));
         if (existingStory.isEmpty()) {
             logger.info("Importing test data..." +
                     GameTypes.Standard.name());
@@ -47,24 +47,24 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
                     "An edible red ball", "What is a tomato?",
                     "Test filmkunnskapene dine med varierte quizspørsmål fra lett til avansert");
 
-            Level s1l1 = new Level(s1, "Nivå 1", "url", GameTypes.Standard.name(),
+            Level s1l1 = new Level(s1, "Nivå 1", "url", GameTypes.Standard.toString(),
                     "Trykk på knappen som innholder riktig svar til spørsmålene. Spørsmålene handler om " +
                             "hva hovedstaden til forskjellige land heter.", "");
 
-            Level s1l2 = new Level(s1, "Nivå 2", "url", GameTypes.TrueOrFalse.name(),
+            Level s1l2 = new Level(s1, "Nivå 2", "url", GameTypes.TrueOrFalse.toString(),
                     "Trykk på knappen med sant eller usant basert på utsagnet som blir vist", "");
 
-            Level s1l3 = new Level(s1, "Nivå 3", "url", GameTypes.Rank.name(),
+            Level s1l3 = new Level(s1, "Nivå 3", "url", GameTypes.Rank.toString(),
                     "Beat the level", "");
 
 
-            Level s2l1 = new Level(s2, "Nivå 1", "url", GameTypes.Standard.name(),
+            Level s2l1 = new Level(s2, "Nivå 1", "url", GameTypes.Standard.toString(),
                     "Beat the level", "Git gud");
-            Level s2l2 = new Level(s2, "Nivå 2", "url", GameTypes.Standard.name(),
+            Level s2l2 = new Level(s2, "Nivå 2", "url", GameTypes.Standard.toString(),
                     "Beat the level", "Git gud");
-            Level s3l1 = new Level(s3, "Nivå 1", "url", GameTypes.Standard.name(),
+            Level s3l1 = new Level(s3, "Nivå 1", "url", GameTypes.Standard.toString(),
                     "Beat the level", "Git gud");
-            Level s3l2 = new Level(s3, "Nivå 2", "url", GameTypes.Standard.name(),
+            Level s3l2 = new Level(s3, "Nivå 2", "url", GameTypes.Standard.toString(),
                     "Beat the level", "Git gud");
 
 

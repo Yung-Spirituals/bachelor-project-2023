@@ -15,10 +15,10 @@ public class StoryService
 
     public List<Story> getAllStories() { return storyRepository.findAll(); }
 
-    public void add(Story story)
+    public Long add(Story story)
     {
-        if (storyRepository.findById(story.getId()).isPresent()) return;
-        storyRepository.save(story);
+        if (storyRepository.findById(story.getId()).isPresent()) return null;
+        return storyRepository.save(story).getId();
     }
     public void update(Story story)
     {

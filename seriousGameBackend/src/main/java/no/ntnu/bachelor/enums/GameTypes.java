@@ -9,5 +9,10 @@ public enum GameTypes
     Rank ("RankStatements"),
     CardGame ("MinigameCards");
 
-    GameTypes(String gameType) {}
+    private final String value;
+
+    GameTypes(String value) { this.value = value; }
+
+    @Override
+    public String toString() { return value; }
 }

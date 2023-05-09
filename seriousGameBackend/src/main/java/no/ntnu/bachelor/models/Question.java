@@ -64,6 +64,8 @@ public class Question
 
     public Long getId() { return id; }
 
+    public void setId(Long id) { this.id = id; }
+
     public Level get_level() { return _level; }
 
     public void set_level(Level level) { _level = level; }

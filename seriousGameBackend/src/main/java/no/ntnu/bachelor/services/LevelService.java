@@ -19,12 +19,12 @@ public class LevelService
     @Autowired
     private QuestionService questionService;
 
-    public void add(Level level, Story story)
+    public Long add(Level level, Story story)
     {
-        if (levelRepository.findById(level.getId()).isPresent() ||
-                storyRepository.findById(story.getId()).isEmpty()) return;
+        if (levelRepository.findById(level.getId()).isEmpty() &&
+                storyRepository.findById(story.getId()).isEmpty()) return null;
         level.set_story(storyRepository.findById(story.getId()).get());
-        levelRepository.save(level);
+        return levelRepository.save(level).getId();
     }
     public void update(Level level)
     {

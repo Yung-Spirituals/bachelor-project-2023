@@ -45,6 +45,8 @@ public class Story
 
     public Long getId() { return id; }
 
+    public void setId(Long id) { this.id = id; }
+
     public Set<Level> get_levels() {return _levels;}
 
     public void set_levels(Set<Level> levelSet) { _levels = levelSet; }

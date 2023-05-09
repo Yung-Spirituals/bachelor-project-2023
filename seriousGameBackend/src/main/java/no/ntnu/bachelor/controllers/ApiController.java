@@ -30,57 +30,63 @@ public class ApiController
         return new ResponseEntity<>(storyCollection, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/add", consumes = {"*/*"})
-    public ResponseEntity<?> add(@RequestBody JsonMultiObject jsonMultiObject)
+    @PutMapping(value = "/add/story", consumes = {"*/*"})
+    public ResponseEntity<?> addStory(@RequestBody JsonMultiObject jsonMultiObject)
     {
-        if (jsonMultiObject.get_question() != null && jsonMultiObject.get_level() != null)
-        {
-            questionService.add(jsonMultiObject.get_question(), jsonMultiObject.get_level());
-        }
-        else if (jsonMultiObject.get_level() != null && jsonMultiObject.get_story() != null)
-        {
-            levelService.add(jsonMultiObject.get_level(), jsonMultiObject.get_story());
-        }
-        else if (jsonMultiObject.get_story() != null)
-        {
-            storyService.add(jsonMultiObject.get_story());
-        }
+        return new ResponseEntity<>(storyService.add(jsonMultiObject.get_story()), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/add/level", consumes = {"*/*"})
+    public ResponseEntity<?> addLevel(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        return new ResponseEntity<>(levelService.add(jsonMultiObject.get_level(), jsonMultiObject.get_story()), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/add/question", consumes = {"*/*"})
+    public ResponseEntity<?> addQuestion(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        return new ResponseEntity<>(questionService.add(jsonMultiObject.get_question(), jsonMultiObject.get_level()), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/update/story", consumes = {"*/*"})
+    public ResponseEntity<?> updateStory(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        storyService.update(jsonMultiObject.get_story());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update", consumes = {"*/*"})
+    @PutMapping(value = "/update/level", consumes = {"*/*"})
+    public ResponseEntity<?> updateLevel(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        levelService.update(jsonMultiObject.get_level());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/update/question", consumes = {"*/*"})
     public ResponseEntity<?> update(@RequestBody JsonMultiObject jsonMultiObject)
     {
-        if (jsonMultiObject.get_question() != null)
-        {
-            questionService.update(jsonMultiObject.get_question());
-        }
-        else if (jsonMultiObject.get_level() != null)
-        {
-            levelService.update(jsonMultiObject.get_level());
-        }
-        else if (jsonMultiObject.get_story() != null)
-        {
-            storyService.update(jsonMultiObject.get_story());
-        }
+        questionService.update(jsonMultiObject.get_question());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete", consumes = {"*/*"})
-    public ResponseEntity<?> delete(@RequestBody JsonMultiObject jsonMultiObject)
+    @DeleteMapping(value = "/delete/story", consumes = {"*/*"})
+    public ResponseEntity<?> deleteStory(@RequestBody JsonMultiObject jsonMultiObject)
     {
-        if (jsonMultiObject.get_question() != null)
-        {
-            questionService.delete(jsonMultiObject.get_question());
-        }
-        else if (jsonMultiObject.get_level() != null)
-        {
-            levelService.delete(jsonMultiObject.get_level());
-        }
-        else if (jsonMultiObject.get_story() != null)
-        {
-            storyService.delete(jsonMultiObject.get_story());
-        }
+        storyService.delete(jsonMultiObject.get_story());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/delete/level", consumes = {"*/*"})
+    public ResponseEntity<?> deleteLevel(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        levelService.delete(jsonMultiObject.get_level());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/delete/question", consumes = {"*/*"})
+    public ResponseEntity<?> deleteQuestion(@RequestBody JsonMultiObject jsonMultiObject)
+    {
+        questionService.delete(jsonMultiObject.get_question());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

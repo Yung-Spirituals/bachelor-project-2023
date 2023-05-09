@@ -48,7 +48,9 @@ public class Level
 
   public Long getId() { return id; }
 
-  public Story get_story() { return _story; }
+  public void setId(Long id) { this.id = id; }
+
+  //public Story get_story() { return _story; }
 
   public void set_story(Story story) { _story = story; }
 

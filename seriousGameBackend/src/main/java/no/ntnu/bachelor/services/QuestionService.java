@@ -17,12 +17,12 @@ public class QuestionService
     @Autowired
     private LevelRepository levelRepository;
 
-    public void add(Question question, Level level)
+    public Long add(Question question, Level level)
     {
         if (questionRepository.findById(question.getId()).isPresent() ||
-        levelRepository.findById(level.getId()).isEmpty()) return;
+        levelRepository.findById(level.getId()).isEmpty()) return null;
         question.set_level(levelRepository.findById(level.getId()).get());
-        questionRepository.save(question);
+        return questionRepository.save(question).getId();
     }
     public void update(Question question)
     {
