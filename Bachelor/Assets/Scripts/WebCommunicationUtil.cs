@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using SoData;
 using UnityEngine.Networking;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class WebCommunicationUtil
 {
@@ -90,5 +92,26 @@ public static class WebCommunicationUtil
         if (question != null) GameDataManager.Instance.GetGameData().ActiveQuestion.SetId(long.Parse(newObject));
         else if (level != null) GameDataManager.Instance.GetGameData().ActiveLevel.ID = long.Parse(newObject);
         else if (story != null) GameDataManager.Instance.GetGameData().ActiveStory.ID = long.Parse(newObject);
+    }
+
+    public static IEnumerator GetImagesFromUrls(List<Sprite> images, List<string> urls)
+    {
+        foreach (string url in urls)
+        {
+            if (url == "") images.Add(null);
+            else
+            {
+                UnityWebRequest webRequest = UnityWebRequest.Get(url);
+                yield return webRequest.SendWebRequest();
+                //DebugRequest(webRequest, fullPath);
+                Texture2D tex = new Texture2D(1,1); // note that the size is overridden
+                tex.LoadImage(webRequest.downloadHandler.data);
+                Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height),
+                    new Vector2(tex.width/2f, tex.height/2f));
+                images.Add(sprite);
+                webRequest.Dispose();
+            }
+        }
+        yield return images;
     }
 }

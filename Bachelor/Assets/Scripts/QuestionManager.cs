@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class QuestionManager : MonoBehaviour
 {
     private List<Question> _questions = new ();
-    
+
+    public Image questionPicture;
     public TextMeshProUGUI questionText;
     public TextMeshProUGUI[] answers;
     public bool scrambleAnswers;
@@ -18,6 +19,8 @@ public class QuestionManager : MonoBehaviour
     private int nextQuestionIndex;
     private int questionAmount;
     private string[] options;
+    private List<string> imageUrls = new ();
+    private List<Sprite> images = new ();
         
     public static QuestionManager Instance
     {
@@ -35,14 +38,21 @@ public class QuestionManager : MonoBehaviour
     }
     private static QuestionManager instance;
         
-    private void Start()
+    private IEnumerator Start()
     {
         _questions = GameDataManager.Instance.GetGameData().ActiveLevel.Questions;
+        yield return GetImages();
         questionAmount = _questions.Count;
         nextQuestionIndex = 0;
         NextQuestion();
     }
-        
+
+    private IEnumerator GetImages()
+    {
+        foreach (Question question in _questions) imageUrls.Add(question.GetImageUrl());
+        yield return WebCommunicationUtil.GetImagesFromUrls(images, imageUrls);
+    }
+
     public bool Answer(int answer, bool moveOnIfWrong)
     {
         bool[] isOptions = currentQuestion.GetIsOptions();
@@ -81,6 +91,19 @@ public class QuestionManager : MonoBehaviour
     private void DisplayNewQuestion()
     {
         questionText.text = currentQuestion.GetQuestion();
+        if (questionPicture != null)
+        {
+            if (currentQuestion.GetImageUrl() != "")
+            {
+                questionPicture.sprite = images[nextQuestionIndex - 1];
+                questionPicture.color = new Color32(255,255,255,255);
+            }
+            else
+            {
+                questionPicture.sprite = null;
+                questionPicture.color = new Color32(82,82,82,255);
+            }
+        }
         if (!scrambleAnswers)
         {
             options = currentQuestion.GetOptions();

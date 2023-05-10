@@ -1766,10 +1766,10 @@ MonoBehaviour:
   level: QuizTrueOrFalse
   levelIsCompleted: 0
   levelHub: LevelHub
-  threeStarSprite: {fileID: 21300000, guid: 19c3b683dc13ab548b8b82cd99e383b5, type: 3}
-  twoStarSprite: {fileID: 21300000, guid: 54eca1a23ce87e74a8764a23df750ed4, type: 3}
-  oneStarSprite: {fileID: 21300000, guid: ba2a0a4873bbe814082e1246f37f7f81, type: 3}
-  failSprite: {fileID: 21300000, guid: 85ac8b9198902794e9298b6c9e7430d3, type: 3}
+  threeStarSprite: {fileID: 21300000, guid: 89c937a2f57b1c147be40a4ef952552e, type: 3}
+  twoStarSprite: {fileID: 21300000, guid: cd2f0a788af84da468cf93fb2d02194a, type: 3}
+  oneStarSprite: {fileID: 21300000, guid: 0682e938c46945e4191963ab77bbdf24, type: 3}
+  failSprite: {fileID: 21300000, guid: cf39f626e7e91a94fbe00028735f6e35, type: 3}
   threeStarStatement: Tre Stjerner
   twoStarStatement: To Stjerner
   oneStarStatement: En Stjerne
@@ -1857,10 +1857,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370cf2bd1010457d968118929074c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionPicture: {fileID: 890839542}
   questionText: {fileID: 2138466144}
   answers:
   - {fileID: 901851002}
   - {fileID: 1452664184}
+  scrambleAnswers: 0
+  Locked: 0
 --- !u!1001 &1452664181
 PrefabInstance:
   m_ObjectHideFlags: 0

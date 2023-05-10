@@ -44,22 +44,23 @@ public class LevelManager : MonoBehaviour
     {
         levelIsCompleted = true;
         PauseManager.Instance.canPause = false;
-        int stars = ScoreDependantInfo();
         int questionAmount;
         if (QuestionManager.Instance.scrambleAnswers) questionAmount = QuestionManager.Instance.QuestionAmount * 4;
         else questionAmount = QuestionManager.Instance.QuestionAmount;
-        scoreText.text = ScoreManager.Instance.GetCurrentScore() + "/" + questionAmount
-                         + " riktige svar";
+        int scoreAmount = ScoreManager.Instance.GetCurrentScore();
+        int stars = ScoreDependantInfo(scoreAmount, questionAmount);
+        scoreText.text = scoreAmount + "/" + questionAmount + " riktige svar";
         if (stars != 0) HighScoreManager.Instance.SubmitScore(story, 
             (GameDataManager.Instance.GetGameData().ActiveStory.Levels
-                .FindIndex(o => o.ID == GameDataManager.Instance.GetGameData().ActiveLevel.ID) + 1).ToString(),
+                .FindIndex(o => o.ID == 
+                                GameDataManager.Instance.GetGameData().ActiveLevel.ID) + 1).ToString(),
             ScoreManager.Instance.GetCurrentScore(), stars);
         endMenu.SetActive(true);
     }
 
-    private int ScoreDependantInfo()
+    private int ScoreDependantInfo(int score, int possibleScore)
     {
-        float a = (float) ScoreManager.Instance.GetCurrentScore() / QuestionManager.Instance.QuestionAmount;
+        float a = (float) score / possibleScore;
 
         statementText.text = a switch
         {

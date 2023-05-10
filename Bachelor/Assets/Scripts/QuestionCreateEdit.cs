@@ -11,7 +11,7 @@ public class QuestionCreateEdit : MonoBehaviour
 
     public void LoadQuestion(Question question)
     {
-        imageUrlText.text = question.GetImageUrl();
+        if (imageUrlText != null) imageUrlText.text = question.GetImageUrl();
         questionText.text = question.GetQuestion();
         string[] existingOptions = question.GetOptions();
         bool[] existingIsOptions = question.GetIsOptions();
@@ -25,10 +25,7 @@ public class QuestionCreateEdit : MonoBehaviour
         }
     }
 
-    public void Save()
-    {
-        StartCoroutine(EditQuestion());
-    }
+    public void Save() { StartCoroutine(EditQuestion()); }
 
     private IEnumerator EditQuestion()
     {
@@ -45,6 +42,8 @@ public class QuestionCreateEdit : MonoBehaviour
                 question = EditRankQuestion();
                 break;
         }
+
+        GameDataManager.Instance.GetGameData().ActiveQuestion = question;
 
         if (question.GetId() == 0)
         { 
@@ -69,10 +68,10 @@ public class QuestionCreateEdit : MonoBehaviour
         question.SetOption2(options[2].text);
         question.SetOption3(options[3].text);
         
-        question.SetIsOption0(correctAnswer[0]);
-        question.SetIsOption1(correctAnswer[1]);
-        question.SetIsOption2(correctAnswer[2]);
-        question.SetIsOption3(correctAnswer[3]);
+        question.SetIsOption0(correctAnswer[0].isEnabled);
+        question.SetIsOption1(correctAnswer[1].isEnabled);
+        question.SetIsOption2(correctAnswer[2].isEnabled);
+        question.SetIsOption3(correctAnswer[3].isEnabled);
         return question;
     }
 
@@ -82,8 +81,8 @@ public class QuestionCreateEdit : MonoBehaviour
         question.SetImageUrl(imageUrlText.text);
         question.SetQuestion(questionText.text);
 
-        question.SetIsOption0(correctAnswer[0]);
-        question.SetIsOption2(correctAnswer[1]);
+        question.SetIsOption0(correctAnswer[0].isEnabled);
+        question.SetIsOption1(correctAnswer[1].isEnabled);
 
         question.SetOption0("Sant");
         question.SetOption1("Usant");

@@ -69,117 +69,117 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
 
 
             // Standard.
-            Question s1l1q1 = new Question(s1l1, "Hva er hovedstaden i Australia?", "imageUrl",
+            Question s1l1q1 = new Question(s1l1, "Hva er hovedstaden i Australia?", "",
                     "Sydney", "Canberra", "Melbourne", "Adeleide",
                     false, true, false, false);
 
-            Question s1l1q2 = new Question(s1l1, "Hva er hovedstaden i Canada?", "imageUrl",
+            Question s1l1q2 = new Question(s1l1, "Hva er hovedstaden i Canada?", "",
                     "Toronto", "Vancouver", "Winnipeg", "Ottawa",
                     false, false, false, true);
 
-            Question s1l1q3 = new Question(s1l1, "Hva er hovedstaden i Hellas?", "imageUrl",
+            Question s1l1q3 = new Question(s1l1, "Hva er hovedstaden i Hellas?", "",
                     "Creta", "Athens", "Heraklion", "Rethimno",
                     false, true, false, false);
 
-            Question s1l1q4 = new Question(s1l1, "Hva er hovedstaden i Japan?", "imageUrl",
+            Question s1l1q4 = new Question(s1l1, "Hva er hovedstaden i Japan?", "",
                     "Osaka", "Kyoto", "Tokyo", "Yokohama",
                     false, false, true, false);
 
-            Question s1l1q5 = new Question(s1l1, "Hva er hovedstaden i India?", "imageUrl",
+            Question s1l1q5 = new Question(s1l1, "Hva er hovedstaden i India?", "",
                     "Mumbai", "New Delhi", "Chennai", "Kolkata",
                     false, true, false, false);
 
-            Question s1l1q6 = new Question(s1l1, "Hva er hovedstaden i Island?", "imageUrl",
+            Question s1l1q6 = new Question(s1l1, "Hva er hovedstaden i Island?", "",
                     "Reykjavik", "Akureyri", "Mosfellsbær", "Kópavogur",
                     true, false, false, false);
 
-            Question s1l1q7 = new Question(s1l1, "Hva er hovedstaden i Cuba", "imageUrl",
+            Question s1l1q7 = new Question(s1l1, "Hva er hovedstaden i Cuba", "",
                     "Varadero", "Cienfuegos", "Santiago de Cuba", "Havana",
                     false, false, false, true);
 
-            Question s1l1q8 = new Question(s1l1, "Hva er hovedstaden i El Salvador?", "imageUrl",
+            Question s1l1q8 = new Question(s1l1, "Hva er hovedstaden i El Salvador?", "",
                     "Apopa", "Delgado", "San Salvador", "Santa Tecla",
                     false, false, true, false);
 
-            Question s1l1q9 = new Question(s1l1, "Hva er hovedstaden i Indonesia?", "imageUrl",
+            Question s1l1q9 = new Question(s1l1, "Hva er hovedstaden i Indonesia?", "",
                     "Jakarta", "Medan", "Semarang", "Bandung",
                     true, false, false, false);
 
-            Question s1l1q10 = new Question(s1l1, "Hva er hovedstaden i Haiti?", "imageUrl",
+            Question s1l1q10 = new Question(s1l1, "Hva er hovedstaden i Haiti?", "",
                     "Port-au-Prince", "Delmas", "Carrefour", "Les Cayes",
                     true, false, false, false);
 
 
             // True or false.
-            Question s1l2q1 = new Question(s1l2, "Norge er landet med lengst kystlinje", "imageUrl",
+            Question s1l2q1 = new Question(s1l2, "Norge er landet med lengst kystlinje", "",
                     "Sant", "Usant", "", "",
                     false, true, false, false);
 
-            Question s1l2q2 = new Question(s1l2, "Island er landet med de mest aktive vulkanene i verden", "imageUrl",
+            Question s1l2q2 = new Question(s1l2, "Island er landet med de mest aktive vulkanene i verden", "",
                     "Sant", "Usant", "", "",
                     false, true, false, false);
 
-            Question s1l2q3 = new Question(s1l2, "Kina grenser til 14 andre land", "imageUrl",
+            Question s1l2q3 = new Question(s1l2, "Kina grenser til 14 andre land", "https://upload.wikimedia.org/wikipedia/commons/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg",
                     "Sant", "Usant", "", "",
                     true, false, false, false);
 
-            Question s1l2q4 = new Question(s1l2, "Eiffeltårnet er lokalt kjent som \"La Dame de Fer\"", "imageUrl",
+            Question s1l2q4 = new Question(s1l2, "Eiffeltårnet er lokalt kjent som \"La Dame de Fer\"", "",
                     "Sant", "Usant", "", "",
                     true, false, false, false);
 
-            Question s1l2q5 = new Question(s1l2, "Nepal er et innlandsstat", "imageUrl",
+            Question s1l2q5 = new Question(s1l2, "Nepal er et innlandsstat", "",
                     "Sant", "Usant", "", "",
                     true, false, false, false);
 
 
             // Rank.
-            Question s1l3q1 = new Question(s1l3, "Sorter landene fra størst til minst i størrelse", "imageUrl",
+            Question s1l3q1 = new Question(s1l3, "Sorter landene fra størst til minst i størrelse", "",
                     "Russland", "USA", "Australia", "India",
                     true, false, false, false);
 
-            Question s1l3q2 = new Question(s1l3, "Sorter de nordiske landene fra størst til minst i størrelse", "imageUrl",
+            Question s1l3q2 = new Question(s1l3, "Sorter de nordiske landene fra størst til minst i størrelse", "",
                     "Sverige", "Finland", "Norge", "Danmark",
                     true, false, false, false);
 
-            Question s1l3q3 = new Question(s1l3, "Sorter landene fra største populasjon til minste populasjon i størrelse", "imageUrl",
+            Question s1l3q3 = new Question(s1l3, "Sorter landene fra største populasjon til minste populasjon i størrelse", "",
                     "USA", "Brazil", "Philippines", "Egypt",
                     true, false, false, false);
 
 
-            Question s2l1q1 = new Question(s2l1, "Question s2l1q1", "imageUrl",
+            Question s2l1q1 = new Question(s2l1, "Question s2l1q1", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s2l1q2 = new Question(s2l1, "Question s2l1q2", "imageUrl",
+            Question s2l1q2 = new Question(s2l1, "Question s2l1q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s2l1q3 = new Question(s2l1, "Question s2l1q2", "imageUrl",
+            Question s2l1q3 = new Question(s2l1, "Question s2l1q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s2l2q1 = new Question(s2l2, "Question s2l2q1", "imageUrl",
+            Question s2l2q1 = new Question(s2l2, "Question s2l2q1", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s2l2q2 = new Question(s2l2, "Question s2l2q2", "imageUrl",
+            Question s2l2q2 = new Question(s2l2, "Question s2l2q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s2l2q3 = new Question(s2l2, "Question s2l2q2", "imageUrl",
+            Question s2l2q3 = new Question(s2l2, "Question s2l2q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l1q1 = new Question(s3l1, "Question s3l1q1", "imageUrl",
+            Question s3l1q1 = new Question(s3l1, "Question s3l1q1", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l1q2 = new Question(s3l1, "Question s3l1q2", "imageUrl",
+            Question s3l1q2 = new Question(s3l1, "Question s3l1q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l1q3 = new Question(s3l1, "Question s3l1q2", "imageUrl",
+            Question s3l1q3 = new Question(s3l1, "Question s3l1q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l2q1 = new Question(s3l2, "Question s3l2q1", "imageUrl",
+            Question s3l2q1 = new Question(s3l2, "Question s3l2q1", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l2q2 = new Question(s3l2, "Question s3l2q2", "imageUrl",
+            Question s3l2q2 = new Question(s3l2, "Question s3l2q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
-            Question s3l2q3 = new Question(s3l2, "Question s3l2q2", "imageUrl",
+            Question s3l2q3 = new Question(s3l2, "Question s3l2q2", "",
                     "option0", "option1", "option2", "option3",
                     true, false, false, true);
 

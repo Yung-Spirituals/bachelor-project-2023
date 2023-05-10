@@ -5,6 +5,9 @@ public class LevelPopup : MonoBehaviour
 {
     public Level level;
     public int levelNumber;
+    public bool available = true;
+
+    [SerializeField] private TMPro.TextMeshProUGUI levelNumeration;
 
     [SerializeField] private Sprite unavailable;
     [SerializeField] private Sprite noStar;
@@ -14,23 +17,32 @@ public class LevelPopup : MonoBehaviour
 
     private void Start()
     {
-        int stars = HighScoreManager.Instance.GetLevelStars(
-            GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle, levelNumber.ToString());
-        switch (stars)
+        if (levelNumber != 1 && HighScoreManager.Instance
+                .GetLevelStars(GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle,
+                    (levelNumber - 1).ToString()) == 0)
         {
-            case 3:
-                GetComponent<Image>().sprite = threeStar;
-                break;
-            case 2:
-                GetComponent<Image>().sprite = twoStar;
-                break;
-            case 1:
-                GetComponent<Image>().sprite = oneStar;
-                break;
-            case 0:
-                GetComponent<Image>().sprite = noStar;
-                break;
+            GetComponent<Image>().sprite = unavailable;
+            levelNumeration.color =new Color32(22, 22, 22, 255);
+            GetComponent<Button>().interactable = false;
         }
+        else
+        {
+            int stars = HighScoreManager.Instance.GetLevelStars(
+                GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle, levelNumber.ToString());
+            GetComponent<Image>().sprite = stars switch
+            {
+                3 => threeStar,
+                2 => twoStar,
+                1 => oneStar,
+                0 => noStar,
+                _ => GetComponent<Image>().sprite
+            };
+            
+            levelNumeration.rectTransform.localPosition = new Vector3(0, -15);
+            levelNumeration.color = new Color32(255, 255, 255, 255);
+        }
+        
+        levelNumeration.text = levelNumber.ToString();
     }
 
     public void ShowPopUp() { LevelHubManager.Instance.DisplayPopUp(levelNumber, level); }
