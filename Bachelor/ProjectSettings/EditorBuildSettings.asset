@@ -6,26 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Login.unity
-    guid: c66663886b389684caa2dc26ca589ceb
+    path: Assets/Scenes/New Scenes/MainMenu.unity
+    guid: aa8c4acf7a0e9d047b3cd6843d0b96c8
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 51c0b0d7f85ef684ab60eb2a4dba9396
+    path: Assets/Scenes/New Scenes/EditTool.unity
+    guid: c3bdf119a3a09e24696dc5416e3d786d
   - enabled: 1
-    path: Assets/Scenes/level select 1.unity
-    guid: 786cc33502984934c915e6a10d5b5bf7
+    path: Assets/Scenes/New Scenes/LevelHub.unity
+    guid: e4f0cc9d522923a4797a17d0b91361bf
   - enabled: 1
-    path: Assets/Scenes/Quiz format 1.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+    path: Assets/Scenes/New Scenes/QuizStandard.unity
+    guid: a22e3080e4cf078408e47576c60a8204
   - enabled: 1
-    path: Assets/Scenes/Quiz format 2.unity
-    guid: 300f2c9c21560f54d9532ae182636773
+    path: Assets/Scenes/New Scenes/QuizTrueOrFalse.unity
+    guid: 9a399a8242027624da0b6249124e30b4
   - enabled: 1
-    path: Assets/Scenes/Quiz format 3.unity
-    guid: 8db784dd3a46e5345868f2443bfce7d2
-  - enabled: 1
-    path: Assets/Scenes/story 1/story 1 level 1.unity
-    guid: 5bbfd32ddea3dac49976cab2fa04a79a
+    path: Assets/Scenes/New Scenes/RankStatements.unity
+    guid: 3530074955b954544a7c893e07cc44ba
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d0ffd6e1202d16641afaf525f0dc16c1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: b12ba119c199d9a41906e689bc039a17, type: 2}

@@ -1,28 +1,49 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelPopup : MonoBehaviour
 {
-    [SerializeField] private string story;
-    [SerializeField] private string level;
-    [SerializeField] private string levelGoal;
-    [SerializeField] private string howToPlay;
-    [SerializeField] private string highScore;
+    public Level level;
+    public int levelNumber;
+    public bool available = true;
 
-    //[SerializeField] private TMPro.TextMeshProUGUI levelText;
-    [SerializeField] private TMPro.TextMeshProUGUI levelGoalText;
-    [SerializeField] private TMPro.TextMeshProUGUI howToPlayText;
-    [SerializeField] private TMPro.TextMeshProUGUI highScoreText;
-    [SerializeField] private GameObject goToLevelButton;
-    [SerializeField] private GameObject popUp;
+    [SerializeField] private TMPro.TextMeshProUGUI levelNumeration;
 
-    public void ShowPopUp()
+    [SerializeField] private Sprite unavailable;
+    [SerializeField] private Sprite noStar;
+    [SerializeField] private Sprite oneStar;
+    [SerializeField] private Sprite twoStar;
+    [SerializeField] private Sprite threeStar;
+
+    private void Start()
     {
-        highScore = "HighScore: " + HighScoreManager.Instance.GetLevelHighScore(story, level);
-        goToLevelButton.GetComponent<SwitchScene>().scene = level;
-        //levelText.text = level;
-        levelGoalText.text = levelGoal;
-        howToPlayText.text = howToPlay;
-        highScoreText.text = highScore;
-        popUp.SetActive(true);
+        if (levelNumber != 1 && HighScoreManager.Instance
+                .GetLevelStars(GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle,
+                    (levelNumber - 1).ToString()) == 0)
+        {
+            GetComponent<Image>().sprite = unavailable;
+            levelNumeration.color =new Color32(22, 22, 22, 255);
+            GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            int stars = HighScoreManager.Instance.GetLevelStars(
+                GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle, levelNumber.ToString());
+            GetComponent<Image>().sprite = stars switch
+            {
+                3 => threeStar,
+                2 => twoStar,
+                1 => oneStar,
+                0 => noStar,
+                _ => GetComponent<Image>().sprite
+            };
+            
+            levelNumeration.rectTransform.localPosition = new Vector3(0, -15);
+            levelNumeration.color = new Color32(255, 255, 255, 255);
+        }
+        
+        levelNumeration.text = levelNumber.ToString();
     }
+
+    public void ShowPopUp() { LevelHubManager.Instance.DisplayPopUp(levelNumber, level); }
 }

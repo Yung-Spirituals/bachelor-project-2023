@@ -139,7 +139,7 @@ public class PictureManager : MonoBehaviour
             flip1.matched = true;
             picture.matched = true;
             flip1 = null;
-            if (matchedAmount == cards) LevelManager.Instance.EndGame(true);
+            if (matchedAmount == cards) LevelManager.Instance.EndGame();
         }
         else StartCoroutine(FlipBack(picture));
     }
