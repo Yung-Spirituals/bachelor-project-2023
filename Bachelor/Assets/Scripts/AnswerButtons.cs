@@ -26,6 +26,7 @@ public class AnswerButtons : MonoBehaviour
         {
             if (isCorrect[i])
             {
+                if (!iconsEnabled) continue;
                 answers[i].GetComponent<EnableDisableIcons>().SetActive(true);
                 answers[i].GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
             }
@@ -48,8 +49,9 @@ public class AnswerButtons : MonoBehaviour
         {
             answer.GetComponent<Image>().color = new Color32(77,161,223,255);
             answer.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
-            answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(false);
             answer.GetComponent<Button>().enabled = true;
+            if (!iconsEnabled) continue;
+            answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(false);
         }
     }
 
