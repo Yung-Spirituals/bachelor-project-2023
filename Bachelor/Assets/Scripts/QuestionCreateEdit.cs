@@ -12,7 +12,7 @@ public class QuestionCreateEdit : MonoBehaviour
     public void LoadQuestion(Question question)
     {
         if (imageUrlText != null) imageUrlText.text = question.GetImageUrl();
-        questionText.text = question.GetQuestion();
+        if (questionText != null) questionText.text = question.GetQuestion();
         string[] existingOptions = question.GetOptions();
         bool[] existingIsOptions = question.GetIsOptions();
         for (int i = 0; i < options.Length; i++)
@@ -40,6 +40,9 @@ public class QuestionCreateEdit : MonoBehaviour
                 break;
             case GameMode.Rank:
                 question = EditRankQuestion();
+                break;
+            case GameMode.MemoryCards:
+                question = EditMemoryQuestion();
                 break;
         }
 
@@ -94,6 +97,16 @@ public class QuestionCreateEdit : MonoBehaviour
         Question question = GameDataManager.Instance.GetGameData().ActiveQuestion;
         question.SetQuestion(questionText.text);
         
+        question.SetOption0(options[0].text);
+        question.SetOption1(options[1].text);
+        question.SetOption2(options[2].text);
+        question.SetOption3(options[3].text);
+        return question;
+    }
+
+    private Question EditMemoryQuestion()
+    {
+        Question question = GameDataManager.Instance.GetGameData().ActiveQuestion;
         question.SetOption0(options[0].text);
         question.SetOption1(options[1].text);
         question.SetOption2(options[2].text);

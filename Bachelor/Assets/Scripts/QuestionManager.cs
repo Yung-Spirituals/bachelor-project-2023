@@ -82,10 +82,13 @@ public class QuestionManager : MonoBehaviour
         StartCoroutine(PushTextOnScreen());
     }
 
-    private static IEnumerator EndGame()
+    private IEnumerator EndGame()
     {
         yield return WaitOneSecond();
-        LevelManager.Instance.EndGame();
+        int possiblePoints;
+        if (scrambleAnswers) possiblePoints =  questionAmount * 4;
+        else possiblePoints = questionAmount;
+        LevelManager.Instance.EndGame(possiblePoints);
     }
 
     private static IEnumerator WaitOneSecond()
@@ -170,6 +173,4 @@ public class QuestionManager : MonoBehaviour
         get => currentQuestion;
         set => currentQuestion = value;
     }
-
-    public int QuestionAmount => questionAmount;
 }

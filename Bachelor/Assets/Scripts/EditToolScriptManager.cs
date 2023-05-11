@@ -10,6 +10,7 @@ public class EditToolScriptManager : MonoBehaviour
     [SerializeField] private GameObject standardCreate;
     [SerializeField] private GameObject trueOrFalseCreate;
     [SerializeField] private GameObject rankCreate;
+    [SerializeField] private GameObject memoryCreate;
 
     private GameObject[] uiPages;
     private GameObject activeUI;
@@ -33,7 +34,8 @@ public class EditToolScriptManager : MonoBehaviour
 
     private void Start()
     {
-        uiPages = new[] { themeSelect, themeCreate, levelCreate, standardCreate, trueOrFalseCreate, rankCreate };
+        uiPages = new[] { themeSelect, themeCreate, levelCreate, standardCreate,
+            trueOrFalseCreate, rankCreate, memoryCreate };
         _gameDataScriptableObject = GameDataManager.Instance.GetGameData();
         _gameDataScriptableObject.ActiveStory = null;
         _gameDataScriptableObject.ActiveLevel = null;
@@ -78,6 +80,10 @@ public class EditToolScriptManager : MonoBehaviour
                 rankCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
                 SetActiveUI(rankCreate);
                 break;
+            case GameMode.MemoryCards:
+                memoryCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                SetActiveUI(memoryCreate);
+                break;
         }
     }
 
@@ -109,6 +115,9 @@ public class EditToolScriptManager : MonoBehaviour
                 break;
             case GameMode.Rank:
                 SetActiveUI(rankCreate);
+                break;
+            case GameMode.MemoryCards:
+                SetActiveUI(memoryCreate);
                 break;
         }
     }

@@ -2,11 +2,11 @@
 
 public class ScoreManager : MonoBehaviour
 {
-    //[SerializeField] private string preScore;
-    //[SerializeField] private string postScore;
-    //[SerializeField] private GameObject scoreObject;
-    //private TMPro.TextMeshProUGUI _scoreText;
+    [SerializeField] private string preScore;
+    [SerializeField] private string postScore;
+    [SerializeField] private TMPro.TextMeshProUGUI _scoreText;
     private int _currentScore;
+    private int _possibleScore = 0;
 
     public static ScoreManager Instance
     {
@@ -25,23 +25,19 @@ public class ScoreManager : MonoBehaviour
     private static ScoreManager instance;
     
     public int GetCurrentScore() { return _currentScore; }
+
     public void ChangeScore(int change)
     {
         _currentScore += change;
-        //UpdateScoreText();
+        if (_scoreText == null) return;
+        
+        if (_possibleScore != 0)
+        {
+            _scoreText.text = preScore + _currentScore + "/" + _possibleScore + postScore;
+        }
+        else
+        {
+            _scoreText.text = preScore + _currentScore + postScore;
+        }
     }
-
-    /*private void Start()
-    {
-        _scoreText = scoreObject.GetComponent<TMPro.TextMeshProUGUI>();
-        UpdateScoreText();
-    }
-
-    public void ResetScore()
-    {
-        _currentScore = 0;
-        UpdateScoreText();
-    }
-
-    private void UpdateScoreText() { _scoreText.text = preScore + _currentScore + postScore;  }*/
 }

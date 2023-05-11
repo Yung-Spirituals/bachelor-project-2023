@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class FlipCard : MonoBehaviour
 {
-    public float x, y, z;
     public GameObject cardBack;
     public bool cardBackIsActive;
     public bool mayBeFlipped = true;

@@ -104,7 +104,7 @@ public static class WebCommunicationUtil
                 UnityWebRequest webRequest = UnityWebRequest.Get(url);
                 yield return webRequest.SendWebRequest();
                 //DebugRequest(webRequest, fullPath);
-                Texture2D tex = new Texture2D(1,1); // note that the size is overridden
+                Texture2D tex = new Texture2D(1,1);
                 tex.LoadImage(webRequest.downloadHandler.data);
                 Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height),
                     new Vector2(tex.width/2f, tex.height/2f));

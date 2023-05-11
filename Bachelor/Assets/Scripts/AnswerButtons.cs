@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class AnswerButtons : MonoBehaviour
 {
     public GameObject[] answers;
+    public Sprite correct;
+    public Sprite incorrect;
+    public bool iconsEnabled = false;
 
     public void Answer(int option)
     {
@@ -21,9 +24,19 @@ public class AnswerButtons : MonoBehaviour
             question.GetIsOption2(), question.GetIsOption3() };
         for (int i = 0; i < answers.Length; i++)
         {
-            if (isCorrect[i]) continue;
-            answers[i].GetComponent<Image>().color = new Color32(244,140,81,255);
-            answers[i].GetComponent<Shadow>().effectColor =new Color32(216,108,48,255);
+            if (isCorrect[i])
+            {
+                answers[i].GetComponent<EnableDisableIcons>().SetActive(true);
+                answers[i].GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
+            }
+            else
+            {
+                answers[i].GetComponent<Image>().color = new Color32(244,140,81,255);
+                answers[i].GetComponent<Shadow>().effectColor =new Color32(216,108,48,255);
+                if (!iconsEnabled) continue;
+                answers[i].GetComponent<EnableDisableIcons>().SetActive(false);
+                answers[i].GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
+            }
         }
     }
 
@@ -35,6 +48,7 @@ public class AnswerButtons : MonoBehaviour
         {
             answer.GetComponent<Image>().color = new Color32(77,161,223,255);
             answer.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
+            answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(false);
             answer.GetComponent<Button>().enabled = true;
         }
     }

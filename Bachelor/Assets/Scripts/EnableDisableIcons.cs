@@ -19,4 +19,9 @@ public class EnableDisableIcons : MonoBehaviour
         isEnabled = active;
         buttonIcon.sprite = isEnabled ? enableIcon : disableIcon;
     }
+
+    public void SetGameObjectActive(bool active)
+    {
+        buttonIcon.gameObject.SetActive(active);
+    }
 }

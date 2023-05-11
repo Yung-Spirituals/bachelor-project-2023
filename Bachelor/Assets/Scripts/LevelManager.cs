@@ -40,16 +40,13 @@ public class LevelManager : MonoBehaviour
     }
     private static LevelManager instance;
 
-    public void EndGame()
+    public void EndGame(int possiblePoints)
     {
         levelIsCompleted = true;
         PauseManager.Instance.canPause = false;
-        int questionAmount;
-        if (QuestionManager.Instance.scrambleAnswers) questionAmount = QuestionManager.Instance.QuestionAmount * 4;
-        else questionAmount = QuestionManager.Instance.QuestionAmount;
         int scoreAmount = ScoreManager.Instance.GetCurrentScore();
-        int stars = ScoreDependantInfo(scoreAmount, questionAmount);
-        scoreText.text = scoreAmount + "/" + questionAmount + " riktige svar";
+        int stars = ScoreDependantInfo(scoreAmount, possiblePoints);
+        scoreText.text = scoreAmount + "/" + possiblePoints + " riktige svar";
         if (stars != 0) HighScoreManager.Instance.SubmitScore(story, 
             (GameDataManager.Instance.GetGameData().ActiveStory.Levels
                 .FindIndex(o => o.ID == 
