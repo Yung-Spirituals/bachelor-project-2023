@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 685
+      value: 934
       objectReference: {fileID: 0}
     - target: {fileID: 647139524395410760, guid: 2f163e920deb762498261cdc58a6f57a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -376,6 +376,7 @@ MonoBehaviour:
   - {fileID: 2132860087}
   scrambleAnswers: 1
   Locked: 0
+  listParent: {fileID: 374612022}
 --- !u!114 &177873688
 MonoBehaviour:
   m_ObjectHideFlags: 0

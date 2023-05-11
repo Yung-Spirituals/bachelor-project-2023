@@ -14,6 +14,7 @@ public class QuestionManager : MonoBehaviour
     public TextMeshProUGUI[] answers;
     public bool scrambleAnswers;
     public bool Locked = false;
+    public Transform listParent;
         
     private Question currentQuestion;
     private int nextQuestionIndex;
@@ -72,7 +73,7 @@ public class QuestionManager : MonoBehaviour
     {
         if (nextQuestionIndex >= _questions.Count)
         {
-            LevelManager.Instance.EndGame();
+            StartCoroutine(EndGame());
             return;
         }
         currentQuestion = _questions[nextQuestionIndex];
@@ -80,11 +81,21 @@ public class QuestionManager : MonoBehaviour
 
         StartCoroutine(PushTextOnScreen());
     }
-        
+
+    private static IEnumerator EndGame()
+    {
+        yield return WaitOneSecond();
+        LevelManager.Instance.EndGame();
+    }
+
+    private static IEnumerator WaitOneSecond()
+    {
+        yield return new WaitForSeconds(1f);
+    }
 
     private IEnumerator PushTextOnScreen()
     {
-        yield return new WaitForSeconds(1f);
+        yield return WaitOneSecond();
         DisplayNewQuestion();
     }
 
@@ -126,13 +137,13 @@ public class QuestionManager : MonoBehaviour
             string[] correctOrder = currentQuestion.GetOptions();
             for (int i = 0; i < correctOrder.Length; i++)
             {
-                if (correctOrder[i] == options[i]) ScoreManager.Instance.ChangeScore(1);
+                if (correctOrder[i] == listParent.GetChild(i).GetComponent<ListDragController>().textEntry.text) 
+                    ScoreManager.Instance.ChangeScore(1);
                 else
                 {
-                    answers[i].transform.parent
-                        .GetComponent<Image>().color = new Color32(244,140,81,255);
-                    answers[i].transform.parent
-                        .GetComponent<Shadow>().effectColor = new Color32(216,108,48,255);
+                    Transform answer = listParent.GetChild(i).transform;
+                    answer.GetComponent<Image>().color = new Color32(244,140,81,255);
+                    answer.GetComponent<Shadow>().effectColor = new Color32(216,108,48,255);
                 }
             }
         }
@@ -143,14 +154,12 @@ public class QuestionManager : MonoBehaviour
 
     private IEnumerator ButtonReset()
     {
-        yield return new WaitForSeconds(1f);
+        yield return WaitOneSecond();
         foreach (TextMeshProUGUI answer in answers)
         {
             Transform parent = answer.transform.parent;
-            parent
-                .GetComponent<Image>().color = new Color32(77,161,223,255);
-            parent
-                .GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
+            parent.GetComponent<Image>().color = new Color32(77,161,223,255);
+            parent.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
         }
         Locked = false;
         yield return null;

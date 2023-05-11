@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [SerializeField] private TextMeshProUGUI numeration;
-    [SerializeField] private TextMeshProUGUI textEntry;
+    public TextMeshProUGUI textEntry;
     [SerializeField] private Button upButton;
     [SerializeField] private Button downButton;
 

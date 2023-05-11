@@ -64,25 +64,25 @@ public class LevelManager : MonoBehaviour
 
         statementText.text = a switch
         {
-            > 0.90f => threeStarStatement,
-            > 0.70f => twoStarStatement,
-            > 0.50f => oneStarStatement,
+            > 0.85f => threeStarStatement,
+            > 0.65f => twoStarStatement,
+            > 0.45f => oneStarStatement,
             _ => failStatement
         };
         
         image.sprite = a switch
         {
-            > 0.90f => threeStarSprite,
-            > 0.70f => twoStarSprite,
-            > 0.50f => oneStarSprite,
+            > 0.85f => threeStarSprite,
+            > 0.65f => twoStarSprite,
+            > 0.45f => oneStarSprite,
             _ => failSprite
         };
 
         return a switch
         {
-            > 0.90f => 3,
-            > 0.70f => 2,
-            > 0.50f => 1,
+            > 0.85f => 3,
+            > 0.65f => 2,
+            > 0.45f => 1,
             _ => 0
         };
     }
