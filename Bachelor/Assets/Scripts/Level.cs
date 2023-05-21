@@ -29,12 +29,6 @@ public class Level
         set => levelName = value;
     }
 
-    public string BackgroundUrl
-    {
-        get => backgroundUrl;
-        set => backgroundUrl = value;
-    }
-
     public string LevelType
     {
         get => levelType;
@@ -47,32 +41,21 @@ public class Level
         set => levelGoal = value;
     }
 
-    public string HowToPlay
-    {
-        get => howToPlay;
-        set => howToPlay = value;
-    }
-
     [SerializeField] private long id;
     // ReSharper disable once InconsistentNaming
     [NonSerialized] private Subject subject;
     [SerializeField] private List<Question> questions = new ();
     [SerializeField] private string levelName;
-    [SerializeField] private string backgroundUrl;
     [SerializeField] private string levelType;
     [SerializeField] private string levelGoal;
-    [SerializeField] private string howToPlay;
 
     public Level() {}
 
-    public Level(Subject subject,
-        string levelName, string backgroundUrl, string levelType, string levelGoal, string howToPlay)
+    public Level(Subject subject, string levelName, string levelType, string levelGoal)
     {
         this.subject = subject;
         this.levelName = levelName;
-        this.backgroundUrl = backgroundUrl;
         this.levelType = levelType;
         this.levelGoal = levelGoal;
-        this.howToPlay = howToPlay;
     }
 }

@@ -7,8 +7,10 @@ public class AnswerButtons : MonoBehaviour
     public GameObject[] answers;
     public bool iconsEnabled;
 
+    // Submit an option as an answer to the question manager.
     public void Answer(int option)
     {
+        // Ensure that t
         if (PauseManager.Instance.isPaused) return;
         ColorButtons();
         DisableButtonsAndDisplayNextQuestion();

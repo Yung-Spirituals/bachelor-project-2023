@@ -39,21 +39,29 @@ public class QuestionManager : MonoBehaviour
         
     private IEnumerator Start()
     {
-        LevelManager.Instance.SetLoading(true);
+        // Retrieve the questions for the current level.
         _questions = GameDataManager.Instance.GetGameData().ActiveLevel.Questions;
-        yield return GetImages();
+        
+        // Display a loading screen while waiting for potential images.
+        LevelManager.Instance.SetLoading(true);
+        if (questionPicture != null)
+            yield return GetImages();
         LevelManager.Instance.SetLoading(false);
+        
+        // Display the first question.
         _questionAmount = _questions.Count;
         _nextQuestionIndex = 0;
         NextQuestion();
     }
 
+    // Retrieve all sprites/images from the urls provided by the questions.
     private IEnumerator GetImages()
     {
         foreach (Question question in _questions) _imageUrls.Add(question.ImageUrl);
         yield return WebCommunicationUtil.GetImagesFromUrls(_images, _imageUrls);
     }
 
+    // Submit an answer option without knowing if it is correct or not,
     public bool Answer(int answer, bool moveOnIfWrong)
     {
         bool[] isOptions = CurrentQuestion.GetIsOptions();
@@ -91,10 +99,7 @@ public class QuestionManager : MonoBehaviour
         LevelManager.Instance.EndGame(possiblePoints);
     }
 
-    private static IEnumerator WaitOneSecond()
-    {
-        yield return new WaitForSeconds(1f);
-    }
+    private static IEnumerator WaitOneSecond() { yield return new WaitForSeconds(1f); }
 
     private IEnumerator PushTextOnScreen()
     {

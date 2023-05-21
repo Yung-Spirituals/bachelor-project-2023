@@ -150,7 +150,7 @@ public static class WebCommunicationUtil
                 // Send the web request.
                 yield return webRequest.SendWebRequest();
 
-                // Create a new 2D texture to hold the .
+                // Create a new 2D texture to hold the image.
                 Texture2D tex = new Texture2D(1,1);
                 if (webRequest.result == UnityWebRequest.Result.Success)
                     tex.LoadImage(webRequest.downloadHandler.data);
