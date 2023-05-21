@@ -3,36 +3,20 @@ using UnityEngine;
 
 namespace SoData
 {
+    // A scriptable object is a data container that is useful for storing data that needs to persist between scenes.
     [CreateAssetMenu]
     public class GameDataScriptableObject : ScriptableObject
     {
-        [SerializeField] private List<Story> stories;
-        [SerializeField] private Story activeStory;
-        [SerializeField] private Level activeLevel;
-        [SerializeField] private Question activeQuestion;
-
-        public List<Story> Stories
-        {
-            get => stories;
-            set => stories = value;
-        }
+        // Meant to hold game data received from the backend.
+        public List<Subject> Subjects { get; set; }
         
-        public Story ActiveStory
-        {
-            get => activeStory;
-            set => activeStory = value;
-        }
+        // Holds the subject that is currently being interacted with, is null if none is being interacted with.
+        public Subject ActiveSubject { get; set; }
         
-        public Level ActiveLevel
-        {
-            get => activeLevel;
-            set => activeLevel = value;
-        }
+        // Holds the level that is currently being interacted with, is null if none is being interacted with.
+        public Level ActiveLevel { get; set; }
 
-        public Question ActiveQuestion
-        {
-            get => activeQuestion;
-            set => activeQuestion = value;
-        }
+        // Holds the question that is currently being interacted with, is null if none is being interacted with.
+        public Question ActiveQuestion { get; set; }
     }
 }

@@ -1,47 +1,40 @@
 using System;
 using System.Collections.Generic;
-using SoData;
 using UnityEngine;
 
 public static class JsonUtil
 {
-    [Serializable] 
-    private class StoryCollection { [SerializeField] public List<Story> _stories; }
+    /*
+     * Used to encapsulate a list of subjects.
+     * Necessary due to serialization restrictions preventing lists and arrays from being properly serialized.
+     */ 
+    [Serializable] private class SubjectCollection { [SerializeField] public List<Subject> subjects; }
+
+    /*
+     * Uses the JsonUtility class provided by the unity framework to convert a json string into a subject collection.
+     * Returns the list of subjects contained within the subject collection object.
+     */
+    public static List<Subject> SubjectsFromJson(string jsonString)
+    {
+        return JsonUtility.FromJson<SubjectCollection>(jsonString).subjects;
+    }
+
+    // Useful serialization encapsulation for serializing different entity types simultaneously.
+    [Serializable] private class JsonMultiObject
+    {
+        [SerializeField] public Subject subject;
+        [SerializeField] public Level level;
+        [SerializeField] public Question question;
+    }
     
-    [Serializable]
-    private class JsonMultiObject
-    {
-        [SerializeField] public Story _story;
-        [SerializeField] public Level _level;
-        [SerializeField] public Question _question;
-    }
-
-    public static List<Story> StoriesFromJson(string jsonString)
-    {
-        return JsonUtility.FromJson<StoryCollection>(jsonString)._stories;
-    }
-
-    public static string StoriesToJson(List<Story> stories)
-    {
-        return JsonUtility.ToJson(new StoryCollection() {_stories = stories});
-    }
-
-    public static string StoryLevelQuestionToJson(Story story, Level level, Question question)
+     // Creates a JsonMultiObject that is then serialized into a json string that is then returned.
+     public static string SubjectLevelQuestionToJson(Subject subject, Level level, Question question)
     {
         return JsonUtility.ToJson(new JsonMultiObject()
         {
-            _story = story,
-            _level = level,
-            _question = question
+            subject = subject,
+            level = level,
+            question = question
         });
-    }
-
-    public static void UpdateLocalObjects(Story story, Level level, Question question, string jsonString)
-    {
-        JsonMultiObject updatedInfo = JsonUtility.FromJson<JsonMultiObject>(jsonString);
-        GameDataScriptableObject gdso = GameDataManager.Instance.GetGameData();
-        if (question != null) gdso.ActiveQuestion = updatedInfo._question;
-        if (level != null) gdso.ActiveLevel = updatedInfo._level;
-        if (story != null) gdso.ActiveStory = updatedInfo._story;
     }
 }

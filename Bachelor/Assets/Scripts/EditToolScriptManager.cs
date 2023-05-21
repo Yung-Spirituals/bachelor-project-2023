@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class EditToolScriptManager : MonoBehaviour
 {
-    [SerializeField] private GameObject themeSelect;
-    [SerializeField] private GameObject themeCreate;
+    [SerializeField] private GameObject subjectSelect;
+    [SerializeField] private GameObject subjectCreate;
     [SerializeField] private GameObject levelCreate;
     [SerializeField] private GameObject standardCreate;
     [SerializeField] private GameObject trueOrFalseCreate;
     [SerializeField] private GameObject rankCreate;
     [SerializeField] private GameObject memoryCreate;
 
-    private GameObject[] uiPages;
-    private GameObject activeUI;
+    [SerializeField] private GameObject infoPopup;
+    [SerializeField] private GameObject continueOrNotPopup;
+
+    private GameObject[] _uiPages;
+    private GameObject _activeUI;
     private GameDataScriptableObject _gameDataScriptableObject;
 
     public static EditToolScriptManager Instance
@@ -34,26 +37,27 @@ public class EditToolScriptManager : MonoBehaviour
 
     private void Start()
     {
-        uiPages = new[] { themeSelect, themeCreate, levelCreate, standardCreate,
+        _uiPages = new[] { subjectSelect, subjectCreate, levelCreate, standardCreate,
             trueOrFalseCreate, rankCreate, memoryCreate };
         _gameDataScriptableObject = GameDataManager.Instance.GetGameData();
-        _gameDataScriptableObject.ActiveStory = null;
+        _gameDataScriptableObject.ActiveSubject = null;
         _gameDataScriptableObject.ActiveLevel = null;
-        _gameDataScriptableObject.ActiveStory = null;
-        SetActiveUI(themeSelect);
+        _gameDataScriptableObject.ActiveSubject = null;
+        SetActiveUI(subjectSelect);
         StartCoroutine(Refresh());
     }
 
     public void SetActiveUI(GameObject activeElement)
     {
-        foreach (GameObject page in uiPages) { page.SetActive(page == activeElement); }
+        foreach (GameObject page in _uiPages) { page.SetActive(page == activeElement); }
+        _activeUI = activeElement;
     }
 
-    public void SelectStory(Story story)
+    public void SelectSubject(Subject subject)
     {
-        _gameDataScriptableObject.ActiveStory = story;
-        StartCoroutine(themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveStory));
-        SetActiveUI(themeCreate);
+        _gameDataScriptableObject.ActiveSubject = subject;
+        StartCoroutine(subjectCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveSubject));
+        SetActiveUI(subjectCreate);
     }
     
     public void SelectLevel(Level level)
@@ -87,11 +91,11 @@ public class EditToolScriptManager : MonoBehaviour
         }
     }
 
-    public void NewStory()
+    public void NewSubject()
     {
-        _gameDataScriptableObject.ActiveStory = new Story();
-        SelectStory(_gameDataScriptableObject.ActiveStory);
-        SetActiveUI(themeCreate);
+        _gameDataScriptableObject.ActiveSubject = new Subject();
+        SelectSubject(_gameDataScriptableObject.ActiveSubject);
+        SetActiveUI(subjectCreate);
     }
 
     public void NewLevel()
@@ -121,19 +125,44 @@ public class EditToolScriptManager : MonoBehaviour
                 break;
         }
     }
+    
+    public void Back()
+    {
+        if (_activeUI == subjectCreate) BackFromSubject();
+        else if (_activeUI == levelCreate) BackFromLevel();
+        else BackFromQuestion();
+    }
 
-    public void BackFromStory() { _gameDataScriptableObject.ActiveStory = null; }
-    
-    public void BackFromLevel() { _gameDataScriptableObject.ActiveLevel = null; }
-    
-    public void BackFromQuestion() { _gameDataScriptableObject.ActiveQuestion = null; }
+    private void BackFromSubject()
+    {
+        _gameDataScriptableObject.ActiveSubject = null;
+        SetActiveUI(subjectSelect);
+    }
+
+    private void BackFromLevel()
+    {
+        _gameDataScriptableObject.ActiveLevel = null;
+        SetActiveUI(subjectCreate);
+    }
+
+    private void BackFromQuestion()
+    {
+        _gameDataScriptableObject.ActiveQuestion = null;
+        SetActiveUI(levelCreate);
+    }
 
     public IEnumerator Refresh()
     {
-        yield return themeSelect.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.Stories);
-        if (_gameDataScriptableObject.ActiveStory == null) yield break;
-        yield return themeCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveStory);
+        yield return subjectSelect.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.Subjects);
+        if (_gameDataScriptableObject.ActiveSubject == null) yield break;
+        yield return subjectCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveSubject);
         if (_gameDataScriptableObject.ActiveLevel == null) yield break;
         yield return levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveLevel);
+    }
+
+    public void DisplayPopup(string title, string text, bool canDecline)
+    {
+        if (canDecline) continueOrNotPopup.GetComponent<Popup>().Display(title, text);
+        else infoPopup.GetComponent<Popup>().Display(title, text);
     }
 }

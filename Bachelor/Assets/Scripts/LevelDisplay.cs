@@ -1,17 +1,14 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class LevelDisplay : MonoBehaviour
 {
-    [SerializeField] private TMPro.TextMeshProUGUI levelTextMeshProUGUI;
-    [SerializeField] private TMPro.TextMeshProUGUI gameModeTextMeshProUGUI;
+    [SerializeField] private TextMeshProUGUI levelTextMeshProUGUI;
+    [SerializeField] private TextMeshProUGUI gameModeTextMeshProUGUI;
     
     public Level level;
     
-    public void UpdateDisplay()
-    {
-        //levelTextMeshProUGUI.text = level.LevelName;
-        gameModeTextMeshProUGUI.text = level.LevelType;
-    }
+    public void UpdateDisplay() { gameModeTextMeshProUGUI.text = level.LevelType; }
 
     public void SetLevelDisplayName(string levelName) { levelTextMeshProUGUI.text = levelName; }
 

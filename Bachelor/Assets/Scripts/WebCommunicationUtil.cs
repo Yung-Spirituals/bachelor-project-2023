@@ -3,71 +3,104 @@ using System.Collections.Generic;
 using SoData;
 using UnityEngine.Networking;
 using UnityEngine;
-using UnityEngine.UI;
 
+// Static class for the application to communicate with the backend.
 public static class WebCommunicationUtil
 {
-    private static readonly string basePath = "http://178.232.172.125:8080";
-    public static bool busy;
+    private const string BasePath = "http://178.232.172.125:8080";
 
+    /*
+     * Send a HTTP Get request to retrieve all subjects and their underlying levels and questions.
+     * Store this data in the provided SO (scriptable object).
+     */
     public static IEnumerator GetGameDataRequest(GameDataScriptableObject gameDataScriptableObject)
     {
-        if (busy) yield break;
-        busy = true;
-        string fullPath = basePath + "/game/stories";
+        // This endpoint returns a list of all subjects contained in a custom object (See JsonUtil.cs for more info)
+        const string fullPath = BasePath + "/subject/subjects";
+        
+        // Create a web Get request to the provided url.
         UnityWebRequest webRequest = UnityWebRequest.Get(fullPath);
+        
         yield return webRequest.SendWebRequest();
-        //DebugRequest(webRequest, fullPath);
-        yield return gameDataScriptableObject.Stories = JsonUtil.StoriesFromJson(webRequest.downloadHandler.text);
+        
+        if (webRequest.result == UnityWebRequest.Result.Success)
+            // Set local data to the game data retrieved from the backend.
+            yield return gameDataScriptableObject.Subjects = 
+                JsonUtil.SubjectsFromJson(webRequest.downloadHandler.text);
+        
+        // If the web request was not successful, set local data to a new empty list to prevent null exceptions.
+        else yield return gameDataScriptableObject.Subjects = new List<Subject>();
+        
+        // Clean-up unused resources.
         webRequest.Dispose();
-        busy = false;
     }
 
-    public static IEnumerator PutNewGameDataRequest(Story story, Level level, Question question, string path)
+    // Send a HTTP Put request to add a new entity to the backend storage.
+    public static IEnumerator PutNewGameDataRequest(Subject subject, Level level, Question question, string path)
     {
-        if (busy) yield break;
-        busy = true;
-        string fullPath = basePath + "/game/add" + path;
+        // If the request is successful, the endpoint will return the generated ID of the new entity.
+        string fullPath = BasePath + path + "/add";
+        
+        // Create a web Put request with a json body containing the new entity to the provided url.
         UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
-            JsonUtil.StoryLevelQuestionToJson(story, level, question));
+            JsonUtil.SubjectLevelQuestionToJson(subject, level, question));
         webRequest.SetRequestHeader("Content-Type", "application/json");
+        
+        // Send the web request.
         yield return webRequest.SendWebRequest();
-        //DebugRequest(webRequest, fullPath);
-        SetNewId(story, level, question, webRequest.downloadHandler.text);
+
+        if (webRequest.result == UnityWebRequest.Result.Success)
+            // Apply the ID generated in the backend to the local copy of the newly created entity.
+            SetNewId(subject, level, question, webRequest.downloadHandler.text);
+        
+        // Clean-up unused resources.
         webRequest.Dispose();
-        busy = false;
+        
+        // Get the most up-to-date version of game data from the server.
         yield return GameDataManager.Instance.RefreshGameData();
     }
     
-    public static IEnumerator PutUpdateGameDataRequest(Story story, Level level, Question question, string path)
+    // Send a HTTP Put request to update an entity in the backend storage.
+    public static IEnumerator PutUpdateGameDataRequest(Subject subject, Level level, Question question, string path)
     {
-        if (busy) yield break;
-        busy = true;
-        string fullPath = basePath + "/game/update" + path;
+        string fullPath = BasePath + path + "/update";
+        
+        // Create a web Put request with a json body containing the updated entity to the provided url.
         UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
-            JsonUtil.StoryLevelQuestionToJson(story, level, question));
+            JsonUtil.SubjectLevelQuestionToJson(subject, level, question));
         webRequest.SetRequestHeader("Content-Type", "application/json");
+        
+        // Send the web request.
         yield return webRequest.SendWebRequest();
-        //DebugRequest(webRequest, fullPath);
+
+        // Clean-up unused resources.
         webRequest.Dispose();
-        busy = false;
+        
+        // Get the most up-to-date version of game data from the server.
         yield return GameDataManager.Instance.RefreshGameData();
     }
     
-    public static IEnumerator DeleteGameDataRequest(Story story, Level level, Question question, string path)
+    // Send a HTTP Put request to delete an entity form the backend storage.
+    public static IEnumerator DeleteGameDataRequest(Subject subject, Level level, Question question, string path)
     {
-        if (busy) yield break;
-        busy = true;
-        string fullPath = basePath + "/game/delete" + path;
-        UnityWebRequest webRequest = UnityWebRequest.Post(fullPath,
-            JsonUtil.StoryLevelQuestionToJson(story, level, question));
+        string fullPath = BasePath + path + "/delete";
+        
+        // Create a web Put request with a json body to the provided url.
+        UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
+            JsonUtil.SubjectLevelQuestionToJson(subject, level, question));
+        webRequest.SetRequestHeader("Content-Type", "application/json");
+        
+        // Send the web request.
         yield return webRequest.SendWebRequest();
-        DebugRequest(webRequest, fullPath);
+
+        // Clean-up unused resources.
         webRequest.Dispose();
-        busy = false;
+        
+        // Get the most up-to-date version of game data from the server.
         yield return GameDataManager.Instance.RefreshGameData();
     }
 
+    // Method suggested from unity, convenient for debugging.
     private static void DebugRequest(UnityWebRequest webRequest, string fullPath)
     {
         string[] pages = fullPath.Split('/');
@@ -75,6 +108,8 @@ public static class WebCommunicationUtil
         switch (webRequest.result)
         {
             case UnityWebRequest.Result.ConnectionError:
+                Debug.Log("Connection error!");
+                break;
             case UnityWebRequest.Result.DataProcessingError:
                 Debug.LogError(pages[page] + ": Error: " + webRequest.error);
                 break;
@@ -87,13 +122,21 @@ public static class WebCommunicationUtil
         }
     }
 
-    private static void SetNewId(Story story, Level level, Question question, string newObject)
+    /*
+     * When a new entity is added to the database, the ID that gets assigned to it will be returned.
+     * This function will take this ID and apply it to the local copy of the entity.
+     */
+    private static void SetNewId(Subject subject, Level level, Question question, string newObject)
     {
-        if (question != null) GameDataManager.Instance.GetGameData().ActiveQuestion.SetId(long.Parse(newObject));
+        if (question != null) GameDataManager.Instance.GetGameData().ActiveQuestion.ID = long.Parse(newObject);
         else if (level != null) GameDataManager.Instance.GetGameData().ActiveLevel.ID = long.Parse(newObject);
-        else if (story != null) GameDataManager.Instance.GetGameData().ActiveStory.ID = long.Parse(newObject);
+        else if (subject != null) GameDataManager.Instance.GetGameData().ActiveSubject.ID = long.Parse(newObject);
     }
 
+    /*
+     * For each image url provided, add it as a sprite to the sprite list.
+     * Adds a null to the sprite list if an entry in the url list is empty.
+     */ 
     public static IEnumerator GetImagesFromUrls(List<Sprite> images, List<string> urls)
     {
         foreach (string url in urls)
@@ -101,14 +144,25 @@ public static class WebCommunicationUtil
             if (url == "") images.Add(null);
             else
             {
+                // Create a web Get request to the provided url.
                 UnityWebRequest webRequest = UnityWebRequest.Get(url);
+                
+                // Send the web request.
                 yield return webRequest.SendWebRequest();
-                //DebugRequest(webRequest, fullPath);
+
+                // Create a new 2D texture to hold the .
                 Texture2D tex = new Texture2D(1,1);
-                tex.LoadImage(webRequest.downloadHandler.data);
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                    tex.LoadImage(webRequest.downloadHandler.data);
+                
+                // Convert the texture into a sprite.
                 Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height),
                     new Vector2(tex.width/2f, tex.height/2f));
+                
+                // Add to sprite list.
                 images.Add(sprite);
+                
+                // Clean-up unused resources.
                 webRequest.Dispose();
             }
         }

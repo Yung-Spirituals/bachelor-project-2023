@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class LevelHubInitializer : MonoBehaviour
 {
-    [SerializeField] private GameObject _gameObject;
-    [SerializeField] private Transform _parentTransform;
+    [SerializeField] private GameObject levelCoinPrefab;
+    [SerializeField] private Transform parentTransform;
 
     private void Start()
     {
         GameDataScriptableObject scriptableObject = GameDataManager.Instance.GetGameData();
-        List<Level> levels = scriptableObject.ActiveStory.Levels;
+        List<Level> levels = scriptableObject.ActiveSubject.Levels;
         int levelCount = levels.Count;
         for (int i = 0; i < levelCount; i++)
         {
-            GameObject levelCoin = Instantiate(_gameObject, _parentTransform);
+            GameObject levelCoin = Instantiate(levelCoinPrefab, parentTransform);
             LevelPopup levelPopup = levelCoin.GetComponent<LevelPopup>();
             levelPopup.level = levels[i];
             levelPopup.levelNumber = i + 1;

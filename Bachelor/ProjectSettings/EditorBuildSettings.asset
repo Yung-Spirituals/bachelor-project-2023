@@ -15,16 +15,16 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelHub.unity
     guid: e4f0cc9d522923a4797a17d0b91361bf
   - enabled: 1
-    path: Assets/Scenes/QuizStandard.unity
+    path: Assets/Scenes/StandardQuiz.unity
     guid: a22e3080e4cf078408e47576c60a8204
   - enabled: 1
-    path: Assets/Scenes/QuizTrueOrFalse.unity
+    path: Assets/Scenes/SantEllerUsantQuiz.unity
     guid: 9a399a8242027624da0b6249124e30b4
   - enabled: 1
-    path: Assets/Scenes/RankStatements.unity
+    path: Assets/Scenes/SorteringsQuiz.unity
     guid: 3530074955b954544a7c893e07cc44ba
   - enabled: 1
-    path: Assets/Scenes/QuizMemoryCards.unity
+    path: Assets/Scenes/MinnekortQuiz.unity
     guid: cc01da1a6631d5a46963bfa7b0f106f4
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d0ffd6e1202d16641afaf525f0dc16c1, type: 2}

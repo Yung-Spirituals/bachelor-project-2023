@@ -3,32 +3,24 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] public bool isPaused;
-    [SerializeField] public bool canPause = true;
     [SerializeField] private GameObject pauseMenuUI;
     
     public static PauseManager Instance
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(PauseManager)) as PauseManager;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(PauseManager)) as PauseManager;
  
-            return instance;
+            return _instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => _instance = value;
     }
-    private static PauseManager instance;
-    
-    private void Update() { if (Input.GetKeyDown(KeyCode.Escape) && canPause) TogglePause(); }
-    
+    private static PauseManager _instance;
+
     public void TogglePause()
     {
         isPaused = !isPaused;
         pauseMenuUI.SetActive(isPaused);
     }
-
-    public void SetCanPause(bool pauseAvailable) { canPause = pauseAvailable; }
 }

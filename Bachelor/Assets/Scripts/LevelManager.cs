@@ -1,12 +1,12 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject endMenu;
-    [SerializeField] private string story;
+    [SerializeField] private GameObject loadingScreen;
     [SerializeField] private string level;
-    [SerializeField] private bool levelIsCompleted;
     [SerializeField] private string levelHub;
 
     [SerializeField] private Sprite threeStarSprite;
@@ -20,37 +20,30 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private string failStatement;
 
     [SerializeField] private Image image;
-    [SerializeField] private TMPro.TextMeshProUGUI statementText;
-    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI statementText;
+    [SerializeField] private TextMeshProUGUI scoreText;
     
 
     public static LevelManager Instance
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(LevelManager)) as LevelManager;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(LevelManager)) as LevelManager;
  
-            return instance;
+            return _instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => _instance = value;
     }
-    private static LevelManager instance;
+    private static LevelManager _instance;
 
     public void EndGame(int possiblePoints)
     {
-        levelIsCompleted = true;
-        PauseManager.Instance.canPause = false;
         int scoreAmount = ScoreManager.Instance.GetCurrentScore();
         int stars = ScoreDependantInfo(scoreAmount, possiblePoints);
         scoreText.text = scoreAmount + "/" + possiblePoints + " riktige svar";
-        if (stars != 0) HighScoreManager.Instance.SubmitScore(story, 
-            (GameDataManager.Instance.GetGameData().ActiveStory.Levels
-                .FindIndex(o => o.ID == 
-                                GameDataManager.Instance.GetGameData().ActiveLevel.ID) + 1).ToString(),
+        if (stars != 0) HighScoreManager.Instance.SubmitScore(GameDataManager.Instance.GetGameData().ActiveSubject.ID,
+            GameDataManager.Instance.GetGameData().ActiveLevel.ID, 
             ScoreManager.Instance.GetCurrentScore(), stars);
         endMenu.SetActive(true);
     }
@@ -84,11 +77,9 @@ public class LevelManager : MonoBehaviour
         };
     }
 
-    public void RestartLevel()
-    {
-        levelIsCompleted = false;
-        GetComponent<SwitchScene>().LoadNewScene(level);
-    }
+    public void RestartLevel() { GetComponent<SwitchScene>().LoadNewScene(level); }
 
     public void ReturnToLevelHub() { GetComponent<SwitchScene>().LoadNewScene(levelHub); }
+
+    public void SetLoading(bool loading) { loadingScreen.SetActive(loading); }
 }

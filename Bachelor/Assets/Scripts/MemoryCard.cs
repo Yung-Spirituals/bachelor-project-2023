@@ -1,9 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MemoryCard : MonoBehaviour
 { 
-    [SerializeField] private TMPro.TextMeshProUGUI cardText;
+    [SerializeField] private TextMeshProUGUI cardText;
     [SerializeField] private Image cardImage;
     public bool matched;
     public FlipCard flipCard;

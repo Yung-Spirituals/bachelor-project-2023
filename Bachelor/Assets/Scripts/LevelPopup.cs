@@ -1,3 +1,5 @@
+using SoData;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +7,8 @@ public class LevelPopup : MonoBehaviour
 {
     public Level level;
     public int levelNumber;
-    public bool available = true;
 
-    [SerializeField] private TMPro.TextMeshProUGUI levelNumeration;
+    [SerializeField] private TextMeshProUGUI levelNumeration;
 
     [SerializeField] private Sprite unavailable;
     [SerializeField] private Sprite noStar;
@@ -17,9 +18,9 @@ public class LevelPopup : MonoBehaviour
 
     private void Start()
     {
-        if (levelNumber != 1 && HighScoreManager.Instance
-                .GetLevelStars(GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle,
-                    (levelNumber - 1).ToString()) == 0)
+        GameDataScriptableObject gdso = GameDataManager.Instance.GetGameData();
+        if (levelNumber != 1 && HighScoreManager.Instance.GetLevelStars(
+                gdso.ActiveSubject.ID, gdso.ActiveSubject.Levels[levelNumber - 2].ID) == 0)
         {
             GetComponent<Image>().sprite = unavailable;
             levelNumeration.color =new Color32(22, 22, 22, 255);
@@ -28,7 +29,7 @@ public class LevelPopup : MonoBehaviour
         else
         {
             int stars = HighScoreManager.Instance.GetLevelStars(
-                GameDataManager.Instance.GetGameData().ActiveStory.StoryTitle, levelNumber.ToString());
+                gdso.ActiveSubject.ID, level.ID);
             GetComponent<Image>().sprite = stars switch
             {
                 3 => threeStar,

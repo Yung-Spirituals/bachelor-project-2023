@@ -5,43 +5,43 @@ using UnityEngine;
 public class HighScoreManager: MonoBehaviour
 {
     private List<HighScoreCollection> _highScoreCollections;
-    [SerializeField] private List<string> _stories;
+    [SerializeField] private List<long> subjectIds;
     private class HighScore
     {
-        public string _levelName;
-        public int _score;
-        public int _stars;
+        public readonly long LevelId;
+        public int Score;
+        public int Stars;
 
-        public HighScore(string levelName, int score, int stars)
+        public HighScore(long levelId, int score, int stars)
         {
-            _levelName = levelName;
-            _score = score;
-            _stars = stars;
+            LevelId = levelId;
+            Score = score;
+            Stars = stars;
         }
     }
     private class HighScoreCollection
     {
-        public string story;
-        public static List<HighScore> _highScores = new ();
+        public readonly long SubjectId;
+        private static readonly List<HighScore> HighScores = new ();
 
-        public HighScoreCollection(string story) { this.story = story; }
+        public HighScoreCollection(long subjectId) { SubjectId = subjectId; }
 
         public bool SubmitScore(HighScore newScore)
         {
-            var highScore = GetHighScore(newScore._levelName);
-            if (highScore._score >= newScore._score) return false;
-            highScore._score = newScore._score;
-            highScore._stars = newScore._stars;
+            var highScore = GetHighScore(newScore.LevelId);
+            if (highScore.Score >= newScore.Score) return false;
+            highScore.Score = newScore.Score;
+            highScore.Stars = newScore.Stars;
             return true;
         }
 
-        public HighScore GetHighScore(string levelName)
+        public HighScore GetHighScore(long levelId)
         {
-            var highScore = _highScores.Find(score => score._levelName == levelName);
+            var highScore = HighScores.Find(score => score.LevelId == levelId);
             if (highScore != null) return highScore;
                 
-            highScore = new HighScore(levelName, 0, 0);
-            _highScores.Add(highScore);
+            highScore = new HighScore(levelId, 0, 0);
+            HighScores.Add(highScore);
             return highScore;
         }
     }
@@ -65,45 +65,47 @@ public class HighScoreManager: MonoBehaviour
     private void Awake()
     {
         _highScoreCollections = new List<HighScoreCollection>();
-        foreach (var highScoreCollection in _stories.Select(story => JsonUtility.FromJson<HighScoreCollection>(
-                     PlayerPrefs.GetString(story, null)) ?? new HighScoreCollection(story)))
+        foreach (HighScoreCollection highScoreCollection in subjectIds.Select(id =>
+                     JsonUtility.FromJson<HighScoreCollection>(PlayerPrefs.GetString(id.ToString(), null)) 
+                     ?? new HighScoreCollection(id)))
         {
             _highScoreCollections.Add(highScoreCollection);
         }
     }
 
-    private HighScoreCollection GetStoryHighScores(string story)
+    private HighScoreCollection GetSubjectHighScores(long subjectId)
     {
-        var storyHighScores = _highScoreCollections.Find(storyScores => storyScores.story == story);
-        if (storyHighScores != null) return storyHighScores;
+        HighScoreCollection subjectHighScores = _highScoreCollections
+            .Find(subjectScores => subjectScores.SubjectId == subjectId);
+        if (subjectHighScores != null) return subjectHighScores;
                 
-        storyHighScores = new HighScoreCollection(story);
-        _highScoreCollections.Add(storyHighScores);
-        return storyHighScores;
+        subjectHighScores = new HighScoreCollection(subjectId);
+        _highScoreCollections.Add(subjectHighScores);
+        return subjectHighScores;
     }
 
-    public int GetLevelHighScore(string story, string levelName)
+    public int GetLevelHighScore(long subjectId, long levelId)
     {
-        return GetStoryHighScores(story).GetHighScore(levelName)._score;
+        return GetSubjectHighScores(subjectId).GetHighScore(levelId).Score;
     }
 
-    public int GetLevelStars(string story, string levelName)
+    public int GetLevelStars(long subjectId, long levelId)
     {
-        return GetStoryHighScores(story).GetHighScore(levelName)._stars;
+        return GetSubjectHighScores(subjectId).GetHighScore(levelId).Stars;
     }
 
-    public bool SubmitScore(string story, string levelName, int score, int stars)
+    public bool SubmitScore(long subjectId, long levelId, int score, int stars)
     {
-        var newScore = new HighScore(levelName, score, stars);
-        bool isNewHighScore = GetStoryHighScores(story).SubmitScore(newScore);
-        if (isNewHighScore) SaveScores(story);
+        var newScore = new HighScore(levelId, score, stars);
+        bool isNewHighScore = GetSubjectHighScores(subjectId).SubmitScore(newScore);
+        if (isNewHighScore) SaveScores(subjectId);
         return isNewHighScore;
     }
 
-    private void SaveScores(string story)
+    private void SaveScores(long subjectId)
     {
-        string json = JsonUtility.ToJson(GetStoryHighScores(story));
-        PlayerPrefs.SetString(story, json);
+        string json = JsonUtility.ToJson(GetSubjectHighScores(subjectId));
+        PlayerPrefs.SetString(subjectId.ToString(), json);
         PlayerPrefs.Save();
     }
 }

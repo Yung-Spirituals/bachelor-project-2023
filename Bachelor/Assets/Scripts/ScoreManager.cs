@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private string preScore;
     [SerializeField] private string postScore;
-    [SerializeField] private TMPro.TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _scoreText;
     private int _currentScore;
     private int _possibleScore = 0;
 
@@ -12,17 +13,14 @@ public class ScoreManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(ScoreManager)) as ScoreManager;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(ScoreManager)) as ScoreManager;
  
-            return instance;
+            return _instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => _instance = value;
     }
-    private static ScoreManager instance;
+    private static ScoreManager _instance;
     
     public int GetCurrentScore() { return _currentScore; }
 

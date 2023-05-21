@@ -19,38 +19,45 @@ public class LevelCreateEdit : MonoBehaviour
             GameMode.MemoryCards
         };
 
-        foreach (string item in items)
-        {
-            gameModes.options.Add(new TMP_Dropdown.OptionData(item));
-        }
+        foreach (string item in items) gameModes.options.Add(new TMP_Dropdown.OptionData(item));
+        
     }
 
-    public void NewLevel()
-    {
-        EditToolScriptManager.Instance.NewLevel();
-    }
+    public void NewLevel() { EditToolScriptManager.Instance.NewLevel(); }
     
-    public void Save()
-    {
-        StartCoroutine(SaveLevel());
-    }
+    public void Save() { StartCoroutine(SaveLevel()); }
 
     private IEnumerator SaveLevel()
     {
+        //add errors for lacking info, info popup for the error.
         Level level = GameDataManager.Instance.GetGameData().ActiveLevel;
-        level.Story = GameDataManager.Instance.GetGameData().ActiveStory;
+        level.Subject = GameDataManager.Instance.GetGameData().ActiveSubject;
         level.LevelType = gameModes.options[gameModes.value].text;
         level.LevelGoal = goalText.text;
-        if (level.ID == 0)
-        {
-            yield return WebCommunicationUtil.PutNewGameDataRequest(
-                    level.Story, level, null, "/level");
-        }
-        else
-        { 
-            yield return WebCommunicationUtil.PutUpdateGameDataRequest(
-                    level.Story, level, null, "/level");
-        }
+        
+        if (level.ID == 0) yield return WebCommunicationUtil.PutNewGameDataRequest(
+                    level.Subject, level, null, "/level");
+        else yield return WebCommunicationUtil.PutUpdateGameDataRequest(
+                    level.Subject, level, null, "/level");
+        
         yield return EditToolScriptManager.Instance.Refresh();
+        EditToolScriptManager.Instance.DisplayPopup(
+            "Lagret!",
+            "Alle endringer er lagret, du kan nå forlate denne siden.",
+            false);
+    }
+    public void LeaveLevel()
+    {
+        Level level = GameDataManager.Instance.GetGameData().ActiveLevel;
+        if (level.ID == 0) EditToolScriptManager.Instance.DisplayPopup(
+                "Dette nivået er ikke lagret enda",
+                "Dette nivået er ikke lagret enda, er du sikker på at du vil fortsette?",
+                true);
+        else if (level.LevelType != gameModes.options[gameModes.value].text || level.LevelGoal != goalText.text) 
+            EditToolScriptManager.Instance.DisplayPopup(
+                "Ikke-lagrede endringer!",
+                "Du har en eller flere ikke-lagrede endringer, er du sikker på at du vil fortsette?",
+                true);
+        else EditToolScriptManager.Instance.Back();
     }
 }

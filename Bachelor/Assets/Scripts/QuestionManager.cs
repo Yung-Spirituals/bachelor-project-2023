@@ -7,56 +7,56 @@ using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour
 {
+    public Question CurrentQuestion { get; private set; }
+    
     private List<Question> _questions = new ();
 
     public Image questionPicture;
     public TextMeshProUGUI questionText;
     public TextMeshProUGUI[] answers;
     public bool scrambleAnswers;
-    public bool Locked = false;
+    public bool locked;
     public Transform listParent;
-        
-    private Question currentQuestion;
-    private int nextQuestionIndex;
-    private int questionAmount;
-    private string[] options;
-    private List<string> imageUrls = new ();
-    private List<Sprite> images = new ();
+
+    private int _nextQuestionIndex;
+    private int _questionAmount;
+    private string[] _options;
+    private readonly List<string> _imageUrls = new ();
+    private readonly List<Sprite> _images = new ();
         
     public static QuestionManager Instance
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(QuestionManager)) as QuestionManager;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(QuestionManager)) as QuestionManager;
  
-            return instance;
+            return _instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => _instance = value;
     }
-    private static QuestionManager instance;
+    private static QuestionManager _instance;
         
     private IEnumerator Start()
     {
+        LevelManager.Instance.SetLoading(true);
         _questions = GameDataManager.Instance.GetGameData().ActiveLevel.Questions;
         yield return GetImages();
-        questionAmount = _questions.Count;
-        nextQuestionIndex = 0;
+        LevelManager.Instance.SetLoading(false);
+        _questionAmount = _questions.Count;
+        _nextQuestionIndex = 0;
         NextQuestion();
     }
 
     private IEnumerator GetImages()
     {
-        foreach (Question question in _questions) imageUrls.Add(question.GetImageUrl());
-        yield return WebCommunicationUtil.GetImagesFromUrls(images, imageUrls);
+        foreach (Question question in _questions) _imageUrls.Add(question.ImageUrl);
+        yield return WebCommunicationUtil.GetImagesFromUrls(_images, _imageUrls);
     }
 
     public bool Answer(int answer, bool moveOnIfWrong)
     {
-        bool[] isOptions = currentQuestion.GetIsOptions();
+        bool[] isOptions = CurrentQuestion.GetIsOptions();
         bool correct = isOptions[answer];
 
         Answer(correct, moveOnIfWrong);
@@ -71,23 +71,23 @@ public class QuestionManager : MonoBehaviour
 
     private void NextQuestion()
     {
-        if (nextQuestionIndex >= _questions.Count)
+        if (_nextQuestionIndex >= _questions.Count)
         {
             StartCoroutine(EndGame());
             return;
         }
-        currentQuestion = _questions[nextQuestionIndex];
-        nextQuestionIndex++;
-
-        StartCoroutine(PushTextOnScreen());
+        CurrentQuestion = _questions[_nextQuestionIndex];
+        _nextQuestionIndex++;
+        if (_nextQuestionIndex == 1) DisplayNewQuestion();
+        else StartCoroutine(PushTextOnScreen());
     }
 
     private IEnumerator EndGame()
     {
         yield return WaitOneSecond();
         int possiblePoints;
-        if (scrambleAnswers) possiblePoints =  questionAmount * 4;
-        else possiblePoints = questionAmount;
+        if (scrambleAnswers) possiblePoints =  _questionAmount * 4;
+        else possiblePoints = _questionAmount;
         LevelManager.Instance.EndGame(possiblePoints);
     }
 
@@ -104,12 +104,12 @@ public class QuestionManager : MonoBehaviour
 
     private void DisplayNewQuestion()
     {
-        questionText.text = currentQuestion.GetQuestion();
+        questionText.text = CurrentQuestion.QuestionText;
         if (questionPicture != null)
         {
-            if (currentQuestion.GetImageUrl() != "")
+            if (CurrentQuestion.ImageUrl != "")
             {
-                questionPicture.sprite = images[nextQuestionIndex - 1];
+                questionPicture.sprite = _images[_nextQuestionIndex - 1];
                 questionPicture.color = new Color32(255,255,255,255);
             }
             else
@@ -120,33 +120,39 @@ public class QuestionManager : MonoBehaviour
         }
         if (!scrambleAnswers)
         {
-            options = currentQuestion.GetOptions();
+            _options = CurrentQuestion.GetOptions();
         }
         else
         {
             System.Random rand = new System.Random();
-            options = currentQuestion.GetOptions().OrderBy(_ => rand.Next()).ToArray();
+            _options = CurrentQuestion.GetOptions().OrderBy(_ => rand.Next()).ToArray();
         }
-        for (int i = 0; i < answers.Length; i++) answers[i].text = options[i];
+        for (int i = 0; i < answers.Length; i++) answers[i].text = _options[i];
     }
     
     public void ConfirmListAnswer(bool orderMatters)
     {
-        if (Locked || PauseManager.Instance.isPaused) return;
-        Locked = true;
+        if (locked || PauseManager.Instance.isPaused) return;
+        locked = true;
         if (!orderMatters) Answer(true, true);
         else
         {
-            string[] correctOrder = currentQuestion.GetOptions();
+            string[] correctOrder = CurrentQuestion.GetOptions();
             for (int i = 0; i < correctOrder.Length; i++)
             {
-                if (correctOrder[i] == listParent.GetChild(i).GetComponent<ListDragController>().textEntry.text) 
+                Transform answer = listParent.GetChild(i);
+                if (correctOrder[i] == listParent.GetChild(i).GetComponent<ListDragController>().textEntry.text)
+                {
                     ScoreManager.Instance.ChangeScore(1);
+                    answer.GetComponent<EnableDisableIcons>().SetActive(true);
+                    answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
+                }
                 else
                 {
-                    Transform answer = listParent.GetChild(i).transform;
                     answer.GetComponent<Image>().color = new Color32(244,140,81,255);
                     answer.GetComponent<Shadow>().effectColor = new Color32(216,108,48,255);
+                    answer.GetComponent<EnableDisableIcons>().SetActive(false);
+                    answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
                 }
             }
         }
@@ -163,14 +169,9 @@ public class QuestionManager : MonoBehaviour
             Transform parent = answer.transform.parent;
             parent.GetComponent<Image>().color = new Color32(77,161,223,255);
             parent.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
+            parent.GetComponent<EnableDisableIcons>().SetGameObjectActive(false);
         }
-        Locked = false;
+        locked = false;
         yield return null;
-    }
-
-    public Question CurrentQuestion
-    {
-        get => currentQuestion;
-        set => currentQuestion = value;
     }
 }

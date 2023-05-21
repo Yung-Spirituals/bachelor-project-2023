@@ -12,34 +12,34 @@ public class LoadExistingEntries : MonoBehaviour
     [SerializeField] private TMP_InputField input1;
     [SerializeField] private TMP_Dropdown drop0;
 
-    private Story _story;
+    private Subject _subject;
     private Level _level;
     private Question _question;
 
-    public IEnumerator LoadEntries(List<Story> stories)
+    public IEnumerator LoadEntries(List<Subject> subjects)
     {
         yield return ClearChildren();
         
-        foreach (Story story in stories)
+        foreach (Subject subject in subjects)
         {
-            GameObject storyPreview = Instantiate(displayPrefab, parentTransform);
-            StoryDisplay storyDisplay = storyPreview.GetComponent<StoryDisplay>();
-            storyDisplay.story = story;
-            storyDisplay.UpdateDisplay();
+            GameObject subjectPreview = Instantiate(displayPrefab, parentTransform);
+            SubjectDisplay subjectDisplay = subjectPreview.GetComponent<SubjectDisplay>();
+            subjectDisplay.subject = subject;
+            subjectDisplay.UpdateDisplay();
         }
         
-        yield return true;
+        yield return null;
     }
     
-    public IEnumerator LoadEntries(Story story)
+    public IEnumerator LoadEntries(Subject subject)
     {
         yield return ClearChildren();
         
         text0.text = "Endre på tema";
-        input0.text = story.StoryName;
-        input1.text = story.StoryFullDescription;
+        input0.text = subject.SubjectName;
+        input1.text = subject.SubjectDescription;
         int i = 1;
-        foreach (Level level in story.Levels) 
+        foreach (Level level in subject.Levels) 
         { 
             GameObject levelPreview = Instantiate(displayPrefab, parentTransform);
             LevelDisplay levelDisplay = levelPreview.GetComponent<LevelDisplay>();
@@ -49,7 +49,7 @@ public class LoadExistingEntries : MonoBehaviour
             i++;
         }
         
-        yield return true;
+        yield return null;
     }
     
     public IEnumerator LoadEntries(Level level)
@@ -67,7 +67,7 @@ public class LoadExistingEntries : MonoBehaviour
             questionDisplay.UpdateDisplay();
         }
 
-        yield return true;
+        yield return null;
     }
 
     private static int CorrectDropDown(string levelType)
@@ -85,6 +85,6 @@ public class LoadExistingEntries : MonoBehaviour
     private IEnumerator ClearChildren()
     {
         foreach (Transform child in parentTransform) Destroy(child.gameObject);
-        yield return true;
+        yield return null;
     }
 }

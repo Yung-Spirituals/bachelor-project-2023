@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 561750167}
   - component: {fileID: 561750166}
   - component: {fileID: 561750165}
+  - component: {fileID: 561750168}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -362,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3dd78288c4e9a9f12b52a61c01ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stories: []
+  subjectIds: 
 --- !u!114 &561750167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +376,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d0a30856c543a194038e88d972fb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameDataScriptableObject: {fileID: 11400000, guid: 791afb95b83d3aa438b68d945582793b, type: 2}
+  gameDataScriptableObject: {fileID: 11400000, guid: 791afb95b83d3aa438b68d945582793b, type: 2}
+--- !u!114 &561750168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561750162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149bf832fcc74e4c9faade8effdb43c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCoinPrefab: {fileID: 1283552838840043467, guid: 0bf32ba8f6ac05f47880090629cf7ef4, type: 3}
+  parentTransform: {fileID: 694037523}
 --- !u!1 &653050474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 506212561365309345, guid: 3749b7f99bca5634cbb34bd507960947, type: 3}
@@ -640,7 +655,6 @@ GameObject:
   - component: {fileID: 694037524}
   - component: {fileID: 694037528}
   - component: {fileID: 694037527}
-  - component: {fileID: 694037526}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -707,20 +721,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694037522}
   m_CullTransparentMesh: 1
---- !u!114 &694037526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694037522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149bf832fcc74e4c9faade8effdb43c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameObject: {fileID: 1283552838840043467, guid: 0bf32ba8f6ac05f47880090629cf7ef4, type: 3}
-  _parentTransform: {fileID: 694037523}
 --- !u!114 &694037527
 MonoBehaviour:
   m_ObjectHideFlags: 0

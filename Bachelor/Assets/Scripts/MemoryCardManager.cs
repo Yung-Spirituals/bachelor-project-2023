@@ -12,27 +12,25 @@ public class MemoryCardManager : MonoBehaviour
     private int _matchedAmount;
     private MemoryCard _flip1;
     private List<Question> _questions;
-    private List<string> _imageUrls = new ();
-    private List<Sprite> _images = new ();
+    private readonly List<string> _imageUrls = new ();
+    private readonly List<Sprite> _images = new ();
 
     public static MemoryCardManager Instance
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(MemoryCardManager)) as MemoryCardManager;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(MemoryCardManager)) as MemoryCardManager;
  
-            return instance;
+            return _instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => _instance = value;
     }
-    private static MemoryCardManager instance;
+    private static MemoryCardManager _instance;
 
     private IEnumerator Start()
     {
+        LevelManager.Instance.SetLoading(true);
         _questions = GameDataManager.Instance.GetGameData().ActiveLevel.Questions;
         if (_questions.Count == 0)
         {
@@ -44,14 +42,15 @@ public class MemoryCardManager : MonoBehaviour
         if (_cards > 12) _cards = 12;
         ScrambleListOrder();
         SetQuestionsToCards();
+        LevelManager.Instance.SetLoading(false);
     }
     
     private IEnumerator GetImages()
     {
         foreach (Question question in _questions)
         {
-            _imageUrls.Add(question.GetOption2());
-            _imageUrls.Add(question.GetOption3());
+            _imageUrls.Add(question.Option2);
+            _imageUrls.Add(question.Option3);
         }
         yield return WebCommunicationUtil.GetImagesFromUrls(_images, _imageUrls);
     }
@@ -69,7 +68,7 @@ public class MemoryCardManager : MonoBehaviour
         {
             if (_images[count] == null)
             {
-                cardList[count].SetTextAndQuestion(question, question.GetOption0());
+                cardList[count].SetTextAndQuestion(question, question.Option0);
             }
             else
             {
@@ -79,7 +78,7 @@ public class MemoryCardManager : MonoBehaviour
             count++;
             if (_images[count] == null)
             {
-                cardList[count].SetTextAndQuestion(question, question.GetOption1());
+                cardList[count].SetTextAndQuestion(question, question.Option1);
             }
             else
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameDataManager : MonoBehaviour
 {
-    [SerializeField] private GameDataScriptableObject _gameDataScriptableObject;
+    [SerializeField] private GameDataScriptableObject gameDataScriptableObject;
     
     public static GameDataManager Instance
     {
@@ -25,15 +25,15 @@ public class GameDataManager : MonoBehaviour
 
     private void Start() { StartCoroutine(RefreshGameData()); }
 
-    public GameDataScriptableObject GetGameData() { return _gameDataScriptableObject; }
+    public GameDataScriptableObject GetGameData() { return gameDataScriptableObject; }
 
     public IEnumerator RefreshGameData()
     {
-        yield return WebCommunicationUtil.GetGameDataRequest(_gameDataScriptableObject);
-        _gameDataScriptableObject.Stories = _gameDataScriptableObject.Stories.OrderBy(story => story.ID).ToList();
-        foreach (Story story in _gameDataScriptableObject.Stories)
+        yield return WebCommunicationUtil.GetGameDataRequest(gameDataScriptableObject);
+        gameDataScriptableObject.Subjects = gameDataScriptableObject.Subjects.OrderBy(subject => subject.ID).ToList();
+        foreach (Subject subject in gameDataScriptableObject.Subjects)
         {
-            story.Levels = story.Levels.OrderBy(level => level.ID).ToList();
+            subject.Levels = subject.Levels.OrderBy(level => level.ID).ToList();
         }
         yield return UpdateActives();
     }
@@ -41,25 +41,25 @@ public class GameDataManager : MonoBehaviour
     private IEnumerator UpdateActives()
     {
         
-        if (_gameDataScriptableObject.ActiveStory != null)
+        if (gameDataScriptableObject.ActiveSubject != null)
         {
-            _gameDataScriptableObject.ActiveStory = _gameDataScriptableObject.Stories
-                .Find(o => o.ID == _gameDataScriptableObject.ActiveStory.ID);
+            gameDataScriptableObject.ActiveSubject = gameDataScriptableObject.Subjects
+                .Find(o => o.ID == gameDataScriptableObject.ActiveSubject.ID);
         }
-        if (_gameDataScriptableObject.ActiveLevel != null)
+        if (gameDataScriptableObject.ActiveLevel != null)
         {
-            if (_gameDataScriptableObject.ActiveStory != null)
-                _gameDataScriptableObject.ActiveLevel = _gameDataScriptableObject.ActiveStory.Levels
-                    .Find(o => o.ID == _gameDataScriptableObject.ActiveLevel.ID);
-        }
-
-        if (_gameDataScriptableObject.ActiveQuestion != null)
-        {
-            if (_gameDataScriptableObject.ActiveLevel != null)
-                _gameDataScriptableObject.ActiveQuestion = _gameDataScriptableObject.ActiveLevel.Questions
-                    .Find(o => o.GetId() == _gameDataScriptableObject.ActiveQuestion.GetId());
+            if (gameDataScriptableObject.ActiveSubject != null)
+                gameDataScriptableObject.ActiveLevel = gameDataScriptableObject.ActiveSubject.Levels
+                    .Find(o => o.ID == gameDataScriptableObject.ActiveLevel.ID);
         }
 
-        yield return _gameDataScriptableObject;
+        if (gameDataScriptableObject.ActiveQuestion != null)
+        {
+            if (gameDataScriptableObject.ActiveLevel != null)
+                gameDataScriptableObject.ActiveQuestion = gameDataScriptableObject.ActiveLevel.Questions
+                    .Find(o => o.ID == gameDataScriptableObject.ActiveQuestion.ID);
+        }
+
+        yield return gameDataScriptableObject;
     }
 }

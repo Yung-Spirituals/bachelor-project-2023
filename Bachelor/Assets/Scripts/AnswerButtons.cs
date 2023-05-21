@@ -5,9 +5,7 @@ using UnityEngine.UI;
 public class AnswerButtons : MonoBehaviour
 {
     public GameObject[] answers;
-    public Sprite correct;
-    public Sprite incorrect;
-    public bool iconsEnabled = false;
+    public bool iconsEnabled;
 
     public void Answer(int option)
     {
@@ -20,8 +18,8 @@ public class AnswerButtons : MonoBehaviour
     private void ColorButtons()
     {
         Question question = QuestionManager.Instance.CurrentQuestion;
-        bool[] isCorrect = { question.GetIsOption0(), question.GetIsOption1(),
-            question.GetIsOption2(), question.GetIsOption3() };
+        bool[] isCorrect = { question.IsOption0, question.IsOption1,
+            question.IsOption2, question.IsOption3 };
         for (int i = 0; i < answers.Length; i++)
         {
             if (isCorrect[i])

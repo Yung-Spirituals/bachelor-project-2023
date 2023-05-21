@@ -15,40 +15,40 @@ public class Question
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "level_id")
-    private Level _level;
+    private Level level;
 
-    private String _question;
-    private String _imageUrl;
+    private String question;
+    private String imageUrl;
 
-    private String _option0;
-    private String _option1;
-    private String _option2;
-    private String _option3;
+    private String option0;
+    private String option1;
+    private String option2;
+    private String option3;
 
-    private boolean _isOption0;
-    private boolean _isOption1;
-    private boolean _isOption2;
-    private boolean _isOption3;
+    private boolean isOption0;
+    private boolean isOption1;
+    private boolean isOption2;
+    private boolean isOption3;
 
     public Question() {}
 
     public Question(Level level, String question, String imageUrl,
                     String option0, String option1, String option2, String option3,
-                    boolean correctOption0, boolean correctOption1, boolean correctOption2, boolean correctOption3)
+                    boolean isOption0, boolean isOption1, boolean isOption2, boolean isOption3)
     {
-        _level = level;
-        _question = question;
-        _imageUrl = imageUrl;
+        this.level = level;
+        this.question = question;
+        this.imageUrl = imageUrl;
 
-        _option0 = option0;
-        _option1 = option1;
-        _option2 = option2;
-        _option3 = option3;
+        this.option0 = option0;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
 
-        _isOption0 = correctOption0;
-        _isOption1 = correctOption1;
-        _isOption2 = correctOption2;
-        _isOption3 = correctOption3;
+        this.isOption0 = isOption0;
+        this.isOption1 = isOption1;
+        this.isOption2 = isOption2;
+        this.isOption3 = isOption3;
     }
 
     @Override
@@ -57,60 +57,54 @@ public class Question
         return String.format("Question[id=%d, levelName='%s', question='%s', imageUrl='%s', " +
                         "option0='%s', option1='%s', option2='%s', option3='%s', " +
                         "isOption0='%s', isOption1='%s', isOption2='%s', isOption3='%s']",
-                id, _level.get_levelName(), _question, _imageUrl,
-                _option0, _option1, _option2, _option3,
-                _isOption0, _isOption1, _isOption2, _isOption3);
+                id, level.getLevelName(), question, imageUrl,
+                option0, option1, option2, option3,
+                isOption0, isOption1, isOption2, isOption3);
     }
 
     public Long getId() { return id; }
 
-    public void setId(Long id) { this.id = id; }
+    public Level getLevel() { return level; }
 
-    public Level get_level() { return _level; }
+    public void setLevel(Level level) { this.level = level; }
 
-    public void set_level(Level level) { _level = level; }
+    public String getQuestion() { return question; }
 
-    public String get_question() { return _question; }
+    public void setQuestion(String question) { this.question = question; }
 
-    public void set_question(String question) { _question = question; }
+    public String getImageUrl() { return imageUrl; }
 
-    public String get_imageUrl() { return _imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public void set_imageUrl(String imageUrl) { _imageUrl = imageUrl; }
+    public String getOption0() { return option0; }
 
-    public String get_option0() { return _option0; }
+    public void setOption0(String option0) { this.option0 = option0; }
 
-    public void set_option0(String option0) { _option0 = option0; }
+    public String getOption1() { return option1; }
 
-    public String get_option1() { return _option1; }
+    public void setOption1(String option1) { this.option1 = option1; }
 
-    public void set_option1(String option1) { _option1 = option1; }
+    public String getOption2() { return option2; }
 
-    public String get_option2() { return _option2; }
+    public void setOption2(String option2) { this.option2 = option2; }
 
-    public void set_option2(String option2) { _option2 = option2; }
+    public String getOption3() { return option3; }
 
-    public String get_option3() { return _option3; }
+    public void setOption3(String option3) { this.option3 = option3; }
 
-    public void set_option3(String option3) { _option3 = option3; }
+    public boolean getIsOption0() { return isOption0; }
 
-    //public String[] get_options() { return new String[] {_option0, _option1, _option2, _option3}; }
+    public void setIsOption0(boolean isOption0) { this.isOption0 = isOption0; }
 
-    public boolean get_isOption0() { return _isOption0; }
+    public boolean getIsOption1() { return isOption1; }
 
-    public void set_isOption0(boolean isOption0) { _isOption0 = isOption0; }
+    public void setIsOption1(boolean isOption1) { this.isOption1 = isOption1; }
 
-    public boolean get_isOption1() { return _isOption1; }
+    public boolean getIsOption2() { return isOption2; }
 
-    public void set_isOption1(boolean isOption1) { _isOption1 = isOption1; }
+    public void setIsOption2(boolean isOption2) { this.isOption2 = isOption2; }
 
-    public boolean get_isOption2() { return _isOption2; }
+    public boolean getIsOption3() { return isOption3; }
 
-    public void set_isOption2(boolean isOption2) { _isOption2 = isOption2; }
-
-    public boolean get_isOption3() { return _isOption3; }
-
-    public void set_isOption3(boolean isOption3) { _isOption3 = isOption3; }
-
-    //public boolean[] get_isOptions() { return new boolean [] {_isOption0, _isOption1, _isOption2, _isOption3}; }
+    public void setIsOption3(boolean isOption3) { this.isOption3 = isOption3; }
 }

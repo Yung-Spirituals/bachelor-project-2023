@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class QuestionDisplay : MonoBehaviour
 {
-    [SerializeField] private TMPro.TextMeshProUGUI questionTextMeshProUGUI;
+    [SerializeField] private TextMeshProUGUI questionTextMeshProUGUI;
     
     public Question question;
 
-    public void UpdateDisplay() { questionTextMeshProUGUI.text = question.GetQuestion(); }
+    public void UpdateDisplay() { questionTextMeshProUGUI.text = question.QuestionText; }
     
     public void SelectQuestion() { EditToolScriptManager.Instance.SelectQuestion(question); }
 }
