@@ -2,18 +2,24 @@
 using TMPro;
 using UnityEngine;
 
+// Class responsible for the editing and creation of new subjects.
 public class SubjectCreateEdit : MonoBehaviour
 {
     [SerializeField] private TMP_InputField subjectName;
     [SerializeField] private TMP_InputField subjectDescription;
 
+    // Notifies the EditToolScriptManager to create a new level.
     public void NewSubject() { EditToolScriptManager.Instance.NewSubject(); }
 
+    // Start saving the changes to the subject.
     public void Save() { StartCoroutine(SaveSubject()); }
 
+    // Send the current state of the subject data to the backend, where it will be saved.
     private IEnumerator SaveSubject()
     {
         Subject subject = GameDataManager.Instance.GetGameData().ActiveSubject;
+        
+        // A subject requires a name.
         if (subjectName.text == "")
         {
             EditToolScriptManager.Instance.DisplayPopup(
@@ -22,11 +28,16 @@ public class SubjectCreateEdit : MonoBehaviour
                 false);
             yield break;
         }
+        
+        // Updates the subject values.
         subject.SubjectName = subjectName.text;
         subject.SubjectDescription = subjectDescription.text;
         
+        
         if (subject.ID == 0) yield return WebCommunicationUtil.PutNewGameDataRequest(
                 subject,null, null, "/subject");
+        
+        
         else yield return WebCommunicationUtil.PutUpdateGameDataRequest(
                 subject, null, null, "/subject");
         

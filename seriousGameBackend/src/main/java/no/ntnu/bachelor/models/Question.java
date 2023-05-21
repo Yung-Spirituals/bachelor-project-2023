@@ -54,10 +54,10 @@ public class Question
     @Override
     public String toString()
     {
-        return String.format("Question[id=%d, levelName='%s', question='%s', imageUrl='%s', " +
+        return String.format("Question[id=%d, question='%s', imageUrl='%s', " +
                         "option0='%s', option1='%s', option2='%s', option3='%s', " +
                         "isOption0='%s', isOption1='%s', isOption2='%s', isOption3='%s']",
-                id, level.getLevelName(), question, imageUrl,
+                id, question, imageUrl,
                 option0, option1, option2, option3,
                 isOption0, isOption1, isOption2, isOption3);
     }

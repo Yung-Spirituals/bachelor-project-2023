@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+// Class representing a question.
 [Serializable]
 public class Question
 {
@@ -113,23 +114,9 @@ public class Question
         this.isOption3 = isOption3;
     }
     
+    // Return all options as a string array.
     public string[] GetOptions() { return new[] { option0, option1, option2, option3 }; }
-    
-    public void SetOptions(string[] options)
-    {
-        option0 = options[0];
-        option1 = options[1];
-        option2 = options[2];
-        option3 = options[3];
-    }
-    
+
+    // Return all isOptions as a bool array. An isOption marks if the corresponding option is correct.
     public bool[] GetIsOptions() { return new[] { isOption0, isOption1, isOption2, isOption3 }; }
-    
-    public void SetIsOptions(bool[] isOptions)
-    {
-        isOption0 = isOptions[0];
-        isOption1 = isOptions[1];
-        isOption2 = isOptions[2];
-        isOption3 = isOptions[3];
-    }
 }

@@ -743,7 +743,6 @@ RectTransform:
   m_Children:
   - {fileID: 3647824223042045153}
   - {fileID: 8853400586022536180}
-  - {fileID: 3191660536486740829}
   - {fileID: 3191660538441277484}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1029,12 +1028,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3191660536344362486}
-  m_RootOrder: 2
+  m_Father: {fileID: 3191660538441277484}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -130.00006}
+  m_AnchoredPosition: {x: 0, y: -114}
   m_SizeDelta: {x: 700, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3191660536486740819
@@ -1638,9 +1637,10 @@ RectTransform:
   - {fileID: 5416705861399456236}
   - {fileID: 7810948422050989498}
   - {fileID: 6166074439489191160}
+  - {fileID: 3191660536486740829}
   - {fileID: 34267179932901225}
   m_Father: {fileID: 3191660536344362486}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2662,7 +2662,7 @@ RectTransform:
   - {fileID: 8301889089138721980}
   - {fileID: 7463164989592808727}
   m_Father: {fileID: 3191660538441277484}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2918,7 +2918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 148}
+  m_AnchoredPosition: {x: -0.000005722, y: 201}
   m_SizeDelta: {x: 746.6388, y: 95.327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8476691019861582486
@@ -2952,15 +2952,15 @@ MonoBehaviour:
   m_text: Sett inn eventuelle bilde urler her, merk at disse vill vises istedenfor
     tekst!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
+  m_sharedMaterial: {fileID: -167545577692937021, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282466625
-  m_fontColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+    rgba: 4280427042
+  m_fontColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

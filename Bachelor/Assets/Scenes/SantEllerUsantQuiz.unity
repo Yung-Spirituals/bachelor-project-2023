@@ -1806,7 +1806,6 @@ MonoBehaviour:
   answers:
   - {fileID: 901851003}
   - {fileID: 1452664183}
-  iconsEnabled: 1
 --- !u!114 &1349443570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,7 +1856,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349443564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370cf2bd1010457d968118929074c6da, type: 3}
+  m_Script: {fileID: 11500000, guid: e95bddf04fd9705449173b4451170cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   questionPicture: {fileID: 890839542}

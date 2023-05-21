@@ -202,16 +202,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endMenu: {fileID: 1214829040}
   loadingScreen: {fileID: 588454254}
-  level: QuizMemoryCards
+  level: MinnekortQuiz
   levelHub: LevelHub
   threeStarSprite: {fileID: 21300000, guid: 89c937a2f57b1c147be40a4ef952552e, type: 3}
   twoStarSprite: {fileID: 21300000, guid: cd2f0a788af84da468cf93fb2d02194a, type: 3}
   oneStarSprite: {fileID: 21300000, guid: 0682e938c46945e4191963ab77bbdf24, type: 3}
   failSprite: {fileID: 21300000, guid: cf39f626e7e91a94fbe00028735f6e35, type: 3}
-  threeStarStatement: hahaha
-  twoStarStatement: haha
-  oneStarStatement: ha
-  failStatement: ...
+  threeStarStatement: Supert arbeid!
+  twoStarStatement: Sup
+  oneStarStatement: Amogus
+  failStatement: :(
   image: {fileID: 2127363167}
   statementText: {fileID: 1502884085}
   scoreText: {fileID: 943527752}
@@ -2141,8 +2141,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/12
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26521506e9cccee429822c666136dd24, type: 2}
+  m_sharedMaterial: {fileID: 8628532923202089448, guid: 26521506e9cccee429822c666136dd24, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

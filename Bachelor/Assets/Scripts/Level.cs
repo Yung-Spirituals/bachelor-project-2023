@@ -23,12 +23,6 @@ public class Level
         set => questions = value;
     }
 
-    public string LevelName
-    {
-        get => levelName;
-        set => levelName = value;
-    }
-
     public string LevelType
     {
         get => levelType;
@@ -45,16 +39,14 @@ public class Level
     // ReSharper disable once InconsistentNaming
     [NonSerialized] private Subject subject;
     [SerializeField] private List<Question> questions = new ();
-    [SerializeField] private string levelName;
     [SerializeField] private string levelType;
     [SerializeField] private string levelGoal;
 
     public Level() {}
 
-    public Level(Subject subject, string levelName, string levelType, string levelGoal)
+    public Level(Subject subject, string levelType, string levelGoal)
     {
         this.subject = subject;
-        this.levelName = levelName;
         this.levelType = levelType;
         this.levelGoal = levelGoal;
     }

@@ -44,11 +44,11 @@ public class QuestionService
         questionRepository.save(questionInDatabase);
     }
 
-    public void delete(Question question)
+    public void delete(Long questionId)
     {
-        if (questionRepository.findById(question.getId()).isEmpty()) return;
+        if (questionRepository.findById(questionId).isEmpty()) return;
 
-        questionRepository.delete(questionRepository.findById(question.getId()).get());
+        questionRepository.delete(questionRepository.findById(questionId).get());
         questionRepository.flush();
     }
 

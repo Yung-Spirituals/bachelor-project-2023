@@ -40,24 +40,24 @@ public class TestDataInitializer implements ApplicationListener<ApplicationReady
             Subject s3 = new Subject("Film", "backgroundUrl",
                     "Test filmkunnskapene dine med varierte quizspørsmål fra lett til avansert");
 
-            Level s1l1 = new Level(s1, "Nivå 1", GameTypes.Standard.toString(),
+            Level s1l1 = new Level(s1, GameTypes.Standard.toString(),
                     "Trykk på knappen som innholder riktig svar til spørsmålene. Spørsmålene handler om " +
                             "hva hovedstaden til forskjellige land heter.");
 
-            Level s1l2 = new Level(s1, "Nivå 2", GameTypes.TrueOrFalse.toString(),
+            Level s1l2 = new Level(s1, GameTypes.TrueOrFalse.toString(),
                     "Trykk på knappen med sant eller usant basert på utsagnet som blir vist.");
 
-            Level s1l3 = new Level(s1, "Nivå 3", GameTypes.Rank.toString(),
+            Level s1l3 = new Level(s1, GameTypes.Rank.toString(),
                     "Sorter panelene etter hva spørsmålene ber om.");
 
-            Level s1l4 = new Level(s1, "Nivå 4", GameTypes.MemoryCards.toString(),
+            Level s1l4 = new Level(s1, GameTypes.MemoryCards.toString(),
                     "Trykk på kortene for å snu dem om. Match kortene som hører sammen basert på innholdet.");
 
 
-            Level s2l1 = new Level(s2, "Nivå 1", GameTypes.Standard.toString(), "Beat the level");
-            Level s2l2 = new Level(s2, "Nivå 2", GameTypes.Standard.toString(), "Beat the level");
-            Level s3l1 = new Level(s3, "Nivå 1", GameTypes.Standard.toString(), "Beat the level");
-            Level s3l2 = new Level(s3, "Nivå 2", GameTypes.Standard.toString(), "Beat the level");
+            Level s2l1 = new Level(s2, GameTypes.Standard.toString(), "Beat the level");
+            Level s2l2 = new Level(s2, GameTypes.Standard.toString(), "Beat the level");
+            Level s3l1 = new Level(s3, GameTypes.Standard.toString(), "Beat the level");
+            Level s3l2 = new Level(s3, GameTypes.Standard.toString(), "Beat the level");
 
 
             // Standard.

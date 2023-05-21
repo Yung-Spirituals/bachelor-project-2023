@@ -66,24 +66,15 @@ public class MemoryCardManager : MonoBehaviour
         int count = 0;
         foreach (Question question in _questions)
         {
-            if (_images[count] == null)
-            {
-                cardList[count].SetTextAndQuestion(question, question.Option0);
-            }
-            else
-            {
-                cardList[count].SetImageAndQuestion(question, _images[count]);
-            }
+            if (_images[count] == null) cardList[count].SetTextAndQuestion(question, question.Option0);
+            else cardList[count].SetImageAndQuestion(question, _images[count]);
+
             cardList[count].gameObject.SetActive(true);
             count++;
-            if (_images[count] == null)
-            {
-                cardList[count].SetTextAndQuestion(question, question.Option1);
-            }
-            else
-            {
-                cardList[count].SetImageAndQuestion(question, _images[count]);
-            }
+            
+            if (_images[count] == null) cardList[count].SetTextAndQuestion(question, question.Option1);
+            else cardList[count].SetImageAndQuestion(question, _images[count]);
+            
             cardList[count].gameObject.SetActive(true);
             count++;
         }
@@ -118,7 +109,7 @@ public class MemoryCardManager : MonoBehaviour
     private IEnumerator FlipBack(MemoryCard card)
     {
         allowNewFlip = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.25f);
         _flip1.flipCard.StartFlip();
         card.flipCard.StartFlip();
         _flip1 = null;

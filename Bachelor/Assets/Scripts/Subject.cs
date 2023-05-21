@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class representing a subject.
 [Serializable]
 public class Subject
 {

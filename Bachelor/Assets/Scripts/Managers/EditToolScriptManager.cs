@@ -14,6 +14,7 @@ public class EditToolScriptManager : MonoBehaviour
 
     [SerializeField] private GameObject infoPopup;
     [SerializeField] private GameObject continueOrNotPopup;
+    [SerializeField] private GameObject deletePopup;
 
     private GameObject[] _uiPages;
     private GameObject _activeUI;
@@ -28,10 +29,7 @@ public class EditToolScriptManager : MonoBehaviour
  
             return instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => instance = value;
     }
     private static EditToolScriptManager instance;
 
@@ -42,7 +40,7 @@ public class EditToolScriptManager : MonoBehaviour
         _gameDataScriptableObject = GameDataManager.Instance.GetGameData();
         _gameDataScriptableObject.ActiveSubject = null;
         _gameDataScriptableObject.ActiveLevel = null;
-        _gameDataScriptableObject.ActiveSubject = null;
+        _gameDataScriptableObject.ActiveQuestion = null;
         SetActiveUI(subjectSelect);
         StartCoroutine(Refresh());
     }
@@ -125,7 +123,7 @@ public class EditToolScriptManager : MonoBehaviour
                 break;
         }
     }
-    
+
     public void Back()
     {
         if (_activeUI == subjectCreate) BackFromSubject();
@@ -160,9 +158,42 @@ public class EditToolScriptManager : MonoBehaviour
         yield return levelCreate.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.ActiveLevel);
     }
 
+    //
     public void DisplayPopup(string title, string text, bool canDecline)
     {
         if (canDecline) continueOrNotPopup.GetComponent<Popup>().Display(title, text);
         else infoPopup.GetComponent<Popup>().Display(title, text);
+    }
+
+    public void StartDelete() { StartCoroutine(Delete()); }
+
+    private IEnumerator Delete()
+    {
+        if (_gameDataScriptableObject.ActiveQuestion != null)
+        {
+            if (_gameDataScriptableObject.ActiveQuestion.ID == 0) yield break;
+            
+            yield return WebCommunicationUtil.DeleteGameDataRequest(
+                "/question", _gameDataScriptableObject.ActiveQuestion.ID);
+            
+        }
+
+        else if (_gameDataScriptableObject.ActiveLevel != null)
+        {
+            if (_gameDataScriptableObject.ActiveLevel.ID == 0) yield break;
+            
+            yield return WebCommunicationUtil.DeleteGameDataRequest(
+                "/level", _gameDataScriptableObject.ActiveLevel.ID);
+        }
+
+        else if (_gameDataScriptableObject.ActiveSubject != null)
+        {
+            if (_gameDataScriptableObject.ActiveSubject.ID == 0) yield break;
+            
+            yield return WebCommunicationUtil.DeleteGameDataRequest(
+                "/subject", _gameDataScriptableObject.ActiveSubject.ID);
+        }
+        
+        Back();
     }
 }

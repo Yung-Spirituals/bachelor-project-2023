@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class AnswerButtons : MonoBehaviour
 {
     public GameObject[] answers;
-    public bool iconsEnabled;
 
     // Submit an option as an answer to the question manager.
     public void Answer(int option)
@@ -24,23 +23,25 @@ public class AnswerButtons : MonoBehaviour
             question.IsOption2, question.IsOption3 };
         for (int i = 0; i < answers.Length; i++)
         {
+            // Sets the icon to its active state, and makes it visible
             if (isCorrect[i])
             {
-                if (!iconsEnabled) continue;
                 answers[i].GetComponent<EnableDisableIcons>().SetActive(true);
                 answers[i].GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
             }
+            
+            // Colors the buttons containing the wrong answers orange. Sets its disable state, and makes it visible.
             else
             {
                 answers[i].GetComponent<Image>().color = new Color32(244,140,81,255);
                 answers[i].GetComponent<Shadow>().effectColor =new Color32(216,108,48,255);
-                if (!iconsEnabled) continue;
                 answers[i].GetComponent<EnableDisableIcons>().SetActive(false);
                 answers[i].GetComponent<EnableDisableIcons>().SetGameObjectActive(true);
             }
         }
     }
 
+    // Waits one second before resetting the color of the buttons, hides icons, and re-enables answer buttons.
     private IEnumerator NextQuestion()
     {
         yield return new WaitForSeconds(1f);
@@ -50,11 +51,11 @@ public class AnswerButtons : MonoBehaviour
             answer.GetComponent<Image>().color = new Color32(77,161,223,255);
             answer.GetComponent<Shadow>().effectColor = new Color32(32,112,172,255);
             answer.GetComponent<Button>().enabled = true;
-            if (!iconsEnabled) continue;
             answer.GetComponent<EnableDisableIcons>().SetGameObjectActive(false);
         }
     }
 
+    // Disables answer buttons, and calls for the buttons to be prepared for the next question.
     private void DisableButtonsAndDisplayNextQuestion()
     {
         foreach (GameObject answer in answers) answer.GetComponent<Button>().enabled = false;

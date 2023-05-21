@@ -33,17 +33,16 @@ public class LevelService
             questionService.deleteLevelQuestions(levelInDatabase);
 
         levelInDatabase.setLevelType(level.getLevelType());
-        levelInDatabase.setLevelName(level.getLevelName());
         levelInDatabase.setLevelGoal(level.getLevelGoal());
 
         levelRepository.save(levelInDatabase);
     }
 
-    public void delete(Level level)
+    public void delete(Long levelId)
     {
-        if (levelRepository.findById(level.getId()).isEmpty()) return;
+        if (levelRepository.findById(levelId).isEmpty()) return;
 
-        levelRepository.delete(levelRepository.findById(level.getId()).get());
+        levelRepository.delete(levelRepository.findById(levelId).get());
         levelRepository.flush();
     }
 }

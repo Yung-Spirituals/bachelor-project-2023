@@ -16,10 +16,7 @@ public class GameDataManager : MonoBehaviour
  
             return instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => instance = value;
     }
     private static GameDataManager instance;
 

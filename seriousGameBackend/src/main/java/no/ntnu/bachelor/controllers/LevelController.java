@@ -28,10 +28,10 @@ public class LevelController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete", consumes = {"*/*"})
-    public ResponseEntity<?> delete(@RequestBody JsonMultiObject jsonMultiObject)
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
-        levelService.delete(jsonMultiObject.getLevel());
+        levelService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

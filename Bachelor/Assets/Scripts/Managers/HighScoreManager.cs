@@ -55,10 +55,7 @@ public class HighScoreManager: MonoBehaviour
  
             return instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => instance = value;
     }
     private static HighScoreManager instance;
 

@@ -21,16 +21,14 @@ public class Level
   @OneToMany(mappedBy = "level", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Question> questions = new HashSet<>();
 
-  private String levelName;
   private String levelType;
   private String levelGoal;
 
   public Level() {}
 
-  public Level(Subject subject, String levelName, String levelType, String levelGoal)
+  public Level(Subject subject, String levelType, String levelGoal)
   {
     this.subject = subject;
-    this.levelName = levelName;
     this.levelType = levelType;
     this.levelGoal = levelGoal;
   }
@@ -39,8 +37,8 @@ public class Level
   public String toString()
   {
     return String.format(
-            "Level[id=%d, subjectName='%s', levelName='%s', levelType='%s', levelGoal='%s']",
-            id, subject.getSubjectName(), levelName, levelType, levelGoal);
+            "Level[id=%d, subjectName='%s', levelType='%s', levelGoal='%s']",
+            id, subject.getSubjectName(), levelType, levelGoal);
   }
 
   public Long getId() { return id; }
@@ -52,10 +50,6 @@ public class Level
   public Set<Question> getQuestions() { return questions; }
 
   public void setQuestions(Set<Question> questions) { this.questions = questions; }
-
-  public String getLevelName() { return levelName; }
-
-  public void setLevelName(String levelName) { this.levelName = levelName; }
 
   public String getLevelType() { return levelType; }
 

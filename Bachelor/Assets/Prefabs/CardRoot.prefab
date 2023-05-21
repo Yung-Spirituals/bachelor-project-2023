@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1664665829537603355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -144,8 +144,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Example City or example country
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
+  m_sharedMaterial: {fileID: -167545577692937021, guid: 48cb35e0bf9bbf5438fa9964c8542b69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -357,16 +357,16 @@ MonoBehaviour:
   flipCard: {fileID: 1664665830776862215}
   cardQuestion:
     id: 0
-    _question: 
-    _imageUrl: 
-    _option0: 
-    _option1: 
-    _option2: 
-    _option3: 
-    _isOption0: 0
-    _isOption1: 0
-    _isOption2: 0
-    _isOption3: 0
+    question: 
+    imageUrl: 
+    option0: 
+    option1: 
+    option2: 
+    option3: 
+    isOption0: 0
+    isOption1: 0
+    isOption2: 0
+    isOption3: 0
 --- !u!114 &1664665830776862215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3753012339858977171
 RectTransform:
   m_ObjectHideFlags: 0

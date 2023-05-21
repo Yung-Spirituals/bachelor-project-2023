@@ -36,10 +36,10 @@ public class SubjectController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete", consumes = {"*/*"})
-    public ResponseEntity<?> delete(@RequestBody JsonMultiObject jsonMultiObject)
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
-        subjectService.delete(jsonMultiObject.getSubject());
+        subjectService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

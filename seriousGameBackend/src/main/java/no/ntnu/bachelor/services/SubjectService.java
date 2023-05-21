@@ -33,11 +33,11 @@ public class SubjectService
         subjectRepository.save(subjectInDatabase);
     }
 
-    public void delete(Subject subject)
+    public void delete(Long subjectId)
     {
-        if (subjectRepository.findById(subject.getId()).isEmpty()) return;
+        if (subjectRepository.findById(subjectId).isEmpty()) return;
 
-        subjectRepository.delete(subjectRepository.findById(subject.getId()).get());
+        subjectRepository.delete(subjectRepository.findById(subjectId).get());
         subjectRepository.flush();
     }
 }

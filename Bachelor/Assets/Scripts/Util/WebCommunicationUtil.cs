@@ -81,15 +81,13 @@ public static class WebCommunicationUtil
     }
     
     // Send a HTTP Put request to delete an entity form the backend storage.
-    public static IEnumerator DeleteGameDataRequest(Subject subject, Level level, Question question, string path)
+    public static IEnumerator DeleteGameDataRequest(string path, long id)
     {
-        string fullPath = BasePath + path + "/delete";
+        string fullPath = BasePath + path + "/delete/" + id;
         
-        // Create a web Put request with a json body to the provided url.
-        UnityWebRequest webRequest = UnityWebRequest.Put(fullPath,
-            JsonUtil.SubjectLevelQuestionToJson(subject, level, question));
-        webRequest.SetRequestHeader("Content-Type", "application/json");
-        
+        // Create a web Delete request to the provided url.
+        UnityWebRequest webRequest = UnityWebRequest.Delete(fullPath);
+
         // Send the web request.
         yield return webRequest.SendWebRequest();
 
@@ -150,7 +148,7 @@ public static class WebCommunicationUtil
                 // Send the web request.
                 yield return webRequest.SendWebRequest();
 
-                // Create a new 2D texture to hold the image.
+                // Create a new 2D texture to hold the .
                 Texture2D tex = new Texture2D(1,1);
                 if (webRequest.result == UnityWebRequest.Result.Success)
                     tex.LoadImage(webRequest.downloadHandler.data);
