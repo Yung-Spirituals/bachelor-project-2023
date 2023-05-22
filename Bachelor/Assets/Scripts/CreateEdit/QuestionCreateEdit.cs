@@ -137,8 +137,8 @@ public class QuestionCreateEdit : MonoBehaviour
         question.IsOption0 = correctAnswer[0].isEnabled;
         question.IsOption1 = correctAnswer[1].isEnabled;
 
-        question.Option0 = options[0].text;
-        question.Option1 = options[1].text;
+        question.Option0 = "Sant";
+        question.Option1 = "Usant";
         
         return question;
     }

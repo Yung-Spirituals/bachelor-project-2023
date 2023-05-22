@@ -23,6 +23,7 @@ public class LevelService
 
         return levelRepository.save(level).getId();
     }
+
     public void update(Level level)
     {
         if (levelRepository.findById(level.getId()).isEmpty()) return;

@@ -80,7 +80,7 @@ public static class WebCommunicationUtil
         yield return GameDataManager.Instance.RefreshGameData();
     }
     
-    // Send a HTTP Put request to delete an entity form the backend storage.
+    // Send a HTTP Delete request to delete an entity form the backend storage.
     public static IEnumerator DeleteGameDataRequest(string path, long id)
     {
         string fullPath = BasePath + path + "/delete/" + id;

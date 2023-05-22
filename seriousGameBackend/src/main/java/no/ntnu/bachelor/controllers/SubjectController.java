@@ -15,6 +15,7 @@ public class SubjectController
 {
     @Autowired private SubjectService subjectService;
 
+    // Send all subjects in the database.
     @GetMapping("/subjects")
     public ResponseEntity<?> getStories()
     {
@@ -23,12 +24,14 @@ public class SubjectController
         return new ResponseEntity<>(subjectCollection, HttpStatus.OK);
     }
 
+    // Add a new subject to the database.
     @PutMapping(value = "/add", consumes = {"*/*"})
     public ResponseEntity<?> add(@RequestBody JsonMultiObject jsonMultiObject)
     {
         return new ResponseEntity<>(subjectService.add(jsonMultiObject.getSubject()), HttpStatus.OK);
     }
 
+    // Update an existing subject in the database.
     @PutMapping(value = "/update", consumes = {"*/*"})
     public ResponseEntity<?> update(@RequestBody JsonMultiObject jsonMultiObject)
     {
@@ -36,6 +39,7 @@ public class SubjectController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // Delete a subject from the database.
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id)
     {

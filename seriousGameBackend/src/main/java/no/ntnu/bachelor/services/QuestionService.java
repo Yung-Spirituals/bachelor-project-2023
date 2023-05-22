@@ -24,6 +24,7 @@ public class QuestionService
 
         return questionRepository.save(question).getId();
     }
+
     public void update(Question question)
     {
         if (questionRepository.findById(question.getId()).isEmpty()) return;
