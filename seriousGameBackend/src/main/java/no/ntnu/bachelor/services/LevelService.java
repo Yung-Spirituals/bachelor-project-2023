@@ -1,55 +1,49 @@
 package no.ntnu.bachelor.services;
 
 import no.ntnu.bachelor.models.Level;
-import no.ntnu.bachelor.models.Story;
+import no.ntnu.bachelor.models.Subject;
 import no.ntnu.bachelor.repositories.LevelRepository;
-import no.ntnu.bachelor.repositories.StoryRepository;
+import no.ntnu.bachelor.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LevelService
 {
-    @Autowired
-    private LevelRepository levelRepository;
+    @Autowired private LevelRepository levelRepository;
+    @Autowired private SubjectRepository subjectRepository;
+    @Autowired private QuestionService questionService;
 
-    @Autowired
-    private StoryRepository storyRepository;
-
-    @Autowired
-    private QuestionService questionService;
-
-    public Long add(Level level, Story story)
+    public Long add(Level level, Subject subject)
     {
         if (levelRepository.findById(level.getId()).isEmpty() &&
-                storyRepository.findById(story.getId()).isEmpty()) return null;
-        level.set_story(storyRepository.findById(story.getId()).get());
+                subjectRepository.findById(subject.getId()).isEmpty()) return null;
+
+        level.setSubject(subjectRepository.findById(subject.getId()).get());
+
         return levelRepository.save(level).getId();
     }
+
     public void update(Level level)
     {
         if (levelRepository.findById(level.getId()).isEmpty()) return;
+
         Level levelInDatabase = levelRepository.findById(level.getId()).get();
 
-        if (!levelInDatabase.get_levelType().equals(level.get_levelType()))
-        {
+        if (!levelInDatabase.getLevelType().equals(level.getLevelType()))
             questionService.deleteLevelQuestions(levelInDatabase);
-        }
 
-        levelInDatabase.set_levelType(level.get_levelType());
-        levelInDatabase.set_levelName(level.get_levelName());
-        levelInDatabase.set_levelGoal(level.get_levelGoal());
-        levelInDatabase.set_backgroundUrl(level.get_backgroundUrl());
-        levelInDatabase.set_howToPlay(level.get_howToPlay());
+        levelInDatabase.setLevelType(level.getLevelType());
+        levelInDatabase.setLevelGoal(level.getLevelGoal());
+
         levelRepository.save(levelInDatabase);
     }
 
-    public void delete(Level level)
+    public void delete(Long levelId)
     {
-        if (levelRepository.findById(level.getId()).isPresent())
-        {
-            levelRepository.delete(levelRepository.findById(level.getId()).get());
-            levelRepository.flush();
-        }
+        if (levelRepository.findById(levelId).isEmpty()) return;
+
+        levelRepository.delete(levelRepository.findById(levelId).get());
+        levelRepository.flush();
     }
 }

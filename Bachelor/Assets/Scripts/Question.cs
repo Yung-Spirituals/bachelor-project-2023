@@ -1,25 +1,99 @@
 ﻿using System;
 using UnityEngine;
 
+// Class representing a question.
 [Serializable]
 public class Question
 {
+    public long ID
+    {
+        get => id;
+        set => id = value;
+    }
+
+    public Level Level
+    {
+        get => level;
+        set => level = value;
+    }
+
+    public string QuestionText
+    {
+        get => question;
+        set => question = value;
+    }
+
+    public string ImageUrl
+    {
+        get => imageUrl;
+        set => imageUrl = value;
+    }
+
+    public string Option0
+    {
+        get => option0;
+        set => option0 = value;
+    }
+
+    public string Option1
+    {
+        get => option1;
+        set => option1 = value;
+    }
+
+    public string Option2
+    {
+        get => option2;
+        set => option2 = value;
+    }
+
+    public string Option3
+    {
+        get => option3;
+        set => option3 = value;
+    }
+
+    public bool IsOption0
+    {
+        get => isOption0;
+        set => isOption0 = value;
+    }
+
+    public bool IsOption1
+    {
+        get => isOption1;
+        set => isOption1 = value;
+    }
+
+    public bool IsOption2
+    {
+        get => isOption2;
+        set => isOption2 = value;
+    }
+
+    public bool IsOption3
+    {
+        get => isOption3;
+        set => isOption3 = value;
+    }
+
     [SerializeField] private long id;
     
-    [NonSerialized] private Level _level;
+    // ReSharper disable once InconsistentNaming
+    [NonSerialized] private Level level;
     
-    [SerializeField] private string _question = "";
-    [SerializeField] private string _imageUrl = "";
+    [SerializeField] private string question = "";
+    [SerializeField] private string imageUrl = "";
     
-    [SerializeField] private string _option0 = "";
-    [SerializeField] private string _option1 = "";
-    [SerializeField] private string _option2 = "";
-    [SerializeField] private string _option3 = "";
+    [SerializeField] private string option0 = "";
+    [SerializeField] private string option1 = "";
+    [SerializeField] private string option2 = "";
+    [SerializeField] private string option3 = "";
 
-    [SerializeField] private bool _isOption0;
-    [SerializeField] private bool _isOption1;
-    [SerializeField] private bool _isOption2;
-    [SerializeField] private bool _isOption3;
+    [SerializeField] private bool isOption0;
+    [SerializeField] private bool isOption1;
+    [SerializeField] private bool isOption2;
+    [SerializeField] private bool isOption3;
 
     public Question() {}
 
@@ -27,59 +101,22 @@ public class Question
         string option0, string option1, string option2, string option3,
         bool isOption0, bool isOption1, bool isOption2, bool isOption3)
     {
-        _level = level;
-        _question = question;
-        _imageUrl = imageUrl;
-        _option0 = option0;
-        _option1 = option1;
-        _option2 = option2;
-        _option3 = option3;
-        _isOption0 = isOption0;
-        _isOption1 = isOption1;
-        _isOption2 = isOption2;
-        _isOption3 = isOption3;
+        this.level = level;
+        this.question = question;
+        this.imageUrl = imageUrl;
+        this.option0 = option0;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.isOption0 = isOption0;
+        this.isOption1 = isOption1;
+        this.isOption2 = isOption2;
+        this.isOption3 = isOption3;
     }
+    
+    // Return all options as a string array.
+    public string[] GetOptions() { return new[] { option0, option1, option2, option3 }; }
 
-    public long GetId() { return id; }
-    public void SetId(long newId) { id = newId; }
-    public Level GetLevel() { return _level; }
-    public void SetLevel(Level level) { _level = level; }
-    public string GetQuestion() { return _question; }
-    public void SetQuestion(string question) { _question = question; }
-    public string GetImageUrl() { return _imageUrl; }
-    public void SetImageUrl(string imageUrl) { _imageUrl = imageUrl; }
-
-    public string GetOption0() { return _option0; }
-    public void SetOption0(string option0) { _option0 = option0; }
-    public string GetOption1() { return _option1; }
-    public void SetOption1(string option1) { _option1 = option1; }
-    public string GetOption2() { return _option2; }
-    public void SetOption2(string option2) { _option2 = option2; }
-    public string GetOption3() { return _option3; }
-    public void SetOption3(string option3) { _option3 = option3; }
-    public string[] GetOptions() { return new[] { _option0, _option1, _option2, _option3 }; }
-    public void SetOptions(string[] options)
-    {
-        _option0 = options[0];
-        _option1 = options[1];
-        _option2 = options[2];
-        _option3 = options[3];
-    }
-
-    public bool GetIsOption0() { return _isOption0; }
-    public void SetIsOption0(bool isOption0) { _isOption0 = isOption0; }
-    public bool GetIsOption1() { return _isOption1; }
-    public void SetIsOption1(bool isOption1) { _isOption1 = isOption1; }
-    public bool GetIsOption2() { return _isOption2; }
-    public void SetIsOption2(bool isOption2) { _isOption2 = isOption2; }
-    public bool GetIsOption3() { return _isOption3; }
-    public void SetIsOption3(bool isOption3) { _isOption3 = isOption3; }
-    public bool[] GetIsOptions() { return new[] { _isOption0, _isOption1, _isOption2, _isOption3 }; }
-    public void SetIsOptions(bool[] isOptions)
-    {
-        _isOption0 = isOptions[0];
-        _isOption1 = isOptions[1];
-        _isOption2 = isOptions[2];
-        _isOption3 = isOptions[3];
-    }
+    // Return all isOptions as a bool array. An isOption marks if the corresponding option is correct.
+    public bool[] GetIsOptions() { return new[] { isOption0, isOption1, isOption2, isOption3 }; }
 }

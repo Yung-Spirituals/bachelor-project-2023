@@ -6,20 +6,20 @@ using UnityEngine.UI;
 
 public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    public TextMeshProUGUI textEntry;
     [SerializeField] private TextMeshProUGUI numeration;
-    [SerializeField] private TextMeshProUGUI textEntry;
     [SerializeField] private Button upButton;
     [SerializeField] private Button downButton;
 
     public RectTransform currentTransform;
     
-    private GameObject mainContent;
-    private Vector3 currentPossition;
+    private GameObject _mainContent;
+    private Vector3 _currentPosition;
     private Canvas _canvas;
 
-    private bool dragging;
-    private bool canDrag;
-    private int totalChild;
+    private bool _dragging;
+    private bool _canDrag;
+    private int _totalChild;
 
     private void Start()
     {
@@ -27,78 +27,99 @@ public class ListDragController : MonoBehaviour, IPointerDownHandler, IDragHandl
         numeration.text = transform.GetSiblingIndex() + 1 + ".";
     }
 
+    // Triggers when the player presses down on the game object.
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
-        if (canDrag == false) canDrag = true;
-        currentPossition = currentTransform.position;
-        mainContent = currentTransform.parent.gameObject;
-        totalChild = mainContent.transform.childCount;
+        // Check if the player is allowed to drag the game object at this time.
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.locked) return;
+        if (_canDrag == false) _canDrag = true;
+        
+        // Begin dragging the object.
+        _currentPosition = currentTransform.position;
+        _mainContent = currentTransform.parent.gameObject;
+        _totalChild = _mainContent.transform.childCount;
+        
+        // Keep the game object in a separate layer whilst dragging.
         gameObject.layer = Layer.Dragging;
         _canvas.sortingOrder = 2;
     }
 
+    // Is called while the player is dragging th game object.
     public void OnDrag(PointerEventData eventData)
     {
-        if (PauseManager.Instance.isPaused || !canDrag || QuestionManager.Instance.Locked) return;
-        dragging = true;
+        // Check if the player is allowed to drag the game object at this time.
+        if (PauseManager.Instance.isPaused || !_canDrag || QuestionManager.Instance.locked) return;
+        _dragging = true;
         currentTransform.position =
             new Vector3(currentTransform.position.x, eventData.position.y, currentTransform.position.z);
 
-        for (int i = 0; i < totalChild; i++)
+        // Drag the game object
+        for (int i = 0; i < _totalChild; i++)
         {
             if (i == currentTransform.GetSiblingIndex()) continue;
-            Transform otherTransform = mainContent.transform.GetChild(i);
+            
+            // Update the sibling index for each sibling depending on where the dragged element is positioned.
+            Transform otherTransform = _mainContent.transform.GetChild(i);
             int distance = (int) Vector3.Distance(currentTransform.position,
                 otherTransform.position);
             if (distance > 10) continue;
             Vector3 otherTransformOldPosition = otherTransform.position;
-            otherTransform.position = new Vector3(otherTransform.position.x, currentPossition.y,
+            otherTransform.position = new Vector3(otherTransform.position.x, _currentPosition.y,
                 otherTransform.position.z);
             currentTransform.position = new Vector3(currentTransform.position.x, otherTransformOldPosition.y,
                 currentTransform.position.z);
             currentTransform.SetSiblingIndex(otherTransform.GetSiblingIndex());
             numeration.text = transform.GetSiblingIndex() + 1 + ".";
-            currentPossition = currentTransform.position;
+            _currentPosition = currentTransform.position;
             CheckPosition();
         }
 
-        dragging = false;
+        _dragging = false;
+    }
+    
+    // Triggered when the player releases the game object.
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // Check if the player is allowed to drag the game object at this time.
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.locked) return;
+        
+        // Release the game object.
+        _canDrag = false;
+        currentTransform.position = _currentPosition;
+        
+        // Return the game object to its correct layer.
+        gameObject.layer = Layer.UI;
+        _canvas.sortingOrder = 1;
     }
 
+    // Updates the numeration and checks if the buttons can be used.
     private void Update()
     {
         numeration.text = transform.GetSiblingIndex() + 1 + ".";
         CheckPosition();
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
-        canDrag = false;
-        currentTransform.position = currentPossition;
-        gameObject.layer = Layer.UI;
-        _canvas.sortingOrder = 1;
-    }
-
+    // Switch places with the game object above.
     public void MoveUp()
     {
-        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
-        if (dragging) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.locked) return;
+        if (_dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index - 1);
         CheckPosition();
     }
 
+    // Switch places with the game object below.
     public void MoveDown()
     {
-        if (PauseManager.Instance.isPaused || QuestionManager.Instance.Locked) return;
-        if (dragging) return;
+        if (PauseManager.Instance.isPaused || QuestionManager.Instance.locked) return;
+        if (_dragging) return;
         int index = transform.GetSiblingIndex();
         transform.SetSiblingIndex(index + 1);
         CheckPosition();
     }
 
+    // Update sibling index based on position.
     private void CheckPosition()
     {
         int index = transform.GetSiblingIndex() + 1;

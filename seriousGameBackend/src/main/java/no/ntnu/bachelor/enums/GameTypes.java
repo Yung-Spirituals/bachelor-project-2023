@@ -2,12 +2,10 @@ package no.ntnu.bachelor.enums;
 
 public enum GameTypes
 {
-    Standard("QuizStandard"),
-    TrueOrFalse ("QuizTrueOrFalse"),
-    DragToSlot ("QuizDragToSlot"),
-    MemoryCards ("QuizMemoryCards"),
-    Rank ("RankStatements"),
-    CardGame ("MinigameCards");
+    Standard("StandardQuiz"),
+    TrueOrFalse ("SantEllerUsantQuiz"),
+    MemoryCards ("MinnekortQuiz"),
+    Rank ("SorteringsQuiz");
 
     private final String value;
 

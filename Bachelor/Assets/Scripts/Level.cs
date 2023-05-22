@@ -11,67 +11,43 @@ public class Level
         set => id = value;
     }
 
-    public Story Story
+    public Subject Subject
     {
-        get => _story;
-        set => _story = value;
+        get => subject;
+        set => subject = value;
     }
 
     public List<Question> Questions
     {
-        get => _questions;
-        set => _questions = value;
-    }
-
-    public string LevelName
-    {
-        get => _levelName;
-        set => _levelName = value;
-    }
-
-    public string BackgroundUrl
-    {
-        get => _backgroundUrl;
-        set => _backgroundUrl = value;
+        get => questions;
+        set => questions = value;
     }
 
     public string LevelType
     {
-        get => _levelType;
-        set => _levelType = value;
+        get => levelType;
+        set => levelType = value;
     }
 
     public string LevelGoal
     {
-        get => _levelGoal;
-        set => _levelGoal = value;
-    }
-
-    public string HowToPlay
-    {
-        get => _howToPlay;
-        set => _howToPlay = value;
+        get => levelGoal;
+        set => levelGoal = value;
     }
 
     [SerializeField] private long id;
-    [NonSerialized] private Story _story;
-    [SerializeField] private List<Question> _questions = new ();
-    [SerializeField] private string _levelName;
-    [SerializeField] private string _backgroundUrl;
-    [SerializeField] private string _levelType;
-    [SerializeField] private string _levelGoal;
-    [SerializeField] private string _howToPlay;
+    // ReSharper disable once InconsistentNaming
+    [NonSerialized] private Subject subject;
+    [SerializeField] private List<Question> questions = new ();
+    [SerializeField] private string levelType;
+    [SerializeField] private string levelGoal;
 
     public Level() {}
 
-    public Level(Story story,
-        string levelName, string backgroundUrl, string levelType, string levelGoal, string howToPlay)
+    public Level(Subject subject, string levelType, string levelGoal)
     {
-        _story = story;
-        _levelName = levelName;
-        _backgroundUrl = backgroundUrl;
-        _levelType = levelType;
-        _levelGoal = levelGoal;
-        _howToPlay = howToPlay;
+        this.subject = subject;
+        this.levelType = levelType;
+        this.levelGoal = levelGoal;
     }
 }

@@ -1,15 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+/*
+ * Responsible for flipping cards.
+ */
 public class FlipCard : MonoBehaviour
 {
-    public float x, y, z;
     public GameObject cardBack;
     public bool cardBackIsActive;
     public bool mayBeFlipped = true;
-
+    
     public void StartFlip() { StartCoroutine(CalculateFlip()); }
 
+    //
     private void Flip()
     {
         if (cardBackIsActive)
@@ -23,7 +26,7 @@ public class FlipCard : MonoBehaviour
             cardBackIsActive = true;
         }
     }
-
+    
     private IEnumerator CalculateFlip()
     {
         if (!mayBeFlipped) yield break;
