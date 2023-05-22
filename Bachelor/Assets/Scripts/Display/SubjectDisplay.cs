@@ -10,8 +10,9 @@ public class SubjectDisplay : MonoBehaviour
 
     // Sets the text that is displayed by subjectName to be the name of the subject.
     public void UpdateDisplay() { subjectName.text = subject.SubjectName; }
-
-    public void ShowPopUp() { SubjectHubManager.Instance.DisplayPopUp(subject); }
-
+    
+    // Notifies the EditToolScriptManager that the subject has been selected.
     public void SelectSubject() { EditToolScriptManager.Instance.SelectSubject(subject); }
+    
+    public void ShowPopUp() { SubjectHubManager.Instance.DisplayPopUp(subject); }
 }

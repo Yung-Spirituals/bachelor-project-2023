@@ -73,45 +73,50 @@ public class QuestionManager : MonoBehaviour
         
     public void Answer(bool answer, bool moveOnIfWrong)
     {
+        // Increase the score by one point.
         if (answer) ScoreManager.Instance.ChangeScore(1);
+        // Move on to the next question if the answer is correct or if moveOnWrong.
         if (moveOnIfWrong || answer) NextQuestion();
     }
 
     private void NextQuestion()
     {
+        // If there are no more questions, end the level.
         if (_nextQuestionIndex >= _questions.Count)
         {
             StartCoroutine(EndGame());
             return;
         }
+        
+        // Set the new question as the currently active question.
         CurrentQuestion = _questions[_nextQuestionIndex];
         _nextQuestionIndex++;
+        
+        // If it is the first question, immediately display it.
         if (_nextQuestionIndex == 1) DisplayNewQuestion();
+        
+        // Else use the PushTextOnScreenCoroutine to delay for one second before displaying the new question.
         else StartCoroutine(PushTextOnScreen());
     }
-
-    private IEnumerator EndGame()
-    {
-        yield return WaitOneSecond();
-        int possiblePoints;
-        if (scrambleAnswers) possiblePoints =  _questionAmount * 4;
-        else possiblePoints = _questionAmount;
-        LevelManager.Instance.EndGame(possiblePoints);
-    }
-
+    
     private static IEnumerator WaitOneSecond() { yield return new WaitForSeconds(1f); }
 
+    // Display new question after waiting one second.
     private IEnumerator PushTextOnScreen()
     {
         yield return WaitOneSecond();
         DisplayNewQuestion();
     }
 
+    // Display the current question.
     private void DisplayNewQuestion()
     {
+        // Display the question text.
         questionText.text = CurrentQuestion.QuestionText;
+        
         if (questionPicture != null)
         {
+            // If the question has an image, display it.
             if (CurrentQuestion.ImageUrl != "")
             {
                 questionPicture.sprite = _images[_nextQuestionIndex - 1];
@@ -123,15 +128,18 @@ public class QuestionManager : MonoBehaviour
                 questionPicture.color = new Color32(82,82,82,255);
             }
         }
-        if (!scrambleAnswers)
-        {
-            _options = CurrentQuestion.GetOptions();
-        }
+        
+        // Get the question options.
+        if (!scrambleAnswers) _options = CurrentQuestion.GetOptions();
+        
+        // Scramble the order of answers, should only be used for the sorting quiz format.
         else
         {
             System.Random rand = new System.Random();
             _options = CurrentQuestion.GetOptions().OrderBy(_ => rand.Next()).ToArray();
         }
+        
+        // Display question options.
         for (int i = 0; i < answers.Length; i++) answers[i].text = _options[i];
     }
     
@@ -178,5 +186,14 @@ public class QuestionManager : MonoBehaviour
         }
         locked = false;
         yield return null;
+    }
+    
+    private IEnumerator EndGame()
+    {
+        yield return WaitOneSecond();
+        int possiblePoints;
+        if (scrambleAnswers) possiblePoints =  _questionAmount * 4;
+        else possiblePoints = _questionAmount;
+        LevelManager.Instance.EndGame(possiblePoints);
     }
 }

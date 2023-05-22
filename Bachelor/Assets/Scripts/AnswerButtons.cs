@@ -9,16 +9,25 @@ public class AnswerButtons : MonoBehaviour
     // Submit an option as an answer to the question manager.
     public void Answer(int option)
     {
-        // Ensure that t
+        // Ensure that that the buttons don't do anything whilst the game is paused.
         if (PauseManager.Instance.isPaused) return;
+        
+        // Provides feedback to the user through visual elements like color and symbols.
         ColorButtons();
+        
+        // Disable the buttons until the next question is displayed, and reset them for the next question.
         DisableButtonsAndDisplayNextQuestion();
+        
+        // Notify the question manager of what option the player selected.
         QuestionManager.Instance.Answer(option, true);
     }
-
+    
+    // Colors the buttons if they are for the wrong option, also displays symbols to convey if the option is correct.
     private void ColorButtons()
     {
         Question question = QuestionManager.Instance.CurrentQuestion;
+        
+        // For each answer button, decides what to do with them depending on if it holds a right or wrong answer.
         bool[] isCorrect = { question.IsOption0, question.IsOption1,
             question.IsOption2, question.IsOption3 };
         for (int i = 0; i < answers.Length; i++)
@@ -40,8 +49,10 @@ public class AnswerButtons : MonoBehaviour
             }
         }
     }
+    
+    
 
-    // Waits one second before resetting the color of the buttons, hides icons, and re-enables answer buttons.
+    // Waits one second before resetting the color of the buttons, hides icons, and re-enables the answer buttons.
     private IEnumerator NextQuestion()
     {
         yield return new WaitForSeconds(1f);

@@ -59,12 +59,18 @@ public class LoadExistingEntries : MonoBehaviour
         drop0.value = CorrectDropDown(level.LevelType);
         text0.text = "Endre på nivå";
         input0.text = level.LevelGoal;
+        int counter = 1;
         foreach (Question question in level.Questions)
         {
             GameObject questionPreview = Instantiate(displayPrefab, parentTransform);
             QuestionDisplay questionDisplay = questionPreview.GetComponent<QuestionDisplay>();
             questionDisplay.question = question;
-            questionDisplay.UpdateDisplay();
+            if (level.LevelType == GameMode.MemoryCards)
+            {
+                questionDisplay.UpdateDisplay("Par " + counter);
+                counter++;
+            }
+            else questionDisplay.UpdateDisplay(question.QuestionText);
         }
 
         yield return null;

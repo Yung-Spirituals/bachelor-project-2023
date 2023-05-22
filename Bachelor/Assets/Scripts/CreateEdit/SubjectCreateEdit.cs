@@ -33,24 +33,34 @@ public class SubjectCreateEdit : MonoBehaviour
         subject.SubjectName = subjectName.text;
         subject.SubjectDescription = subjectDescription.text;
         
-        
+        /*
+         * New subjects (subjects that are not saved to the backend yet) always have ID == 0.
+         * Send a request to add a new subject to the backend if the subject that is being saved is new.
+         */
         if (subject.ID == 0) yield return WebCommunicationUtil.PutNewGameDataRequest(
                 subject,null, null, "/subject");
         
-        
+        // If the level is already in the backend, send the updated version of it to the backend.
         else yield return WebCommunicationUtil.PutUpdateGameDataRequest(
                 subject, null, null, "/subject");
         
+        // Refresh the data held locally in the game.
         yield return EditToolScriptManager.Instance.Refresh();
+        
+        // Notify the user that all changes have been saved.
         EditToolScriptManager.Instance.DisplayPopup(
             "Lagret!",
             "Alle endringer er lagret, du kan nå forlate denne siden.",
             false);
     }
     
+    /*
+     * Attempt to leave the subject create edit page.
+     * If there are any unsaved changes, the user will get a confirmation popup.
+     */
     public void LeaveSubject()
     {
-        if (CheckForChanges()) 
+        if (CheckForChanges())
             EditToolScriptManager.Instance.DisplayPopup(
                 "Ikke-lagrede endringer!",
                 "Du har en eller flere ikke-lagrede endringer, er du sikker på at du vil fortsette?",
@@ -58,6 +68,7 @@ public class SubjectCreateEdit : MonoBehaviour
         else EditToolScriptManager.Instance.Back();
     }
 
+    // Check for any unsaved changes
     private bool CheckForChanges()
     {
         Subject subject = GameDataManager.Instance.GetGameData().ActiveSubject;

@@ -14,7 +14,6 @@ public class EditToolScriptManager : MonoBehaviour
 
     [SerializeField] private GameObject infoPopup;
     [SerializeField] private GameObject continueOrNotPopup;
-    [SerializeField] private GameObject deletePopup;
 
     private GameObject[] _uiPages;
     private GameObject _activeUI;
@@ -35,18 +34,27 @@ public class EditToolScriptManager : MonoBehaviour
 
     private void Start()
     {
+        // All ui pages in the scene.
         _uiPages = new[] { subjectSelect, subjectCreate, levelCreate, standardCreate,
             trueOrFalseCreate, rankCreate, memoryCreate };
+        
         _gameDataScriptableObject = GameDataManager.Instance.GetGameData();
+        
+        // Makes sure there is no active instances of subject, level, or question before editing begins.
         _gameDataScriptableObject.ActiveSubject = null;
         _gameDataScriptableObject.ActiveLevel = null;
         _gameDataScriptableObject.ActiveQuestion = null;
+        
+        // Displays the subject select page.
         SetActiveUI(subjectSelect);
+        
+        // Populate pages with the latest data.
         StartCoroutine(Refresh());
     }
 
     public void SetActiveUI(GameObject activeElement)
     {
+        // Enables the provided ui page, and disable all others.
         foreach (GameObject page in _uiPages) { page.SetActive(page == activeElement); }
         _activeUI = activeElement;
     }
@@ -65,25 +73,30 @@ public class EditToolScriptManager : MonoBehaviour
         SetActiveUI(levelCreate);
     }
 
+    // Loads the correct ui page for editing a question based on the quiz format of the level.
     public void SelectQuestion(Question question)
     {
         _gameDataScriptableObject.ActiveQuestion = question;
         switch (_gameDataScriptableObject.ActiveLevel.LevelType)
         {
             case GameMode.Standard:
-                standardCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                standardCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(
+                    _gameDataScriptableObject.ActiveQuestion);
                 SetActiveUI(standardCreate);
                 break;
             case GameMode.TrueOrFalse:
-                trueOrFalseCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                trueOrFalseCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(
+                    _gameDataScriptableObject.ActiveQuestion);
                 SetActiveUI(trueOrFalseCreate);
                 break;
             case GameMode.Rank:
-                rankCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                rankCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(
+                    _gameDataScriptableObject.ActiveQuestion);
                 SetActiveUI(rankCreate);
                 break;
             case GameMode.MemoryCards:
-                memoryCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(_gameDataScriptableObject.ActiveQuestion);
+                memoryCreate.GetComponent<QuestionCreateEdit>().LoadQuestion(
+                    _gameDataScriptableObject.ActiveQuestion);
                 SetActiveUI(memoryCreate);
                 break;
         }
@@ -123,7 +136,7 @@ public class EditToolScriptManager : MonoBehaviour
                 break;
         }
     }
-
+    
     public void Back()
     {
         if (_activeUI == subjectCreate) BackFromSubject();
@@ -149,6 +162,7 @@ public class EditToolScriptManager : MonoBehaviour
         SetActiveUI(levelCreate);
     }
 
+    // Gets the latest game data and updates the display accordingly
     public IEnumerator Refresh()
     {
         yield return subjectSelect.GetComponent<LoadExistingEntries>().LoadEntries(_gameDataScriptableObject.Subjects);
@@ -195,5 +209,6 @@ public class EditToolScriptManager : MonoBehaviour
         }
         
         Back();
+        yield return Refresh();
     }
 }

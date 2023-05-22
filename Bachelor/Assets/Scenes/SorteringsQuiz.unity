@@ -398,7 +398,7 @@ MonoBehaviour:
   - {fileID: 2132860087}
   scrambleAnswers: 1
   locked: 0
-  listParent: {fileID: 0}
+  listParent: {fileID: 374612022}
 --- !u!114 &177873688
 MonoBehaviour:
   m_ObjectHideFlags: 0
