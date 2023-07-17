@@ -7,7 +7,7 @@ using UnityEngine;
 // Static class for the application to communicate with the backend.
 public static class WebCommunicationUtil
 {
-    private const string BasePath = "http://178.232.172.125:8080";
+    private const string BasePath = "http://localhost:8080";
 
     /*
      * Send a HTTP Get request to retrieve all subjects and their underlying levels and questions.
