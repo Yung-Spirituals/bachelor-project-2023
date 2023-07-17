@@ -1770,10 +1770,10 @@ MonoBehaviour:
   twoStarSprite: {fileID: 21300000, guid: cd2f0a788af84da468cf93fb2d02194a, type: 3}
   oneStarSprite: {fileID: 21300000, guid: 0682e938c46945e4191963ab77bbdf24, type: 3}
   failSprite: {fileID: 21300000, guid: cf39f626e7e91a94fbe00028735f6e35, type: 3}
-  threeStarStatement: Tre Stjerner
-  twoStarStatement: To Stjerner
-  oneStarStatement: En Stjerne
-  failStatement: Ingen Stjerne
+  threeStarStatement: "Utest\xE5ende atbeid!"
+  twoStarStatement: Supert!
+  oneStarStatement: Godt jobbet!
+  failStatement: "Det f\xE5r det til neste gang!"
   image: {fileID: 645696856}
   statementText: {fileID: 645696855}
   scoreText: {fileID: 645696854}
